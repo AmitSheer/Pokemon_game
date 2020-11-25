@@ -1,5 +1,6 @@
 package tests;
 
+import api.NodeData;
 import api.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;

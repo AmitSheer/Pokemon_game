@@ -12,8 +12,6 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-import static sun.net.www.protocol.http.AuthCacheValue.Type.Server;
-
 public class Ex2_Client implements Runnable{
 	private static MyFrame _win;
 	private static Arena _ar;

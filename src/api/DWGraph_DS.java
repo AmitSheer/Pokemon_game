@@ -1,6 +1,7 @@
 package api;
 
 import java.util.*;
+import api.*;
 
 public class DWGraph_DS implements directed_weighted_graph{
     //Holds the nodes in order to have access to the nodes in O(1)

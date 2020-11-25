@@ -16,15 +16,6 @@ public class BaseTest {
     static DWGraph_DS graph;
     static FileOutputStream f;
 
-    @BeforeAll
-    static void mainSetup() throws IOException {
-//        File file = new File(path+"/writeOver.json");
-//        file.delete();
-//        file.createNewFile();
-//        file = new File(path+ "/writeOver.txt");
-//        file.delete();
-//        file.createNewFile();
-    }
 
     @BeforeEach
     void setUp() {

@@ -1,7 +1,7 @@
 package api;
 
 import java.util.HashMap;
-
+import api.*;
 public class NodeData implements node_data {
     //makes sure there are no repeating node keys
     private static int nodeCounter = 0;
@@ -28,10 +28,10 @@ public class NodeData implements node_data {
         return location;
     }
 
-
     @Override
     public void setLocation(geo_location p) {
         location = new Geo_Locations(p);
+
     }
 
     @Override
