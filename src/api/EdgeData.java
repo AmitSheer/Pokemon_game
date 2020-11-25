@@ -1,5 +1,7 @@
 package api;
 
+import java.util.Objects;
+
 public class EdgeData implements edge_data {
     private int _src;
     private int _dest;
@@ -47,5 +49,29 @@ public class EdgeData implements edge_data {
     @Override
     public void setTag(int t) {
         this._tag = t;
+    }
+
+    @Override
+    public String toString() {
+        return "EdgeData{" +
+                "_src=" + _src +
+                ", _dest=" + _dest +
+                ", _w=" + _w +
+                ", _info='" + _info + '\'' +
+                ", _tag=" + _tag +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        EdgeData edgeData = (EdgeData) o;
+        return o.toString().equals(this.toString());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(_src, _dest, _w, _info, _tag);
     }
 }

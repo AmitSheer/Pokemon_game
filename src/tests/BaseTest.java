@@ -3,6 +3,7 @@ package tests;
 
 import api.DWGraph_DS;
 import api.NodeData;
+import api.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 
