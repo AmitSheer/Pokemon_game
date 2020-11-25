@@ -8,7 +8,7 @@ public class DWGraph_DS implements directed_weighted_graph{
     private final HashMap<Integer,node_data> nodes;
     //counts the number of edges
     private final HashMap<Integer,HashMap<Integer,edge_data>> edges;
-    //[out,in] connections
+    //all actions are 0(1)
     private final HashMap<Integer,HashSet<Integer>> edgesIds;
     //counts the numbers of changes in graph
     private Integer mc;

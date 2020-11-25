@@ -14,7 +14,9 @@ public class NodeData implements node_data {
     public NodeData(int key) {
         this._key = key;
         this._info = String.valueOf(key);
-        this._tag = Integer.MAX_VALUE;
+        this._tag = 0;
+        this._w = 0;
+
         nodeCounter = nodeCounter + key;
     }
 
