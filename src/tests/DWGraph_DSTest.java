@@ -107,13 +107,13 @@ class DWGraph_DSTest extends BaseTest {
     @Test
     void removeNode() {
         graphCreator(1, 10, 10, 1);
-        List<edge_data> connections = (List<edge_data>) graph.getE(0);
+        Collection<edge_data> connections = graph.getE(0);
         graph.removeNode(0);
         for (edge_data edgeData : connections) {
             assertNull(graph.getEdge(0,edgeData.getDest()));
         }
         assertNull(graph.getNode(0));
-        assertEquals(7, graph.edgeSize());
+        assertEquals(9, graph.edgeSize());
         assertEquals(9, graph.nodeSize());
 
     }
@@ -130,9 +130,9 @@ class DWGraph_DSTest extends BaseTest {
     @Test
     void removeEdge() {
         graphCreator(1, 10, 10, 1);
-        assertNotNull(graph.getEdge(0,7));
-        graph.removeEdge(0,7);
-        assertNull(graph.getEdge(0,7));
+        assertNotNull(graph.getEdge(9,0));
+        graph.removeEdge(9,0);
+        assertNull(graph.getEdge(9,0));
         assertEquals(9, graph.edgeSize());
     }
 
@@ -183,7 +183,7 @@ class DWGraph_DSTest extends BaseTest {
     void edgeSize() {
         graphCreator(1,10,10,1);
         assertEquals(10,graph.edgeSize());
-        graph.removeEdge(0,7);
+        graph.removeEdge(9,0);
         assertEquals(9,graph.edgeSize());
     }
 
@@ -198,11 +198,11 @@ class DWGraph_DSTest extends BaseTest {
     @Test
     void getMC() {
         graphCreator(1,10,10,1);
-        assertEquals(20,graph.getMC());
-        graph.removeEdge(9,0);
         assertEquals(21,graph.getMC());
-        graph.connect(0,5,1);
+        graph.removeEdge(9,0);
         assertEquals(22,graph.getMC());
+        graph.connect(0,5,1);
+        assertEquals(23,graph.getMC());
         int mc = graph.getMC()+graph.getE(0).size()+1;
         graph.removeNode(0);
         assertEquals(mc,graph.getMC());
