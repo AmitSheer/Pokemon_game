@@ -20,21 +20,19 @@ class DWGraph_AlgoTest extends BaseTest {
         assertEquals(copied,graph);
     }
 
+    @Tag("isConnected")
     @Test
     void isConnected() {
         graphCreator(1,3,0,1);
-//        for (int i = 1; i < 10; i++) {
-//            graph.connect(i-1,i,1);
-//            graph.connect(i,i-1,1);
-//        }
-        graph.connect(0,1,1);
-        graph.connect(1,0,1);
-        graph.connect(2,1,1);
-        graph.connect(1,2,1);
+        for (int i = 1; i < 10; i++) {
+            graph.connect(i-1,i,1);
+            graph.connect(i,i-1,1);
+        }
         algo.init(graph);
         assertTrue(algo.isConnected());
     }
 
+    @Tag("isConnected")
     @Test
     void isConnectedWithNotConnectedGraph() {
         graphCreator(1,10,0,1);
@@ -46,7 +44,7 @@ class DWGraph_AlgoTest extends BaseTest {
         graph.removeNode(3);
         assertFalse(algo.isConnected());
     }
-
+    @Tag("isConnected")
     @Test
     void isConnectedWithNotConnectedButThenConnectedGraph() {
         graphCreator(1,10,0,1);

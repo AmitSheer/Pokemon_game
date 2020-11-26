@@ -131,8 +131,8 @@ public class Algo_DWGraph implements dw_graph_algorithms {
     }
 
     static class BFS{
-        static HashMap<Integer,Integer> ids;
-        static HashMap<Integer,Integer> lows;
+        static int[] ids;
+        static int[] lows;
         static boolean [] onStack;
         static Stack<Integer> stack;
         static int id;
@@ -140,34 +140,42 @@ public class Algo_DWGraph implements dw_graph_algorithms {
         static directed_weighted_graph graph;
 
         public static boolean init(directed_weighted_graph g){
-            ids = new HashMap<>();
-            lows  =new HashMap<>();
+            ids = new int[g.nodeSize()];
+            lows  =new int[g.nodeSize()];
             onStack = new boolean[g.nodeSize()];
             stack = new Stack();
             id = 0;
             sccCount = 0;
             graph = g;
-            for (int i = 0; i < g.nodeSize(); i++) {
-                if(ids.get(i)==null) dfs(i);
-                if(sccCount>0&&i<(g.nodeSize()-1)) return false;
+            int i = 0;
+            for (node_data node : g.getV()) {
+                if(node.getTag()==-1) dfs(node);
+                if(sccCount>0&&id<(g.nodeSize()-1)) return false;
+                i++;
             }
             return true;
         }
 
-        private static void dfs(int at) {
-            stack.push(at);
-            onStack[at] = true;
-            ids[at] = lows[at] = id++;
-            for (edge_data to : graph.getE(at)) {
-                int node_id = graph.getNode(to.getDest()).getTag();
-                if(ids[node_id]==0) dfs(node_id);
-                if(onStack[node_id]) lows[at] = Math.min(lows[at],lows[node_id]);
+        private static void dfs(node_data node) {
+            node.setTag(id);
+            ids[node.getTag()] = lows[node.getTag()] = node.getTag();
+            id++;
+            stack.push(node.getTag());
+            onStack[node.getTag()] = true;
+            for (edge_data to : graph.getE(node.getKey())) {
+                node_data curr = graph.getNode(to.getDest());
+                if(curr.getTag()==-1) {
+                    dfs(curr);
+                    lows[node.getTag()] = Math.min(lows[node.getTag()],lows[curr.getTag()]);
+                }else if(onStack[curr.getTag()])
+                    lows[node.getTag()] = Math.min(lows[node.getTag()],lows[curr.getTag()]);
             }
-            if(ids[at]==lows[at]){
-                for(int node_id = stack.pop();; node_id = stack.pop()){
+            if(ids[node.getTag()]==lows[node.getTag()]){
+                while(!stack.empty()){
+                    int node_id = stack.pop();
                     onStack[node_id] = false;
                     lows[node_id] = ids[node_id];
-                    if(node_id==at) break;
+                    if(node_id==node.getTag()) break;
                 }
                 sccCount++;
             }

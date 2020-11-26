@@ -68,8 +68,7 @@ public class DWGraph_DS implements directed_weighted_graph{
             //checks if this is a new edge
             if(this.getEdge(src,dest) == null){
                 this.edgeCount++;
-                this.edgesIds.get(src).add(dest);
-                this.edgesIds.get(dest).add(-src);
+                this.edgesIds.get(dest).add(src);
                 this.edges.get(src).put(dest,new EdgeData(src,dest,w));
                 this.mc++;
             }else if(w!=this.getEdge(src, dest).getWeight()){
@@ -103,15 +102,16 @@ public class DWGraph_DS implements directed_weighted_graph{
     public node_data removeNode(int key) {
         node_data node = nodes.get(key);
         try{
-            HashSet<Integer> ni  = this.edgesIds.get(key);
+            Set<Integer> ni  = this.edgesIds.get(key);
             //remove all connected edges
             while(ni.iterator().hasNext()){
                 int ni_id = ni.iterator().next();
-                if(ni_id>=0){
-                    removeEdge(key, ni_id);
-                }else{
-                    removeEdge(-ni_id, key);
-                }
+                removeEdge(ni_id,key);
+            }
+            ni = this.edges.get(key).keySet();
+            while(ni.iterator().hasNext()){
+                int ni_id = ni.iterator().next();
+                removeEdge(key,ni_id);
             }
             //remove node from value list, and nodes
             this.nodes.remove(key);
@@ -132,8 +132,7 @@ public class DWGraph_DS implements directed_weighted_graph{
         if (src!=dest&&this.nodes.containsKey(src)&&this.nodes.containsKey(dest)) {
                 if(this.edges.get(src).containsKey(dest)) {
                     edgeData = this.edges.get(src).remove(dest);
-                    this.edgesIds.get(src).remove(dest);
-                    this.edgesIds.get(dest).remove(-src);
+                    this.edgesIds.get(dest).remove(src);
                     this.edgeCount--;
                     this.mc++;
                 }
