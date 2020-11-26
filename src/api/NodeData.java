@@ -1,6 +1,8 @@
 package api;
 
 import java.util.HashMap;
+import java.util.Objects;
+
 import api.*;
 public class NodeData implements node_data {
     //makes sure there are no repeating node keys
@@ -64,5 +66,22 @@ public class NodeData implements node_data {
     @Override
     public void setTag(int t) {
         this._tag = t;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof NodeData)) return false;
+        NodeData nodeData = (NodeData) o;
+        return _tag == nodeData._tag &&
+                Double.compare(nodeData._w, _w) == 0 &&
+                Objects.equals(_key, nodeData._key) &&
+                Objects.equals(_info, nodeData._info) &&
+                Objects.equals(location, nodeData.location);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(_key, _info, _tag, location, _w);
     }
 }

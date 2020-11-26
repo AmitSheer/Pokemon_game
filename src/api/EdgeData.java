@@ -65,9 +65,13 @@ public class EdgeData implements edge_data {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof EdgeData)) return false;
         EdgeData edgeData = (EdgeData) o;
-        return o.toString().equals(this.toString());
+        return _src == edgeData._src &&
+                _dest == edgeData._dest &&
+                Double.compare(edgeData._w, _w) == 0 &&
+                _tag == edgeData._tag &&
+                Objects.equals(_info, edgeData._info);
     }
 
     @Override

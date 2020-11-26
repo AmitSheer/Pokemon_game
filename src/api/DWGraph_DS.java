@@ -165,4 +165,19 @@ public class DWGraph_DS implements directed_weighted_graph{
                 '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof DWGraph_DS)) return false;
+        DWGraph_DS that = (DWGraph_DS) o;
+        return Objects.equals(nodes, that.nodes) &&
+                Objects.equals(edges, that.edges) &&
+                Objects.equals(edgesIds, that.edgesIds) &&
+                Objects.equals(edgeCount, that.edgeCount);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nodes, edges, edgesIds, mc, edgeCount);
+    }
 }
