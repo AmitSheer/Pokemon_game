@@ -2,6 +2,7 @@ package api;
 
 import java.util.*;
 
+
 public class Algo_DWGraph implements dw_graph_algorithms {
     private directed_weighted_graph graph;
     @Override
@@ -20,13 +21,13 @@ public class Algo_DWGraph implements dw_graph_algorithms {
         //copy all nodes into new nodes, with new pointers
         for (node_data node : graph.getV()) {
             copiedGraph.addNode(new NodeData(node.getKey()));
-        }
-        Iterator<node_data> nodeIterator = this.graph.getV().iterator();
-        while (copiedGraph.edgeSize()!=graph.edgeSize()&&nodeIterator.hasNext()){
-            int nodeKey = nodeIterator.next().getKey();
-            //will connect all of the nodes as they were connected, the first connection wont
-            for (edge_data edge: graph.getE(nodeKey)) {
-                copiedGraph.connect(edge.getSrc(),edge.getDest(),edge.getWeight());
+            for (edge_data edge: graph.getE(node.getKey())) {
+                if (copiedGraph.getNode(edge.getDest())!=null){
+                    copiedGraph.connect(edge.getSrc(),edge.getDest(),edge.getWeight());
+                }else{
+                    copiedGraph.addNode(new NodeData(edge.getDest()));
+                    copiedGraph.connect(edge.getSrc(),edge.getDest(),edge.getWeight());
+                }
             }
         }
         return copiedGraph;
@@ -34,9 +35,13 @@ public class Algo_DWGraph implements dw_graph_algorithms {
 
     @Override
     public boolean isConnected() {
-        BFS.reset(graph.getV());
-        int sum = this.graph.getV().stream().mapToInt(node -> BFS.bfs(this.graph, node)).sum();
-        return sum!=(this.graph.nodeSize()*(this.graph.nodeSize()-1));
+        BFS.reset(graph);
+//        for (node_data node :
+//                this.graph.getV()) {
+//            if(!BFS.bfs(this.graph, node))return false;
+//        }
+
+        return BFS.init(this.graph);
     }
 
     @Override
@@ -116,9 +121,9 @@ public class Algo_DWGraph implements dw_graph_algorithms {
         static class CompareToForQueue implements Comparator<node_data> {
             @Override
             public int compare(node_data o1, node_data o2) {
-                if (o1.getTag() == o2.getTag())
+                if (o1.getWeight() == o2.getWeight())
                     return 0;
-                else if (o1.getTag() < o2.getTag())
+                else if (o1.getWeight() < o2.getWeight())
                     return -1;
                 return 1;
             }
@@ -126,31 +131,73 @@ public class Algo_DWGraph implements dw_graph_algorithms {
     }
 
     static class BFS{
-        public static int bfs(directed_weighted_graph graph, node_data start){
-            Queue<node_data> nodeDataQueue = new LinkedList<>();
-            start.setTag(0);
-            nodeDataQueue.add(start);
-            int sum = 0;
-            int currentStart = start.getTag();
-            start.setTag(start.getTag()+1);
-            while(!nodeDataQueue.isEmpty()){
-                start = nodeDataQueue.remove();
-                //updates all of neighbors as visited
-                for (edge_data edge: graph.getE(start.getKey())) {
-                    node_data n = graph.getNode(edge.getDest());
-                    if(n.getTag()<currentStart) {
-                        n.setTag(start.getTag() + 1);
-                        n.setInfo(start.getInfo()+","+n.getInfo());
-                        nodeDataQueue.add(n);
-                        sum++;
-                    }
-                }
+        static HashMap<Integer,Integer> ids;
+        static HashMap<Integer,Integer> lows;
+        static boolean [] onStack;
+        static Stack<Integer> stack;
+        static int id;
+        static int sccCount;
+        static directed_weighted_graph graph;
+
+        public static boolean init(directed_weighted_graph g){
+            ids = new HashMap<>();
+            lows  =new HashMap<>();
+            onStack = new boolean[g.nodeSize()];
+            stack = new Stack();
+            id = 0;
+            sccCount = 0;
+            graph = g;
+            for (int i = 0; i < g.nodeSize(); i++) {
+                if(ids.get(i)==null) dfs(i);
+                if(sccCount>0&&i<(g.nodeSize()-1)) return false;
             }
-            return sum;
+            return true;
         }
 
-        public static void reset(Collection<node_data> nodes) {
-            nodes.forEach(node -> {node.setTag(-1);node.setWeight(0); node.setInfo(Integer.toString(node.getKey()));});
+        private static void dfs(int at) {
+            stack.push(at);
+            onStack[at] = true;
+            ids[at] = lows[at] = id++;
+            for (edge_data to : graph.getE(at)) {
+                int node_id = graph.getNode(to.getDest()).getTag();
+                if(ids[node_id]==0) dfs(node_id);
+                if(onStack[node_id]) lows[at] = Math.min(lows[at],lows[node_id]);
+            }
+            if(ids[at]==lows[at]){
+                for(int node_id = stack.pop();; node_id = stack.pop()){
+                    onStack[node_id] = false;
+                    lows[node_id] = ids[node_id];
+                    if(node_id==at) break;
+                }
+                sccCount++;
+            }
+        }
+
+//
+//        public static boolean bfs(directed_weighted_graph graph, node_data start){
+//            Queue<node_data> nodeDataQueue = new LinkedList<>();
+//            HashSet<Integer> visited = new HashSet<>();
+//            visited.add(start.getKey());
+//            nodeDataQueue.add(start);
+//            while(!nodeDataQueue.isEmpty()){
+//                start = nodeDataQueue.remove();
+//                //updates all of neighbors as visited
+//                for (edge_data edge: graph.getE(start.getKey())) {
+//                    if(!visited.contains(edge.getDest())) {
+//                        nodeDataQueue.add(graph.getNode(edge.getDest()));
+//                        visited.add(edge.getDest());
+//                    }
+//                }
+//            }
+//            return visited.size()==graph.nodeSize();
+//        }
+
+        public static void reset(directed_weighted_graph graph) {
+            graph.getV().forEach(node -> {node.setTag(-1);node.setWeight(0); node.setInfo(Integer.toString(node.getKey()));
+                for (edge_data edge :
+                       graph.getE(node.getKey()) ) {
+                    edge.setTag(0);
+                }});
         }
     }
 }
