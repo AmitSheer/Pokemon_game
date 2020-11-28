@@ -36,11 +36,6 @@ public class Algo_DWGraph implements dw_graph_algorithms {
     @Override
     public boolean isConnected() {
         BFS.reset(graph);
-//        for (node_data node :
-//                this.graph.getV()) {
-//            if(!BFS.bfs(this.graph, node))return false;
-//        }
-
         return BFS.init(this.graph);
     }
 
@@ -113,7 +108,6 @@ public class Algo_DWGraph implements dw_graph_algorithms {
 
         public static void reset(Collection<node_data> nodes) {
             nodes.forEach(node -> {node.setTag(-1);node.setWeight(Integer.MAX_VALUE); node.setInfo(Integer.toString(node.getKey()));});
-
         }
         /**
          * comparator for the priority queue used in the dijkstra function
@@ -147,16 +141,15 @@ public class Algo_DWGraph implements dw_graph_algorithms {
             id = 0;
             sccCount = 0;
             graph = g;
-            int i = 0;
+            if(g.nodeSize()==0) return true;
             for (node_data node : g.getV()) {
-                if(node.getTag()==-1) dfs(node);
-                if(sccCount>0&&id<(g.nodeSize()-1)) return false;
-                i++;
+                if (node.getTag() == -1)
+                    if(!dfs(node)) return false;
             }
             return true;
         }
 
-        private static void dfs(node_data node) {
+        private static boolean dfs(node_data node) {
             node.setTag(id);
             ids[node.getTag()] = lows[node.getTag()] = node.getTag();
             id++;
@@ -177,8 +170,11 @@ public class Algo_DWGraph implements dw_graph_algorithms {
                     lows[node_id] = ids[node_id];
                     if(node_id==node.getTag()) break;
                 }
+                if(sccCount==1)
+                    return false;
                 sccCount++;
             }
+            return true;
         }
 
 //
