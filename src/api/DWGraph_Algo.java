@@ -260,6 +260,7 @@ public class DWGraph_Algo implements dw_graph_algorithms {
         g.getNode(0).setLocation(new GeoLocations(1,1,1));
         DWGraph_Algo a = new DWGraph_Algo();
         a.init(g);
+        System.out.println(a.graph.toString());
         a.save("./aasdasd");
         a.init(new DWGraph_DS());
         a.load("./aasdasd");

@@ -157,10 +157,11 @@ public class DWGraph_DS implements directed_weighted_graph{
 
     @Override
     public String toString() {
-        return "DWGraph_DS{" +
-                "nodes=" + nodes.toString() +
-                ", edgeCount=" + edgeCount +
-                ", mc=" + mc +
+        List<edge_data> edges = new LinkedList<>();
+        (this.edges.values()).forEach(map -> edges.addAll(map.values()));
+        return "{" +
+                "Nodes:" + nodes.values().toString() +
+                ", Edges:" + edges.toString()+
                 '}';
     }
 

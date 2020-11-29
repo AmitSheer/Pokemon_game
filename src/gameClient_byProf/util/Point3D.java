@@ -1,7 +1,7 @@
 /**
  * This class represents a 3D point in space.
  */
-package gameClient.util;
+package gameClient_byProf.util;
 
 import api.geo_location;
 

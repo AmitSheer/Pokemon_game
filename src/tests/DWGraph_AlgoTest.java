@@ -121,7 +121,7 @@ class DWGraph_AlgoTest extends BaseTest {
             graph.connect(i-1,i,1);
         }
         algo.init(graph);
-        assertTrue(algo.save("./writeOver.json"));
+        assertTrue(algo.save("./save.json"));
     }
 
     @Test

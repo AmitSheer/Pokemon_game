@@ -10,7 +10,7 @@ public class NodeData implements node_data {
     private static int nodeCounter = 0;
     @Expose
     @SerializedName(value = "id")
-    private final Integer _key;
+    private Integer _key;
     private String _info;
     private int _tag;
     @Expose
@@ -93,8 +93,8 @@ public class NodeData implements node_data {
     @Override
     public String toString() {
         return "{" +
-                "id:" + _key +
-                ", pos:" + _location.toString() +
+                "\"id\":" + _key +
+                ", \"pos\":" + _location.toString() +
                 "}";
     }
 }

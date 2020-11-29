@@ -1,4 +1,4 @@
-package gameClient.util;
+package gameClient_byProf.util;
 import api.geo_location;
 
 /**
