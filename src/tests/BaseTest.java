@@ -4,7 +4,6 @@ package tests;
 import api.DWGraph_DS;
 import api.NodeData;
 import api.*;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 
 import java.io.*;
@@ -14,14 +13,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class BaseTest {
     static DWGraph_DS graph;
-    static Algo_DWGraph algo;
+    static DWGraph_Algo algo;
     static FileOutputStream f;
 
 
     @BeforeEach
     void setUp() {
         graph = new DWGraph_DS();
-        algo = new Algo_DWGraph();
+        algo = new DWGraph_Algo();
     }
 
     public void graphCreator(int seed, int size, int edges, int weight){

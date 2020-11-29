@@ -3,6 +3,7 @@ package tests;
 import api.NodeData;
 import api.*;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 
@@ -11,6 +12,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@Tag("All")
 class DWGraph_DSTest extends BaseTest {
 
     @Test

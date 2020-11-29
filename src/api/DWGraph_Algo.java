@@ -3,7 +3,7 @@ package api;
 import java.util.*;
 
 
-public class Algo_DWGraph implements dw_graph_algorithms {
+public class DWGraph_Algo implements dw_graph_algorithms {
     private directed_weighted_graph graph;
     @Override
     public void init(directed_weighted_graph g) {
@@ -35,8 +35,8 @@ public class Algo_DWGraph implements dw_graph_algorithms {
 
     @Override
     public boolean isConnected() {
-        BFS.reset(graph);
-        return BFS.init(this.graph);
+        new BFS().reset(graph);
+        return  new BFS().init(this.graph);
     }
 
     @Override
@@ -44,8 +44,8 @@ public class Algo_DWGraph implements dw_graph_algorithms {
         if (this.graph.getV().size() == 0 || this.graph.getNode(src) == null || this.graph.getNode(src) == null) {
             return -1;
         }
-        Dijkstra.reset(this.graph.getV());
-        Dijkstra.dijkstra(this.graph, graph.getNode(src), dest);
+        new Dijkstra().reset(this.graph.getV());
+        new Dijkstra().dijkstra(this.graph, graph.getNode(src), dest);
         if (this.graph.getNode(dest).getWeight() == Integer.MAX_VALUE){
             return -1;
         }else{
@@ -56,8 +56,8 @@ public class Algo_DWGraph implements dw_graph_algorithms {
     @Override
     public List<node_data> shortestPath(int src, int dest) {
         List<node_data> nodePathToDest = new LinkedList<>();
-        Dijkstra.reset(graph.getV());
-        Dijkstra.dijkstra(this.graph,this.graph.getNode(src),dest);
+        new Dijkstra().reset(graph.getV());
+        new Dijkstra().dijkstra(this.graph,this.graph.getNode(src),dest);
         String [] strPath = this.graph.getNode(dest).getInfo().split(",");
         for (String nodeKey : strPath) {
             nodePathToDest.add(this.graph.getNode(Integer.parseInt(nodeKey)));
@@ -83,7 +83,7 @@ public class Algo_DWGraph implements dw_graph_algorithms {
          * @param nodeKeyToFind key of the node to finish in
          * @return the number of nodes visited
          */
-        public static int dijkstra(directed_weighted_graph graph, node_data start, Integer nodeKeyToFind) {
+        public int dijkstra(directed_weighted_graph graph, node_data start, Integer nodeKeyToFind) {
             PriorityQueue<node_data> a = new PriorityQueue<>(new CompareToForQueue());
             start.setWeight(0);
             HashSet<Integer> visited = new HashSet<>();
@@ -106,7 +106,7 @@ public class Algo_DWGraph implements dw_graph_algorithms {
             return visited.size();
         }
 
-        public static void reset(Collection<node_data> nodes) {
+        public void reset(Collection<node_data> nodes) {
             nodes.forEach(node -> {node.setTag(-1);node.setWeight(Integer.MAX_VALUE); node.setInfo(Integer.toString(node.getKey()));});
         }
         /**
@@ -124,16 +124,16 @@ public class Algo_DWGraph implements dw_graph_algorithms {
         }
     }
 
-    static class BFS{
-        static int[] ids;
-        static int[] lows;
-        static boolean [] onStack;
-        static Stack<Integer> stack;
-        static int id;
-        static int sccCount;
-        static directed_weighted_graph graph;
+     static class BFS{
+        private int[] ids;
+        private int[] lows;
+        private boolean [] onStack;
+        private Stack<Integer> stack;
+        private int id;
+        private int sccCount;
+        private directed_weighted_graph graph;
 
-        public static boolean init(directed_weighted_graph g){
+        public boolean init(directed_weighted_graph g){
             ids = new int[g.nodeSize()];
             lows  =new int[g.nodeSize()];
             onStack = new boolean[g.nodeSize()];
@@ -149,7 +149,7 @@ public class Algo_DWGraph implements dw_graph_algorithms {
             return true;
         }
 
-        private static boolean dfs(node_data node) {
+        private boolean dfs(node_data node) {
             node.setTag(id);
             ids[node.getTag()] = lows[node.getTag()] = node.getTag();
             id++;
@@ -196,7 +196,7 @@ public class Algo_DWGraph implements dw_graph_algorithms {
 //            return visited.size()==graph.nodeSize();
 //        }
 
-        public static void reset(directed_weighted_graph graph) {
+        public void reset(directed_weighted_graph graph) {
             graph.getV().forEach(node -> {node.setTag(-1);node.setWeight(0); node.setInfo(Integer.toString(node.getKey()));
                 for (edge_data edge :
                        graph.getE(node.getKey()) ) {
