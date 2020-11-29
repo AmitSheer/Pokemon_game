@@ -7,7 +7,7 @@ import api.game_service;
 public class GameService implements game_service {
     private int _gameType;
     private dw_graph_algorithms _algo;
-    private GameManager manager;
+    private World _world;
     public  GameService(int type){
         _gameType = type;
         _algo = new DWGraph_Algo();
@@ -20,7 +20,7 @@ public class GameService implements game_service {
 
     @Override
     public String getPokemons() {
-        return null;
+        return _world.getPokemons().toString();
     }
 
     @Override

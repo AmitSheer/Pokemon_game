@@ -25,4 +25,13 @@ public class Pokemon{
     public edge_data getEdge() {
         return _edge;
     }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "\"type\":" + _type +
+                ", \"value\"" + _value +
+                ", \"pos\":" + _pos.toString() +
+                '}';
+    }
 }
