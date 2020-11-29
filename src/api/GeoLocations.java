@@ -1,5 +1,6 @@
 package api;
 
+
 import java.util.Objects;
 
 public class GeoLocations implements geo_location {

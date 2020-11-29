@@ -1,7 +1,11 @@
 package api;
 
+import java.io.*;
 import java.util.*;
 import com.google.gson.*;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonToken;
+import com.google.gson.stream.JsonWriter;
 
 
 public class DWGraph_Algo implements dw_graph_algorithms {
@@ -65,14 +69,57 @@ public class DWGraph_Algo implements dw_graph_algorithms {
 
     @Override
     public boolean save(String file) {
-        Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().serializeNulls().create();
-        String ele = gson.toJson(this.graph.getV().stream().findFirst().get());
-        return false;
+        try{
+            Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().serializeNulls().create();
+            FileOutputStream outputStream = new FileOutputStream(file);
+            JsonWriter writer = new JsonWriter(new OutputStreamWriter(outputStream));
+            writer.beginObject();
+            writer.name("Nodes");
+            writer.beginArray();
+            for (node_data node : this.graph.getV()) {
+                writer.beginObject();
+                writer.name("id").value(node.getKey());
+                writer.name("pos").value(node.getLocation().toString());
+                writer.endObject();
+            }
+            writer.endArray();
+            writer.name("Edges");
+            LinkedList<edge_data> edges = new LinkedList<>();
+            for (node_data node : this.graph.getV()) {
+                edges.addAll(this.graph.getE(node.getKey()));
+            }
+            gson.toJson(edges,Collection.class, writer);
+            writer.endObject();
+            writer.close();
+            return true;
+        }catch (Exception exception){
+            return false;
+        }
+
     }
 
     @Override
     public boolean load(String file) {
-        return false;
+        try{
+            Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().serializeNulls().create();
+            FileInputStream a = new FileInputStream(file);
+            JsonReader reader = new JsonReader(new InputStreamReader(a));
+            JsonObject jsonObject = JsonParser.parseReader(reader).getAsJsonObject();
+            directed_weighted_graph graph = new DWGraph_DS();
+            for (JsonElement element : jsonObject.getAsJsonArray("Nodes")) {
+                NodeData n = new NodeData(element.getAsJsonObject().get("id").getAsInt());
+                String [] geoPos = element.getAsJsonObject().get("pos").getAsString().split(",");
+                n.setLocation(new GeoLocations(Double.parseDouble(geoPos[0]),Double.parseDouble(geoPos[1]),Double.parseDouble(geoPos[2])));
+                graph.addNode(n);
+            }
+            for (JsonElement element : jsonObject.getAsJsonArray("Edges")) {
+                graph.connect(element.getAsJsonObject().get("src").getAsInt(),element.getAsJsonObject().get("dest").getAsInt(),element.getAsJsonObject().get("w").getAsDouble());
+            }
+            this.init(graph);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 
     static class Dijkstra {
@@ -203,11 +250,18 @@ public class DWGraph_Algo implements dw_graph_algorithms {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args){
         DWGraph_DS g = new DWGraph_DS();
         g.addNode(new NodeData(0));
+        g.addNode(new NodeData(1));
+        g.addNode(new NodeData(2));
+        g.connect(0,1,1);
+        g.connect(0,2,1);
+        g.getNode(0).setLocation(new GeoLocations(1,1,1));
         DWGraph_Algo a = new DWGraph_Algo();
         a.init(g);
-        a.save("asasd");
+        a.save("./aasdasd");
+        a.init(new DWGraph_DS());
+        a.load("./aasdasd");
     }
 }
