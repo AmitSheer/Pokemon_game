@@ -169,3 +169,17 @@ local.properties
 *.iml
 
 *.json
+
+
+.classpath
+.project
+.settings
+eclipsebin
+target
+*/target
+pom.xml.*
+release.properties
+
+.idea
+*.ipr
+classes

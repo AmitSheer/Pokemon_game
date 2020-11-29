@@ -2,17 +2,21 @@ package api;
 
 import java.util.Objects;
 
-public class Geo_Locations implements geo_location {
+public class GeoLocations implements geo_location {
     private double _x;
     private double _y;
     private double _z;
 
-    public Geo_Locations(double x, double y, double z){
+    public GeoLocations(){
+
+    }
+
+    public GeoLocations(double x, double y, double z){
         _x = x;
         _y = y;
         _z = z;
     }
-    public Geo_Locations(geo_location g){
+    public GeoLocations(geo_location g){
         _x = g.x();
         _y = g.y();
         _z = g.z();
@@ -44,8 +48,8 @@ public class Geo_Locations implements geo_location {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Geo_Locations)) return false;
-        Geo_Locations that = (Geo_Locations) o;
+        if (!(o instanceof GeoLocations)) return false;
+        GeoLocations that = (GeoLocations) o;
         return Double.compare(that._x, _x) == 0 &&
                 Double.compare(that._y, _y) == 0 &&
                 Double.compare(that._z, _z) == 0;
@@ -54,5 +58,12 @@ public class Geo_Locations implements geo_location {
     @Override
     public int hashCode() {
         return Objects.hash(_x, _y, _z);
+    }
+
+    @Override
+    public String toString() {
+        return  _x +
+                "," + _y +
+                "," + _z;
     }
 }

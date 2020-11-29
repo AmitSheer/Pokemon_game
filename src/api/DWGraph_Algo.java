@@ -1,6 +1,7 @@
 package api;
 
 import java.util.*;
+import com.google.gson.*;
 
 
 public class DWGraph_Algo implements dw_graph_algorithms {
@@ -22,12 +23,10 @@ public class DWGraph_Algo implements dw_graph_algorithms {
         for (node_data node : graph.getV()) {
             copiedGraph.addNode(new NodeData(node.getKey()));
             for (edge_data edge: graph.getE(node.getKey())) {
-                if (copiedGraph.getNode(edge.getDest())!=null){
-                    copiedGraph.connect(edge.getSrc(),edge.getDest(),edge.getWeight());
-                }else{
+                if (copiedGraph.getNode(edge.getDest()) == null) {
                     copiedGraph.addNode(new NodeData(edge.getDest()));
-                    copiedGraph.connect(edge.getSrc(),edge.getDest(),edge.getWeight());
                 }
+                copiedGraph.connect(edge.getSrc(),edge.getDest(),edge.getWeight());
             }
         }
         return copiedGraph;
@@ -66,6 +65,8 @@ public class DWGraph_Algo implements dw_graph_algorithms {
 
     @Override
     public boolean save(String file) {
+        Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().serializeNulls().create();
+        String ele = gson.toJson(this.graph.getV().stream().findFirst().get());
         return false;
     }
 
@@ -74,16 +75,14 @@ public class DWGraph_Algo implements dw_graph_algorithms {
         return false;
     }
 
-
     static class Dijkstra {
         /**
          * implementation of Dijkstra algorithm for weighted graph
          * @param graph to run on
          * @param start start node
          * @param nodeKeyToFind key of the node to finish in
-         * @return the number of nodes visited
          */
-        public int dijkstra(directed_weighted_graph graph, node_data start, Integer nodeKeyToFind) {
+        public void dijkstra(directed_weighted_graph graph, node_data start, Integer nodeKeyToFind) {
             PriorityQueue<node_data> a = new PriorityQueue<>(new CompareToForQueue());
             start.setWeight(0);
             HashSet<Integer> visited = new HashSet<>();
@@ -103,7 +102,6 @@ public class DWGraph_Algo implements dw_graph_algorithms {
                     }
                 }
             }
-            return visited.size();
         }
 
         public void reset(Collection<node_data> nodes) {
@@ -137,7 +135,7 @@ public class DWGraph_Algo implements dw_graph_algorithms {
             ids = new int[g.nodeSize()];
             lows  =new int[g.nodeSize()];
             onStack = new boolean[g.nodeSize()];
-            stack = new Stack();
+            stack = new Stack<>();
             id = 0;
             sccCount = 0;
             graph = g;
@@ -203,5 +201,13 @@ public class DWGraph_Algo implements dw_graph_algorithms {
                     edge.setTag(0);
                 }});
         }
+    }
+
+    public static void main(String[] args) {
+        DWGraph_DS g = new DWGraph_DS();
+        g.addNode(new NodeData(0));
+        DWGraph_Algo a = new DWGraph_Algo();
+        a.init(g);
+        a.save("asasd");
     }
 }
