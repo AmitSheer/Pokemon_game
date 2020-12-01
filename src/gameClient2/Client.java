@@ -1,4 +1,6 @@
-package gameClient;
+package gameClient2;
+
+import gameClient.MyFrame;
 
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;

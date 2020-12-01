@@ -1,6 +1,8 @@
-package gameClient;
+package gameClient2;
 
 import api.*;
+import gameClient.Pokemon;
+import gameClient.PokemonTrainer;
 import gameClient_byProf.CL_Pokemon;
 
 import java.util.Iterator;
