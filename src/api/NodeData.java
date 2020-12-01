@@ -6,8 +6,6 @@ import com.google.gson.annotations.SerializedName;
 import java.util.Objects;
 
 public class NodeData implements node_data {
-    //makes sure there are no repeating node keys
-    private static int nodeCounter = 0;
     @Expose
     @SerializedName(value = "id")
     private Integer _key;
@@ -24,7 +22,13 @@ public class NodeData implements node_data {
         this._tag = 0;
         this._w = 0;
         _location = new GeoLocations();
-        nodeCounter = nodeCounter + key;
+    }
+    public NodeData(int key, geo_location e) {
+        this._key = key;
+        this._info = String.valueOf(key);
+        this._tag = 0;
+        this._w = 0;
+        _location = e;
     }
 
     @Override

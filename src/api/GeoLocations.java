@@ -63,8 +63,8 @@ public class GeoLocations implements geo_location {
 
     @Override
     public String toString() {
-        return  "\""+_x +
+        return  _x +
                 "," + _y +
-                "," + _z+"\"";
+                "," + _z;
     }
 }
