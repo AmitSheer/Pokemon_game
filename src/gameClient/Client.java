@@ -5,15 +5,15 @@ import java.awt.event.ComponentEvent;
 
 public class Client {
     private static MyFrame _frame;
-    public Client(){
-        _frame = new MyFrame("game Frame");
-        _frame.addComponentListener(new ComponentAdapter() {
-            @Override
-            public void componentResized(ComponentEvent e) {
-
-            }
-        });
-
+    private static GameManager _manager;
+    public Client(GameManager manager){
     }
 
+    public static GameManager get_manager() {
+        return _manager;
+    }
+
+    public static void set_manager(GameManager _manager) {
+        Client._manager = _manager;
+    }
 }

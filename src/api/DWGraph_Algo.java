@@ -4,7 +4,6 @@ import java.io.*;
 import java.util.*;
 import com.google.gson.*;
 import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
 
 
@@ -75,23 +74,7 @@ public class DWGraph_Algo implements dw_graph_algorithms {
             Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().serializeNulls().create();
             FileOutputStream outputStream = new FileOutputStream(file);
             JsonWriter writer = new JsonWriter(new OutputStreamWriter(outputStream));
-            writer.beginObject();
-            writer.name("Nodes");
-            writer.beginArray();
-            for (node_data node : this.graph.getV()) {
-                writer.beginObject();
-                writer.name("id").value(node.getKey());
-                writer.name("pos").value(node.getLocation().toString());
-                writer.endObject();
-            }
-            writer.endArray();
-            writer.name("Edges");
-            LinkedList<edge_data> edges = new LinkedList<>();
-            for (node_data node : this.graph.getV()) {
-                edges.addAll(this.graph.getE(node.getKey()));
-            }
-            gson.toJson(edges,Collection.class, writer);
-            writer.endObject();
+            gson.toJson(GraphParser.Graph2Json(this.graph),writer);
             writer.close();
             return true;
         }catch (Exception exception){
@@ -104,20 +87,9 @@ public class DWGraph_Algo implements dw_graph_algorithms {
     public boolean load(String file) {
         try{
             Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().serializeNulls().create();
-            FileInputStream a = new FileInputStream(file);
-            JsonReader reader = new JsonReader(new InputStreamReader(a));
-            JsonObject jsonObject = JsonParser.parseReader(reader).getAsJsonObject();
-            directed_weighted_graph graph = new DWGraph_DS();
-            for (JsonElement element : jsonObject.getAsJsonArray("Nodes")) {
-                NodeData n = new NodeData(element.getAsJsonObject().get("id").getAsInt());
-                String [] geoPos = element.getAsJsonObject().get("pos").getAsString().split(",");
-                n.setLocation(new GeoLocations(Double.parseDouble(geoPos[0]),Double.parseDouble(geoPos[1]),Double.parseDouble(geoPos[2])));
-                graph.addNode(n);
-            }
-            for (JsonElement element : jsonObject.getAsJsonArray("Edges")) {
-                graph.connect(element.getAsJsonObject().get("src").getAsInt(),element.getAsJsonObject().get("dest").getAsInt(),element.getAsJsonObject().get("w").getAsDouble());
-            }
-            this.init(graph);
+            FileInputStream inputStream = new FileInputStream(file);
+            JsonReader reader = new JsonReader(new InputStreamReader(inputStream));
+            this.init(GraphParser.Json2Graph(reader));
         } catch (Exception e) {
             return false;
         }

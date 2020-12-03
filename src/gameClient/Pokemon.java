@@ -9,11 +9,13 @@ public class Pokemon extends NodeData {
     private double _value;
     private edge_data _edge;
 
-    public Pokemon(int key, double value, geo_location e){
+    public Pokemon(int key, double value, geo_location e, int type){
         super(key,e);
         _value = value;
+        _type=type;
+        _value = value;
     }
-    
+
     public int getType() {
         return _type;
     }

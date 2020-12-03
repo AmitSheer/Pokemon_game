@@ -1,10 +1,12 @@
 package gameClient;
 
+import Server.Game_Server_Ex2;
 import api.*;
-import gameClient_byProf.CL_Pokemon;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 /**
  * Manages the game, initializing graph, pokemon, pokemon trainers
@@ -12,43 +14,64 @@ import java.util.List;
 public class GameManager {
     private dw_graph_algorithms _algo;
     private directed_weighted_graph _graph;
-    private List<Pokemon> _pokemons;
+    private HashMap<Integer,Pokemon> _pokemons;
     private List<PokemonTrainer> _trainers;
-    public GameManager(dw_graph_algorithms algo) {
-        this._algo = algo;
+
+    public GameManager() {
+        this._algo = new DWGraph_Algo();
     }
 
-    public List<Pokemon> get_pokemons() {
-        return _pokemons;
+    public void init(int scenario){
+        for (PokemonTrainer trainer :
+                _trainers) {
+        }
+
     }
 
-    public void set_pokemons(List<Pokemon> pokemons) {
-        this._pokemons = pokemons;
+    public Collection<Pokemon> getPokemons() {
+        return _pokemons.values();
     }
 
-    public dw_graph_algorithms get_algo() {
+    public void setPokemons(List<Pokemon> pokemons) {
+        this._pokemons = new HashMap<>();
+        pokemons.forEach(pokemon -> this._pokemons.putIfAbsent(pokemon.getKey(),pokemon));
+    }
+
+    public void setPokemons(String pokemons) {
+        setPokemons(json2Pokemons(pokemons));
+    }
+
+    public dw_graph_algorithms getAlgo() {
         return _algo;
     }
 
-    public void set_algo(dw_graph_algorithms _algo) {
+    public void setAlgo(dw_graph_algorithms _algo) {
         this._algo = _algo;
     }
 
-    public List<PokemonTrainer> get_trainers() {
+    public List<PokemonTrainer> getTrainers() {
         return _trainers;
     }
 
-    public void set_trainers(List<PokemonTrainer> _trainers) {
+    public void setTrainers(List<PokemonTrainer> _trainers) {
         this._trainers = _trainers;
     }
+    public void setTrainers(String _trainers) {
+    }
+    public void setTrainers(int numOfTrainers) {
+        for (int i = 0; i < _pokemons.size(); i++) {
 
-    public directed_weighted_graph get_graph() {
+        }
+    }
+
+    public directed_weighted_graph getGraph() {
         return _graph;
     }
 
-    public void set_graph(directed_weighted_graph _graph) {
+    public void setGraph(directed_weighted_graph _graph) {
         this._graph = _graph;
     }
+
     /////////////////////////////////////////////////////////////////////////////////////
 
     public static void updateEdge(Pokemon fr, directed_weighted_graph g) {
@@ -67,11 +90,10 @@ public class GameManager {
 
 
     private static boolean isOnEdge(geo_location p, geo_location src, geo_location dest ) {
-
         boolean ans = false;
         double dist = src.distance(dest);
         double d1 = src.distance(p) + p.distance(dest);
-        if(dist>d1-EPS2) {ans = true;}
+        if(dist>d1) {ans = true;}
         return ans;
     }
     private static boolean isOnEdge(geo_location p, int s, int d, directed_weighted_graph g) {
@@ -86,4 +108,30 @@ public class GameManager {
         if(type>0 && src>dest) {return false;}
         return isOnEdge(p,src, dest, g);
     }
+
+    public static ArrayList<Pokemon> json2Pokemons(String fs) {
+        ArrayList<Pokemon> ans = new  ArrayList<Pokemon>();
+        JsonArray allPokemons = JsonParser.parseString(fs).getAsJsonObject().getAsJsonArray("Pokemons");
+        for(int i=0;i<allPokemons.size();i++) {
+            JsonObject pp = allPokemons.get(i).getAsJsonObject();
+            JsonObject pk = pp.get("Pokemon").getAsJsonObject();
+            int t = pk.get("type").getAsInt();
+            double v = pk.get("value").getAsDouble();
+            String [] p = pk.get("pos").getAsString().split(",");
+            geo_location g = new GeoLocations(Double.parseDouble(p[0]),Double.parseDouble(p[1]),Double.parseDouble(p[2]));
+            Pokemon f = new Pokemon(i,v,g,t);
+            ans.add(f);
+        }
+        return ans;
+    }
+
+
+
+    public static void main(String[] args) {
+        GameManager manager = new GameManager();
+        game_service game_service = Game_Server_Ex2.getServer(2);
+        manager.setPokemons(game_service.getPokemons());
+    }
+
+
 }
