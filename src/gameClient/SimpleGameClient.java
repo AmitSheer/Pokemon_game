@@ -1,4 +1,4 @@
-package gameClient_byProf;
+package gameClient;
 import Server.Game_Server_Ex2;
 import api.directed_weighted_graph;
 import api.edge_data;
@@ -31,6 +31,7 @@ public class SimpleGameClient {
 		System.out.println(game.getPokemons());
 		int src_node = 0;  // arbitrary node, you should start at one of the fruits
 		game.addAgent(src_node);
+		game.addAgent(src_node+1);
 		game.startGame();
 		int i=0;
 		while(game.isRunning()) {

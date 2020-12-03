@@ -1,13 +1,13 @@
-package gameClient_byProf;
+package gameClient;
 
 import api.directed_weighted_graph;
 import api.edge_data;
 import api.geo_location;
 import api.node_data;
-import gameClient_byProf.util.Point3D;
-import gameClient_byProf.util.Range;
-import gameClient_byProf.util.Range2D;
-import gameClient_byProf.util.Range2Range;
+import gameClient.util.Point3D;
+import gameClient.util.Range;
+import gameClient.util.Range2D;
+import gameClient.util.Range2Range;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;

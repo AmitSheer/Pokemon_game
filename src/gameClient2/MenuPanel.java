@@ -1,4 +1,4 @@
-package gameClient;
+package gameClient2;
 
 import javax.swing.*;
 import javax.swing.text.NumberFormatter;

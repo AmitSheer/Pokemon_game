@@ -1,10 +1,12 @@
-package gameClient;
+package gameClient2;
 
 import Server.Game_Server_Ex2;
 import api.*;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import gameClient.Pokemon;
+import gameClient.PokemonTrainer;
 
 import java.util.*;
 
