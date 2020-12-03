@@ -1,4 +1,4 @@
-package gameClient;
+package gameClient2;
 
 import api.NodeData;
 import api.edge_data;
@@ -28,17 +28,7 @@ public class Pokemon extends NodeData {
         return _edge;
     }
 
-<<<<<<< HEAD:src/gameClient2/Pokemon.java
-    @Override
-    public String toString() {
-        return "{" +
-                "\"type\":" + _type +
-                ", \"value\"" + _value +
-                ", \"pos\":" + _pos.toString() +
-                '}';
-=======
     public void setEdge(edge_data _edge) {
         this._edge = _edge;
->>>>>>> 3ade7fb0b9d3603ad1de209b365975056de69365:src/gameClient/Pokemon.java
     }
 }
