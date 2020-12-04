@@ -30,6 +30,7 @@ public class MyFrame extends JFrame{
 	MyFrame(String a) {
 		super(a);
 		int _ind = 0;
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 	public void update(Arena ar) {
 		this._ar = ar;

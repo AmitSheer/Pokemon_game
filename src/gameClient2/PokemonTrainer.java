@@ -1,4 +1,4 @@
-package gameClient;
+package gameClient2;
 
 import api.NodeData;
 import api.edge_data;

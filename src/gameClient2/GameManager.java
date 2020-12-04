@@ -5,8 +5,8 @@ import api.*;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import gameClient.Pokemon;
-import gameClient.PokemonTrainer;
+import gameClient2.Pokemon;
+import gameClient2.PokemonTrainer;
 
 import java.util.*;
 
