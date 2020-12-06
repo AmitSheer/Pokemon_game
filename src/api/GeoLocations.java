@@ -22,6 +22,12 @@ public class GeoLocations implements geo_location {
         _y = g.y();
         _z = g.z();
     }
+    public GeoLocations(String g){
+        String [] pos = g.split(",");
+        _x = Double.parseDouble(pos[0]);
+        _y = Double.parseDouble(pos[1]);
+        _z = Double.parseDouble(pos[2]);
+    }
 
     @Override
     public double x() {

@@ -5,8 +5,12 @@ import api.*;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import gameClient2.Pokemon;
-import gameClient2.PokemonTrainer;
+import gameClient2.util.Range;
+import gameClient2.util.Range2D;
+import gameClient2.util.Range2Range;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.*;
 
@@ -31,7 +35,7 @@ public class GameManager {
     }
 
     public Collection<Pokemon> getPokemons() {
-        return _pokemons.values();
+        return  _pokemons.values();
     }
 
     public void setPokemons(List<Pokemon> pokemons) {
@@ -95,8 +99,7 @@ public class GameManager {
         boolean ans = false;
         double dist = src.distance(dest);
         double d1 = src.distance(p) + p.distance(dest);
-        if(dist>d1) {ans = true;}
-        return ans;
+        return dist>d1;
     }
     private static boolean isOnEdge(geo_location p, int s, int d, directed_weighted_graph g) {
         geo_location src = g.getNode(s).getLocation();
@@ -121,12 +124,56 @@ public class GameManager {
             double v = pk.get("value").getAsDouble();
             String [] p = pk.get("pos").getAsString().split(",");
             geo_location g = new GeoLocations(Double.parseDouble(p[0]),Double.parseDouble(p[1]),Double.parseDouble(p[2]));
-            Pokemon f = new Pokemon(i,v,g,t);
+            Pokemon f = new Pokemon(i,v,g,t,null);
             ans.add(f);
         }
         return ans;
     }
 
+    public static List<PokemonTrainer> getTrainers(String aa, directed_weighted_graph gg) {
+        ArrayList<PokemonTrainer> ans = new ArrayList<PokemonTrainer>();
+        try {
+            JSONObject ttt = new JSONObject(aa);
+            JSONArray ags = ttt.getJSONArray("Agents");
+            for(int i=0;i<ags.length();i++) {
+                PokemonTrainer c = new PokemonTrainer(0,gg);
+                c.update(ags.get(i).toString());
+                ans.add(c);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return ans;
+    }
+
+    private static Range2D GraphRange(directed_weighted_graph g) {
+        Iterator<node_data> itr = g.getV().iterator();
+        double x0=0,x1=0,y0=0,y1=0;
+        boolean first = true;
+        while(itr.hasNext()) {
+            geo_location p = itr.next().getLocation();
+            if(first) {
+                x0=p.x(); x1=x0;
+                y0=p.y(); y1=y0;
+                first = false;
+            }
+            else {
+                if(p.x()<x0) {x0=p.x();}
+                if(p.x()>x1) {x1=p.x();}
+                if(p.y()<y0) {y0=p.y();}
+                if(p.y()>y1) {y1=p.y();}
+            }
+        }
+        Range xr = new Range(x0,x1);
+        Range yr = new Range(y0,y1);
+        return new Range2D(xr,yr);
+    }
+
+    public static Range2Range w2f(directed_weighted_graph g, Range2D frame) {
+        Range2D world = GraphRange(g);
+        Range2Range ans = new Range2Range(world, frame);
+        return ans;
+    }
 
 
     public static void main(String[] args) {

@@ -125,9 +125,8 @@ public class Ex2_Client implements Runnable{
 			for(int a = 0;a<rs;a++) {
 				int ind = a%cl_fs.size();
 				CL_Pokemon c = cl_fs.get(ind);
-				int nn = c.get_edge().getDest();
+				int nn = c.get_edge().getSrc();
 				if(c.getType()<0 ) {nn = c.get_edge().getSrc();}
-				
 				game.addAgent(nn);
 			}
 		}
