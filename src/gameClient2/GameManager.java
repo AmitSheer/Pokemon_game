@@ -18,29 +18,26 @@ import java.util.*;
  * Manages the game, initializing graph, pokemon, pokemon trainers
  */
 public class GameManager {
+    public static final double EPS1 = 0.001, EPS2=EPS1*EPS1, EPS=EPS2;
     private dw_graph_algorithms _algo;
     private directed_weighted_graph _graph;
-    private HashMap<Integer,Pokemon> _pokemons;
+    private List<Pokemon> _pokemons;
     private List<PokemonTrainer> _trainers;
+    private List<String> _info;
+
 
     public GameManager() {
+        _info = new ArrayList<String>();
         this._algo = new DWGraph_Algo();
     }
 
-    public void init(int scenario){
-        for (PokemonTrainer trainer :
-                _trainers) {
-        }
-
-    }
-
     public Collection<Pokemon> getPokemons() {
-        return  _pokemons.values();
+        return  _pokemons;
     }
 
     public void setPokemons(List<Pokemon> pokemons) {
-        this._pokemons = new HashMap<>();
-        pokemons.forEach(pokemon -> this._pokemons.putIfAbsent(pokemon.getKey(),pokemon));
+        _pokemons = pokemons;
+        _pokemons.forEach(pokemon -> updateEdge(pokemon,this.getGraph()));
     }
 
     public void setPokemons(String pokemons) {
@@ -62,13 +59,6 @@ public class GameManager {
     public void setTrainers(List<PokemonTrainer> _trainers) {
         this._trainers = _trainers;
     }
-    public void setTrainers(String _trainers) {
-    }
-    public void setTrainers(int numOfTrainers) {
-        for (int i = 0; i < _pokemons.size(); i++) {
-
-        }
-    }
 
     public directed_weighted_graph getGraph() {
         return _graph;
@@ -76,6 +66,63 @@ public class GameManager {
 
     public void setGraph(directed_weighted_graph _graph) {
         this._graph = _graph;
+    }
+
+    public void findShortestForAgents(){
+        PriorityQueue<TrainerToPath> trainersToPokemonsDist = new PriorityQueue<>(new CompareToForQueue());
+        for (int i = 0; i < _pokemons.size(); i++) {
+            for (PokemonTrainer trainer : _trainers) {
+                List<node_data> path = this._algo.shortestPath(trainer.get_curr_node(),_pokemons.get(i).getEdge().getSrc());
+                path.add(this._graph.getNode(_pokemons.get(i).getEdge().getDest()));
+                trainersToPokemonsDist.add(new TrainerToPath(trainer.getID(),_pokemons.get(i).getEdge().getSrc(),this._graph.getNode(_pokemons.get(i).getEdge().getSrc()).getWeight(),path,_pokemons.get(i).get_id()));
+            }
+        }
+        HashSet<Integer> trainersFilled = new HashSet<>();
+        HashSet<Integer> pokemonFilled = new HashSet<>();
+
+        for (int i = 0; i < _trainers.size(); i++) {
+            TrainerToPath trainerToPokemon = trainersToPokemonsDist.remove();
+            while(trainersFilled.contains(trainerToPokemon.getSrc())||pokemonFilled.contains(trainerToPokemon.get_pokemonId())) {
+                trainerToPokemon = trainersToPokemonsDist.remove();
+            }
+            trainersFilled.add(trainerToPokemon.getSrc());
+            pokemonFilled.add(trainerToPokemon.get_pokemonId());
+            for (PokemonTrainer trainer : _trainers) {
+                if (trainer.getID() == trainerToPokemon.getSrc()) {
+                    trainer.setPathToPokemon(trainerToPokemon.get_path());
+
+                }
+            }
+        }
+    }
+
+    public void updateAgents(String log) {
+        //Iterator<PokemonTrainer> ptIter = log.iterator();
+        try {
+            JSONObject ttt = new JSONObject(log);
+            JSONArray ags = ttt.getJSONArray("Agents");
+            for(int i=0;i<ags.length();i++) {
+                JsonObject trainer = (JsonObject) JsonParser.parseString(ags.get(i).toString()).getAsJsonObject();
+                for (PokemonTrainer pt : _trainers) {
+                    if(pt.getID()==trainer.get("Agent").getAsJsonObject().get("id").getAsInt()){
+                        pt.update(trainer.toString());
+                    }
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    static class CompareToForQueue implements Comparator<edge_data> {
+        @Override
+        public int compare(edge_data o1, edge_data o2) {
+            if (o1.getWeight() == o2.getWeight())
+                return 0;
+            else if (o1.getWeight() < o2.getWeight())
+                return -1;
+            return 1;
+        }
     }
 
     /////////////////////////////////////////////////////////////////////////////////////
@@ -94,12 +141,12 @@ public class GameManager {
         }
     }
 
-
     private static boolean isOnEdge(geo_location p, geo_location src, geo_location dest ) {
         boolean ans = false;
         double dist = src.distance(dest);
         double d1 = src.distance(p) + p.distance(dest);
-        return dist>d1;
+        if(dist>d1-EPS2) {ans = true;}
+        return ans;
     }
     private static boolean isOnEdge(geo_location p, int s, int d, directed_weighted_graph g) {
         geo_location src = g.getNode(s).getLocation();
@@ -122,8 +169,8 @@ public class GameManager {
             JsonObject pk = pp.get("Pokemon").getAsJsonObject();
             int t = pk.get("type").getAsInt();
             double v = pk.get("value").getAsDouble();
-            String [] p = pk.get("pos").getAsString().split(",");
-            geo_location g = new GeoLocations(Double.parseDouble(p[0]),Double.parseDouble(p[1]),Double.parseDouble(p[2]));
+            String p = pk.get("pos").getAsString();
+            GeoLocations g = new GeoLocations(p);
             Pokemon f = new Pokemon(i,v,g,t,null);
             ans.add(f);
         }
@@ -175,12 +222,12 @@ public class GameManager {
         return ans;
     }
 
-
-    public static void main(String[] args) {
-        GameManager manager = new GameManager();
-        game_service game_service = Game_Server_Ex2.getServer(2);
-        manager.setPokemons(game_service.getPokemons());
+    public List<String> get_info() {
+        return _info;
     }
 
-
+    public void set_info(List<String> _info) {
+        this._info = _info;
+    }
 }
+

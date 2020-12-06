@@ -1,5 +1,6 @@
 package gameClient2.util;
 
+import api.GeoLocations;
 import api.geo_location;
 
 /**
@@ -16,13 +17,13 @@ public class Range2Range {
 		_frame = new Range2D(f);
 	}
 	public geo_location world2frame(geo_location p) {
-		Point3D d = _world.getPortion(p);
-		Point3D ans = _frame.fromPortion(d);
+		GeoLocations d = _world.getPortion(p);
+		GeoLocations ans = _frame.fromPortion(d);
 		return ans;
 	}
 	public geo_location frame2world(geo_location p) {
-		Point3D d = _frame.getPortion(p);
-		Point3D ans = _world.fromPortion(d);
+		GeoLocations d = _frame.getPortion(p);
+		GeoLocations ans = _world.fromPortion(d);
 		return ans;
 	}
 	public Range2D getWorld() {

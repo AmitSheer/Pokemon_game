@@ -61,7 +61,7 @@ public class DWGraph_Algo implements dw_graph_algorithms {
         new Dijkstra().reset(graph.getV());
         new Dijkstra().dijkstra(this.graph,this.graph.getNode(src),dest);
         String [] strPath = this.graph.getNode(dest).getInfo().split(",");
-        if (strPath.length==1) return null;
+        if (strPath.length==1) return nodePathToDest;
         for (String nodeKey : strPath) {
             nodePathToDest.add(this.graph.getNode(Integer.parseInt(nodeKey)));
         }

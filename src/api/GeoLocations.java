@@ -46,10 +46,11 @@ public class GeoLocations implements geo_location {
 
     @Override
     public double distance(geo_location g) {
-        double dx = this._x - g.x();
-        double dy = this._y - g.y();
-        double dz = this._z - g.z();
-        return Math.sqrt(dx*dx+dy*dy+dz*dz);
+        double dx = this.x() - g.x();
+        double dy = this.y() - g.y();
+        double dz = this.z() - g.z();
+        double t = (dx*dx+dy*dy+dz*dz);
+        return Math.sqrt(t);
     }
 
     @Override

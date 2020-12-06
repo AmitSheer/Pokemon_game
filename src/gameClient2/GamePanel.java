@@ -1,12 +1,8 @@
 package gameClient2;
 
-import api.directed_weighted_graph;
-import api.edge_data;
-import api.geo_location;
-import api.node_data;
+import api.*;
 import gameClient.CL_Agent;
 import gameClient.CL_Pokemon;
-import gameClient2.util.Point3D;
 import gameClient2.util.Range;
 import gameClient2.util.Range2D;
 import gameClient2.util.Range2Range;
@@ -45,7 +41,7 @@ public class GamePanel extends JPanel {
         drawGraph(g2d);
         drawPokemons(g2d);
         drawAgants(g2d);
-        //drawInfo(g2d);
+        drawInfo(g2d);
         Graphics2D g2dComponent = (Graphics2D) g;
 
         g2dComponent.drawImage(bufferedImage, null, 0, 0);
@@ -59,13 +55,13 @@ public class GamePanel extends JPanel {
         _w2f = GameManager.w2f(g, frame);
     }
 
-//    private void drawInfo(Graphics g) {
-//        List<String> str = _ar.get_info();
-//        String dt = "none";
-//        for (int i = 0; i < str.size(); i++) {
-//            g.drawString(str.get(i) + " dt: " + dt, 100, 60 + i * 20);
-//        }
-//    }
+    private void drawInfo(Graphics g) {
+        List<String> str = _gm.get_info();
+        String dt = "none";
+        for (int i = 0; i < str.size(); i++) {
+            g.drawString(str.get(i) + " dt: " + dt, 100, 60 + i * 20);
+        }
+    }
 
     private void drawGraph(Graphics g) {
         directed_weighted_graph gg = _gm.getGraph();
@@ -93,7 +89,7 @@ public class GamePanel extends JPanel {
             Iterator<Pokemon> itr = fs.iterator();
             while (itr.hasNext()) {
                 Pokemon f = itr.next();
-                Point3D c = new Point3D(f.getLocation().toString());
+                GeoLocations c = new GeoLocations(f.getLocation().toString());
                 int r = 10;
                 g.setColor(Color.green);
                 if (f.getType() < 0) {
