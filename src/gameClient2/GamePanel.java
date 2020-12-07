@@ -7,22 +7,33 @@ import gameClient2.util.Range;
 import gameClient2.util.Range2D;
 import gameClient2.util.Range2Range;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class GamePanel extends JPanel {
+    private static String _pikachuImgPath = "src/gameClient2/assets/Pikachu.png";
+    private static String _miauImgPath = "src/gameClient2/assets/Miau.png";
+    private static String _agentsImgPath = "src/gameClient2/assets/Boaz.png";
+    private static BufferedImage _pika, _miau, _agent;
     private int _ind;
     private GameManager _gm;
     private Range2Range _w2f;
 
-    GamePanel() {
+    GamePanel() throws IOException {
         super();
         this.setOpaque(false);
         this.setBackground(Color.WHITE);
+        //BufferedImage img = ImageIO.read(getAssets(),_pikachuImgPath);
+        _pika = ImageIO.read(new File(_pikachuImgPath));
+        _miau = ImageIO.read(new File(_miauImgPath));
+        _agent = ImageIO.read(new File(_agentsImgPath));
     }
 
     public void update(GameManager gm) {
@@ -92,12 +103,17 @@ public class GamePanel extends JPanel {
                 GeoLocations c = new GeoLocations(f.getLocation().toString());
                 int r = 10;
                 g.setColor(Color.green);
-                if (f.getType() < 0) {
-                    g.setColor(Color.orange);
-                }
+//                if (f.getType() < 0) {
+//                    //g.setColor(Color.orange);
+//                }
                 if (c != null) {
                     geo_location fp = this._w2f.world2frame(f.getLocation());
-                    g.fillOval((int) fp.x() - r, (int) fp.y() - r, 2 * r, 2 * r);
+                    if(f.getType()<0) {
+                        g.drawImage(_pika.getScaledInstance(2 * r, 2 * r, Image.SCALE_SMOOTH), (int) fp.x() - r, (int) fp.y() - r, null);
+                    }else{
+                        g.drawImage(_miau.getScaledInstance(2 * r, 2 * r, Image.SCALE_SMOOTH), (int) fp.x() - r, (int) fp.y() - r, null);
+                    }
+                    //g.fillOval((int) fp.x() - r, (int) fp.y() - r, 2 * r, 2 * r);
                     //	g.drawString(""+n.getKey(), fp.ix(), fp.iy()-4*r);
 
                 }
@@ -108,6 +124,7 @@ public class GamePanel extends JPanel {
     private void drawAgants(Graphics g) {
         List<PokemonTrainer> rs = _gm.getTrainers();
         //	Iterator<OOP_Point3D> itr = rs.iterator();
+
         g.setColor(Color.red);
         int i = 0;
         while (rs != null && i < rs.size()) {
@@ -116,7 +133,8 @@ public class GamePanel extends JPanel {
             i++;
             if (c != null) {
                 geo_location fp = this._w2f.world2frame(c);
-                g.fillOval((int) fp.x() - r, (int) fp.y() - r, 2 * r, 2 * r);
+                g.drawImage(_agent.getScaledInstance(2 * r, 2 * r, Image.SCALE_SMOOTH), (int) fp.x() - r, (int) fp.y() - r, null);
+                //g.fillOval((int) fp.x() - r, (int) fp.y() - r, 2 * r, 2 * r);
             }
         }
     }

@@ -11,6 +11,7 @@ import org.json.JSONObject;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 import java.util.*;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -112,9 +113,14 @@ public class Ex2 implements Runnable{
         _gm.getAlgo().init(gg);
         _frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         _frame.setSize(1000,700);
-        _gp = new GamePanel();
-        _gp.setSize(_frame.getWidth(),_frame.getHeight());
-        _gp.update(_gm);
+        try {
+            _gp = new GamePanel();
+            _gp.setSize(_frame.getWidth(),_frame.getHeight());
+            _gp.update(_gm);
+        }catch(Exception e){
+            System.out.println(e.toString());;
+        }
+
         _frame.add(_gp, BorderLayout.CENTER);
         _frame.show();
         String info = game.toString();

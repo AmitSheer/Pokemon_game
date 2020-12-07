@@ -44,6 +44,7 @@ public class DWGraph_DS implements directed_weighted_graph{
      */
     @Override
     public edge_data getEdge(int src, int dest) {
+        if(src==dest) return new EdgeData(src,dest,0);
         return this.edges.get(src).get(dest);
     }
 
