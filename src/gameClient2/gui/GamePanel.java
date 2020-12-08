@@ -1,8 +1,11 @@
-package gameClient2;
+package gameClient2.gui;
 
 import api.*;
 import gameClient.CL_Agent;
 import gameClient.CL_Pokemon;
+import gameClient2.GameManager;
+import gameClient2.Pokemon;
+import gameClient2.PokemonTrainer;
 import gameClient2.util.Range;
 import gameClient2.util.Range2D;
 import gameClient2.util.Range2Range;
@@ -26,7 +29,7 @@ public class GamePanel extends JPanel {
     private GameManager _gm;
     private Range2Range _w2f;
 
-    GamePanel() throws IOException {
+    public GamePanel() throws IOException {
         super();
         this.setOpaque(false);
         this.setBackground(Color.WHITE);

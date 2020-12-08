@@ -1,10 +1,10 @@
 package gameClient2;
 
-import Server.Game_Server_Ex2;
 import api.*;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import gameClient2.GameLogic.CompareToEdge;
 import gameClient2.util.Range;
 import gameClient2.util.Range2D;
 import gameClient2.util.Range2Range;
@@ -13,6 +13,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Manages the game, initializing graph, pokemon, pokemon trainers
@@ -22,13 +23,14 @@ public class GameManager {
     private dw_graph_algorithms _algo;
     private directed_weighted_graph _graph;
     private List<Pokemon> _pokemons;
-    private List<PokemonTrainer> _trainers;
+    private HashMap<Integer,PokemonTrainer> _trainers;
     private List<String> _info;
 
 
     public GameManager() {
         _info = new ArrayList<String>();
         this._algo = new DWGraph_Algo();
+        this._trainers = new HashMap<>();
     }
 
     public Collection<Pokemon> getPokemons() {
@@ -53,11 +55,14 @@ public class GameManager {
     }
 
     public List<PokemonTrainer> getTrainers() {
-        return _trainers;
+        return _trainers.values().stream().collect(Collectors.toUnmodifiableList());
     }
 
-    public void setTrainers(List<PokemonTrainer> _trainers) {
-        this._trainers = _trainers;
+    public void setTrainers(List<PokemonTrainer> trainers) {
+        for (PokemonTrainer pt :
+                trainers) {
+            this._trainers.put(pt.getID(), pt);
+        }
     }
 
     public directed_weighted_graph getGraph() {
@@ -69,30 +74,26 @@ public class GameManager {
     }
 
     public void findShortestForAgents(){
-        PriorityQueue<TrainerToPath> trainersToPokemonsDist = new PriorityQueue<>(new CompareToForQueue());
+        PriorityQueue<TrainerToPath> trainersToPokemonsDist = new PriorityQueue<>(new CompareToEdge());
         for (int i = 0; i < _pokemons.size(); i++) {
-            for (PokemonTrainer trainer : _trainers) {
+            for (PokemonTrainer trainer : getTrainers()) {
                 List<node_data> path = this._algo.shortestPath(trainer.get_curr_node(),_pokemons.get(i).getEdge().getSrc());
                 path.add(this._graph.getNode(_pokemons.get(i).getEdge().getDest()));
-                trainersToPokemonsDist.add(new TrainerToPath(trainer.getID(),_pokemons.get(i).getEdge().getSrc(),this._graph.getNode(_pokemons.get(i).getEdge().getSrc()).getWeight(),path,_pokemons.get(i).get_id()));
+                double dist = this._graph.getNode(_pokemons.get(i).getEdge().getSrc()).getWeight();// + this._pokemons.get(i).getEdge().getWeight();
+                trainersToPokemonsDist.add(new TrainerToPath(trainer.getID(),_pokemons.get(i).getEdge().getSrc(),dist,path,_pokemons.get(i).get_id()));
             }
         }
         HashSet<Integer> trainersFilled = new HashSet<>();
         HashSet<Integer> pokemonFilled = new HashSet<>();
 
-        for (int i = 0; i < _trainers.size(); i++) {
+        while(pokemonFilled.size()< _pokemons.size()&&trainersFilled.size()< _trainers.size()){
             TrainerToPath trainerToPokemon = trainersToPokemonsDist.remove();
             while(trainersFilled.contains(trainerToPokemon.getSrc())||pokemonFilled.contains(trainerToPokemon.get_pokemonId())) {
                 trainerToPokemon = trainersToPokemonsDist.remove();
             }
             trainersFilled.add(trainerToPokemon.getSrc());
             pokemonFilled.add(trainerToPokemon.get_pokemonId());
-            for (PokemonTrainer trainer : _trainers) {
-                if (trainer.getID() == trainerToPokemon.getSrc()) {
-                    trainer.setPathToPokemon(trainerToPokemon.get_path());
-
-                }
-            }
+            _trainers.get(trainerToPokemon.getSrc()).setPathToPokemon(trainerToPokemon.get_path());
         }
     }
 
@@ -103,27 +104,18 @@ public class GameManager {
             JSONArray ags = ttt.getJSONArray("Agents");
             for(int i=0;i<ags.length();i++) {
                 JsonObject trainer = (JsonObject) JsonParser.parseString(ags.get(i).toString()).getAsJsonObject();
-                for (PokemonTrainer pt : _trainers) {
-                    if(pt.getID()==trainer.get("Agent").getAsJsonObject().get("id").getAsInt()){
-                        pt.update(trainer.toString());
-                    }
-                }
+                getTrainers().get(trainer.get("Agent").getAsJsonObject().get("id").getAsInt()).update(trainer.toString());
+//                for (PokemonTrainer pt : getTrainers()) {
+//                    if(pt.getID()==trainer.get("Agent").getAsJsonObject().get("id").getAsInt()){
+//                        pt.update(trainer.toString());
+//                    }
+//                }
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
-    static class CompareToForQueue implements Comparator<edge_data> {
-        @Override
-        public int compare(edge_data o1, edge_data o2) {
-            if (o1.getWeight() == o2.getWeight())
-                return 0;
-            else if (o1.getWeight() < o2.getWeight())
-                return -1;
-            return 1;
-        }
-    }
 
     /////////////////////////////////////////////////////////////////////////////////////
 
