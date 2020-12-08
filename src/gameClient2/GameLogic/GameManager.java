@@ -1,10 +1,10 @@
-package gameClient2;
+package gameClient2.GameLogic;
 
 import api.*;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import gameClient2.GameLogic.CompareToEdge;
+import gameClient2.gui.GameStatus;
 import gameClient2.util.Range;
 import gameClient2.util.Range2D;
 import gameClient2.util.Range2Range;
@@ -12,7 +12,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.nio.file.Path;
+import java.time.Instant;
 import java.util.*;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
 /**
@@ -23,14 +28,22 @@ public class GameManager {
     private dw_graph_algorithms _algo;
     private directed_weighted_graph _graph;
     private List<Pokemon> _pokemons;
-    private HashMap<Integer,PokemonTrainer> _trainers;
-    private List<String> _info;
-
+    private HashMap<Integer, PokemonTrainer> _trainers;
+    private GameStatus _gs;
+    private String time ="";
 
     public GameManager() {
-        _info = new ArrayList<String>();
         this._algo = new DWGraph_Algo();
         this._trainers = new HashMap<>();
+        _gs = new GameStatus();
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 
     public Collection<Pokemon> getPokemons() {
@@ -69,11 +82,29 @@ public class GameManager {
         return _graph;
     }
 
+
     public void setGraph(directed_weighted_graph _graph) {
         this._graph = _graph;
     }
 
     public void findShortestForAgents(){
+//        ExecutorService executor = Executors.newFixedThreadPool(5);
+//        System.out.println(Instant.now().toString());
+//        List<Callable<Void>> threads = new LinkedList<>();
+//        for (PokemonTrainer pt :
+//                getTrainers()) {
+//            for (Pokemon p :
+//                    _pokemons) {
+//                threads.add(new PathFinder(pt,p,this._algo.copy()));
+//            }
+//        }
+//        try {
+//            executor.invokeAll(threads);
+//            System.out.println(Instant.now().toString());
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//        PriorityQueue<TrainerToPath> trainersToPokemonsDist = PathFinder.trainersToPokemonsDist;
         PriorityQueue<TrainerToPath> trainersToPokemonsDist = new PriorityQueue<>(new CompareToEdge());
         for (int i = 0; i < _pokemons.size(); i++) {
             for (PokemonTrainer trainer : getTrainers()) {
@@ -83,6 +114,7 @@ public class GameManager {
                 trainersToPokemonsDist.add(new TrainerToPath(trainer.getID(),_pokemons.get(i).getEdge().getSrc(),dist,path,_pokemons.get(i).get_id()));
             }
         }
+
         HashSet<Integer> trainersFilled = new HashSet<>();
         HashSet<Integer> pokemonFilled = new HashSet<>();
 
@@ -95,6 +127,7 @@ public class GameManager {
             pokemonFilled.add(trainerToPokemon.get_pokemonId());
             _trainers.get(trainerToPokemon.getSrc()).setPathToPokemon(trainerToPokemon.get_path());
         }
+
     }
 
     public void updateAgents(String log) {
@@ -104,18 +137,21 @@ public class GameManager {
             JSONArray ags = ttt.getJSONArray("Agents");
             for(int i=0;i<ags.length();i++) {
                 JsonObject trainer = (JsonObject) JsonParser.parseString(ags.get(i).toString()).getAsJsonObject();
+
                 getTrainers().get(trainer.get("Agent").getAsJsonObject().get("id").getAsInt()).update(trainer.toString());
-//                for (PokemonTrainer pt : getTrainers()) {
-//                    if(pt.getID()==trainer.get("Agent").getAsJsonObject().get("id").getAsInt()){
-//                        pt.update(trainer.toString());
-//                    }
-//                }
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
+    public GameStatus getGameStatus() {
+        return _gs;
+    }
+
+    public void setGameStatus(String gs) {
+        this._gs.update(gs);
+    }
 
     /////////////////////////////////////////////////////////////////////////////////////
 
@@ -214,12 +250,6 @@ public class GameManager {
         return ans;
     }
 
-    public List<String> get_info() {
-        return _info;
-    }
 
-    public void set_info(List<String> _info) {
-        this._info = _info;
-    }
 }
 

@@ -2,6 +2,9 @@ package gameClient2;
 
 import Server.Game_Server_Ex2;
 import api.*;
+import gameClient2.GameLogic.GameManager;
+import gameClient2.GameLogic.Pokemon;
+import gameClient2.GameLogic.PokemonTrainer;
 import gameClient2.gui.GamePanel;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -15,7 +18,7 @@ public class Ex2 implements Runnable{
     private static GameManager _gm;
     private static JFrame _frame;
     private static GamePanel _gp;
-    private static boolean flag=true;
+    static int counter = 0;
     public static void main(String[] args) {
         Thread client = new Thread(new Ex2());
         client.start();
@@ -38,15 +41,18 @@ public class Ex2 implements Runnable{
         int ind=0;
         long dt;
         if(_gm.getTrainers().size()>=3){
-            dt=100;
+            dt=98;
         }else{
             dt = 50;
         }
+        boolean first = true;
         System.out.println(game.getAgents().toString());
         while(game.isRunning()) {
+            _frame.setTitle("Ex2 - OOP: (NONE trivial Solution) "+_gm.getGameStatus().toString());
+            _gm.getGameStatus().update(game.toString());
             moveAgants(game, gg);
             try {
-                if(ind%1==0) {_frame.repaint();}
+                _frame.repaint();
                 Thread.sleep(dt);
                 ind++;
             }
@@ -57,6 +63,7 @@ public class Ex2 implements Runnable{
         String res = game.toString();
 
         System.out.println(res);
+        System.out.println(counter);
         System.exit(0);
     }
 
@@ -65,22 +72,25 @@ public class Ex2 implements Runnable{
 
     private static void moveAgants(game_service game, directed_weighted_graph gg) {
         String lg = game.move();
-        _gm.updateAgents(lg);
         String fs =  game.getPokemons();
+        _gm.updateAgents(lg);
         List<Pokemon> ffs = GameManager.json2Pokemons(fs);
         ffs.forEach(p->GameManager.updateEdge(p,gg));
-        if (!ffs.equals(_gm.getPokemons())){
-            _gm.setPokemons(ffs);
-            _gm.findShortestForAgents();
-
-        }
+        _gm.setPokemons(ffs);
+//        if (!ffs.equals(_gm.getPokemons())){
+//            _gm.findShortestForAgents();
+//            counter++;
+//        }
+        boolean flag = true;
         for(int i=0;i<_gm.getTrainers().size();i++) {
             PokemonTrainer ag = _gm.getTrainers().get(i);
             int id = ag.getID();
             int dest = ag.getNextNode();
             int src = ag.get_curr_node();
             double v = ag.get_money();
-            if(dest==-1) {
+            if(dest==-1&flag) {
+                flag = false;
+               // counter++;
                 _gm.findShortestForAgents();
                 game.chooseNextEdge(ag.getID(),ag.getNextNode());
             }else{
@@ -108,6 +118,7 @@ public class Ex2 implements Runnable{
     private void loadGameData(game_service game){
         directed_weighted_graph gg = GraphParser.Json2Graph(game.getGraph());
         _gm = new GameManager();
+        _gm.setGameStatus(game.toString());
         _gm.setGraph(gg);
         _gm.setPokemons(game.getPokemons());
         _gm.getAlgo().init(gg);
@@ -127,13 +138,15 @@ public class Ex2 implements Runnable{
                 int ind = a%cl_fs.size();
                 Pokemon c = cl_fs.get(ind);
                 int nn = c.getEdge().getSrc();
-                // if(c.getType()<0 ) {nn = c.getEdge().getSrc();}
+                //if(c.getType()<0 ) {nn = c.getEdge().getSrc();}
                 game.addAgent(nn);
             }
             pts = GameManager.getTrainers(game.getAgents(),gg);
             _gm.setTrainers(pts);
+           // _gm.findShortestForAgents();
         }
         catch (JSONException e) {e.printStackTrace();}
+
     }
     private void loadGui(){
         _frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -147,5 +160,6 @@ public class Ex2 implements Runnable{
         }
         _frame.add(_gp, BorderLayout.CENTER);
         _frame.show();
+        _frame.repaint();
     }
 }

@@ -1,11 +1,9 @@
 package gameClient2.gui;
 
 import api.*;
-import gameClient.CL_Agent;
-import gameClient.CL_Pokemon;
-import gameClient2.GameManager;
-import gameClient2.Pokemon;
-import gameClient2.PokemonTrainer;
+import gameClient2.GameLogic.GameManager;
+import gameClient2.GameLogic.Pokemon;
+import gameClient2.GameLogic.PokemonTrainer;
 import gameClient2.util.Range;
 import gameClient2.util.Range2D;
 import gameClient2.util.Range2Range;
@@ -52,10 +50,10 @@ public class GamePanel extends JPanel {
         g2d.clearRect(0, 0, w, h);
         g2d.fillRect(0,0,w,h);
         updatePanel();
+        drawInfo(g2d);
         drawGraph(g2d);
         drawPokemons(g2d);
         drawAgants(g2d);
-        drawInfo(g2d);
         Graphics2D g2dComponent = (Graphics2D) g;
 
         g2dComponent.drawImage(bufferedImage, null, 0, 0);
@@ -70,11 +68,22 @@ public class GamePanel extends JPanel {
     }
 
     private void drawInfo(Graphics g) {
-        List<String> str = _gm.get_info();
-        String dt = "none";
-        for (int i = 0; i < str.size(); i++) {
-            g.drawString(str.get(i) + " dt: " + dt, 100, 60 + i * 20);
-        }
+        GameStatus str = _gm.getGameStatus();
+        Graphics2D g2D = (Graphics2D) g;
+        g2D.setColor(Color.BLACK);
+        g2D.setFont(new Font("OCR A Extended", Font.PLAIN, (this.getHeight() + this.getWidth()) / 80));
+        //String dt=_ar
+        int x0 = this.getWidth() / 70;
+        int y0 = this.getHeight() / 20;
+
+        //g2D.drawString(_gm.getTime(), (int) x0 * 5, (int) y0);
+        g2D.drawString("Grade: "+_gm.getGameStatus().get_grade(), (int) x0 * 5, (int) y0);
+        y0 = y0 +this.getHeight() / 20;
+        g2D.drawString("Moves:"+_gm.getGameStatus().get_moves(), (int) x0 * 5, (int) y0);
+//        g2D.setFont(new Font("OCR A Extended", Font.PLAIN, (this.getHeight() + this.getWidth()) /90));
+//        for (int i = 0; i < str.size(); i++) {
+//            g2D.drawString(str.get(i), (int) x0*5, (int) y0 + (i*2+2) * 20);
+//        }
     }
 
     private void drawGraph(Graphics g) {

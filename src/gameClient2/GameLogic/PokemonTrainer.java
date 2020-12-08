@@ -1,9 +1,6 @@
-package gameClient2;
+package gameClient2.GameLogic;
 
 import api.*;
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-import gameClient.util.Point3D;
 import org.json.JSONObject;
 
 import java.util.LinkedList;
@@ -39,7 +36,7 @@ public class PokemonTrainer {
         //pathToPokemon.remove(0);
         this._pathToPokemon = pathToPokemon;
         this.set_next_node(this._pathToPokemon.remove(0).getKey());
-        this._curr_edge = _gg.getEdge(this.get_curr_node(),this._next_node.getKey());
+        //this._curr_edge = _gg.getEdge(this.get_curr_node(),this._next_node.getKey());
     }
 
     public void moveTrainer(){
