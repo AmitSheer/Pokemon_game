@@ -36,6 +36,8 @@ public class GameManager {
         this._algo = new DWGraph_Algo();
         this._trainers = new HashMap<>();
         _gs = new GameStatus();
+        _graph = new DWGraph_DS();
+        _pokemons = new LinkedList<>();
     }
 
     public String getTime() {
