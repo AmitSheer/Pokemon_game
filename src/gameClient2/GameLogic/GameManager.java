@@ -139,8 +139,8 @@ public class GameManager {
             JSONArray ags = ttt.getJSONArray("Agents");
             for(int i=0;i<ags.length();i++) {
                 JsonObject trainer = (JsonObject) JsonParser.parseString(ags.get(i).toString()).getAsJsonObject();
-
-                getTrainers().get(trainer.get("Agent").getAsJsonObject().get("id").getAsInt()).update(trainer.toString());
+                int id = trainer.get("Agent").getAsJsonObject().get("id").getAsInt();
+                _trainers.get(id).update(trainer.toString());
             }
         } catch (JSONException e) {
             e.printStackTrace();

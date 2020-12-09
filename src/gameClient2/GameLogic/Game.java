@@ -15,15 +15,26 @@ import java.util.Iterator;
 import java.util.List;
 
 public class Game implements Runnable{
-    private static game_service game;
-    private static GameManager _gm;
-    private static GamePanel _gp;
+    private  game_service game;
+    private  GameManager _gm;
+    private  GamePanel _gp;
+    private static Thread server;
 
     public void startGame(GamePanel panel){
         _gp = panel;
         game = Game_Server_Ex2.getServer(11);
-        Thread server = new Thread(this);
+        server = new Thread(this);
         server.start();
+    }
+
+    public synchronized void startGame(GamePanel panel,int scenario,int id){
+        _gp = panel;
+        //gameStop();
+        game = Game_Server_Ex2.getServer(scenario);
+        server = new Thread(this);
+        server.start();
+//        game.login(id);
+        //server.getState();
     }
 
     @Override
@@ -48,9 +59,8 @@ public class Game implements Runnable{
         String res = game.toString();
 
         System.out.println(res);
-        System.exit(0);
     }
-    private static void moveAgants(game_service game, directed_weighted_graph gg) {
+    private void moveAgants(game_service game, directed_weighted_graph gg) {
         String lg = game.move();
         String fs =  game.getPokemons();
         _gm.updateAgents(lg);
@@ -100,7 +110,7 @@ public class Game implements Runnable{
                 //if(c.getType()<0 ) {nn = c.getEdge().getSrc();}
                 game.addAgent(nn);
             }
-            pts = GameManager.getTrainers(game.getAgents(),gg);
+                          pts = GameManager.getTrainers(game.getAgents(),gg);
             _gm.setTrainers(pts);
         }
         catch (JSONException e) {e.printStackTrace();}
@@ -109,7 +119,8 @@ public class Game implements Runnable{
     public boolean isRunning(){
         return game.isRunning();
     }
-    public void gameStop(){
+    public synchronized void gameStop(){
+        server.stop();
         game.stopGame();
     }
 }

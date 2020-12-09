@@ -28,7 +28,7 @@ public class Ex2{
     public static void main(String[] args) {
         MyFrame frame = new MyFrame();
         frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        frame.setSize(1000,700);
+//        frame.setSize(1000,700);
         frame.show();
 //        if(args.length!=2) {
 //            int scenario_num = 11;

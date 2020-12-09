@@ -1,12 +1,11 @@
 package gameClient2.gui;
 
 import javax.swing.*;
-import javax.swing.text.AbstractDocument;
-import javax.swing.text.AttributeSet;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.DocumentFilter;
+import javax.swing.text.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.NumberFormat;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -36,7 +35,7 @@ public class GameInputPanel extends JPanel {
         this.add(_id);
         this.add(_scenario);
         this.add(_startRunButton);
-        //this.setSize(20,30);
+        this.setSize(20,30);
     }
 
     private void IdFilter() {
@@ -47,13 +46,16 @@ public class GameInputPanel extends JPanel {
                 Matcher matcher = regEx.matcher(text);
                 if(!matcher.matches()){
                     return;
+                } else if(offset>9){
+                    return;
                 }
+
                 super.replace(fb, offset, length, text, attrs);
             }
         });
     }
 
     private void selectionButtonPressed() {
-        MyFrame.startGame();
+        MyFrame.startGame(Integer.parseInt(_scenario.getValue().toString()),Integer.parseInt(_id.getText()));
     }
 }

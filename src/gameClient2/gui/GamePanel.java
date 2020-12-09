@@ -32,6 +32,7 @@ public class GamePanel extends JPanel {
     private Range2Range _w2f;
 
 
+
     public GamePanel() throws IOException {
         super();
         this.setOpaque(false);
@@ -57,15 +58,16 @@ public class GamePanel extends JPanel {
     }
 
     public void startGame(int scenario,int id){
-        if(game.isRunning()){
-            game.gameStop();
-        }
-        game.startGame(this);
+        try{
+            if(game.isRunning()){
+                game.gameStop();
+            }
+        }catch(Exception ignore ){}
+        game.startGame(this,scenario,id);
+
     }
     public void startGame(){
-        //if(game.isRunning()){
-        //game.gameStop();
-        //}
+        game = new Game();
         game.startGame(this);
     }
     public void update(GameManager gm) {
@@ -104,7 +106,7 @@ public class GamePanel extends JPanel {
 
         GameStatus str = _gm.getGameStatus();
         Graphics2D g2D = (Graphics2D) g;
-        g2D.setColor(Color.WHITE);
+        g2D.setColor(Color.black);
         g2D.setFont(new Font("OCR A Extended", Font.PLAIN, (this.getHeight() + this.getWidth()) / 80));
         //String dt=_ar
         int x0 = this.getWidth() / 70;
