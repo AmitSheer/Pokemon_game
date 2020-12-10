@@ -20,6 +20,7 @@ public class GameInputPanel extends JPanel {
     public GameInputPanel(MyFrame frame) {
         _frame = frame;
         _id = new JTextField();
+        _id.setName("id");
         IdFilter();
         _id.setColumns(9);
         _id.setSize(10,10);

@@ -102,7 +102,6 @@ public class GameManager {
 //        }
 //        try {
 //            executor.invokeAll(threads);
-//            System.out.println(Instant.now().toString());
 //        } catch (InterruptedException e) {
 //            e.printStackTrace();
 //        }
@@ -112,7 +111,7 @@ public class GameManager {
             for (PokemonTrainer trainer : getTrainers()) {
                 List<node_data> path = this._algo.shortestPath(trainer.get_curr_node(),_pokemons.get(i).getEdge().getSrc());
                 path.add(this._graph.getNode(_pokemons.get(i).getEdge().getDest()));
-                double dist = this._graph.getNode(_pokemons.get(i).getEdge().getSrc()).getWeight();// + this._pokemons.get(i).getEdge().getWeight();
+                double dist = this._graph.getNode(_pokemons.get(i).getEdge().getSrc()).getWeight() + this._pokemons.get(i).getEdge().getWeight();
                 trainersToPokemonsDist.add(new TrainerToPath(trainer.getID(),_pokemons.get(i).getEdge().getSrc(),dist,path,_pokemons.get(i).get_id()));
             }
         }
@@ -135,6 +134,7 @@ public class GameManager {
     public void updateAgents(String log) {
         //Iterator<PokemonTrainer> ptIter = log.iterator();
         try {
+//            System.out.println(log);
             JSONObject ttt = new JSONObject(log);
             JSONArray ags = ttt.getJSONArray("Agents");
             for(int i=0;i<ags.length();i++) {

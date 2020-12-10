@@ -18,6 +18,7 @@ public class MyFrame extends JFrame {
     }
 
     public MyFrame(){
+        this.setSize(1000,700);
         init();
     }
     private void init(){
@@ -37,12 +38,10 @@ public class MyFrame extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         _sp.setResizeWeight(1);
         _sp.setToolTipText("Tap to Expand/Minimize");
-        _sp.setMaximumSize(new Dimension(100,this.getHeight()));
-        //_sp.setMaximumSize(new Dimension(100,this.getHeight()));
-        _sp.setDividerLocation(1000);
+        //_sp.setMaximumSize(new Dimension(,this.getHeight()));
+        _sp.setDividerLocation(850);
         _sp.setBackground(Color.white);
         setVisible(true);
-        pack();
         _sp.addPropertyChangeListener(new PropertyChangeListener() {
             public void propertyChange(PropertyChangeEvent changeEvent) {
                 if (changeEvent.getPropertyName().equals(JSplitPane.DIVIDER_LOCATION_PROPERTY)) {
@@ -50,7 +49,8 @@ public class MyFrame extends JFrame {
                 }
             }
         });
-        startGame();
+        pack();
+        //startGame();
     }
 
     public static void startGame(){

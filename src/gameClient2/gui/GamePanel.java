@@ -48,11 +48,12 @@ public class GamePanel extends JPanel {
         _frame = frame;
         this.setOpaque(false);
         this.setBackground(Color.WHITE);
-        this.setSize(frame.getWidth()-10, frame.getHeight());
+        this.setSize(frame.getWidth(), frame.getHeight());
         //BufferedImage img = ImageIO.read(getAssets(),_pikachuImgPath);
         _pika = ImageIO.read(new File(_pikachuImgPath));
         _miau = ImageIO.read(new File(_miauImgPath));
         _agent = ImageIO.read(new File(_agentsImgPath));
+        _background = ImageIO.read(new File(_backgroundImgPath));
         _gm = new GameManager();
         game = new Game();
     }
@@ -84,10 +85,10 @@ public class GamePanel extends JPanel {
         g2d.clearRect(0, 0, w, h);
         g2d.fillRect(0,0,w,h);
         updatePanel();
-        g2d.drawImage(_background,0,0,null);
+        Dimension d = _frame.getSize();
+        g2d.drawImage(_background,0,0,d.width,d.height,null);
         drawInfo(g2d);
         drawGraph(g2d);
-//        Graphics2D g2dComponent = (Graphics2D) g;
         drawAgants(g2d);
         drawPokemons(g2d);
         g.drawImage(bufferedImage,0,0,null);
@@ -136,7 +137,6 @@ public class GamePanel extends JPanel {
         }
         iter = gg.getV().iterator();
         g.setColor(Color.blue);
-
         while(iter.hasNext()){
             drawNode(iter.next(), 5, g);
         }
@@ -151,9 +151,6 @@ public class GamePanel extends JPanel {
                 GeoLocations c = new GeoLocations(f.getLocation().toString());
                 int r = 10;
                 g.setColor(Color.green);
-//                if (f.getType() < 0) {
-//                    //g.setColor(Color.orange);
-//                }
                 if (c != null) {
                     geo_location fp = this._w2f.world2frame(f.getLocation());
                     if(f.getType()<0) {
@@ -161,9 +158,6 @@ public class GamePanel extends JPanel {
                     }else{
                         g.drawImage(_miau.getScaledInstance(2 * r, 2 * r, Image.SCALE_SMOOTH), (int) fp.x() - r, (int) fp.y() - r, null);
                     }
-                    //g.fillOval((int) fp.x() - r, (int) fp.y() - r, 2 * r, 2 * r);
-                    //	g.drawString(""+n.getKey(), fp.ix(), fp.iy()-4*r);
-
                 }
             }
         }

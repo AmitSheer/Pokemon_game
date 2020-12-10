@@ -27,14 +27,12 @@ public class Game implements Runnable{
         server.start();
     }
 
-    public synchronized void startGame(GamePanel panel,int scenario,int id){
+    public void startGame(GamePanel panel,int scenario,int id){
         _gp = panel;
-        //gameStop();
         game = Game_Server_Ex2.getServer(scenario);
         server = new Thread(this);
         server.start();
 //        game.login(id);
-        //server.getState();
     }
 
     @Override
@@ -43,7 +41,7 @@ public class Game implements Runnable{
         loadGameData();
         _gp.update(_gm);
         game.startGame();
-        long dt=98;
+        long dt=95;
         System.out.println(game.getAgents());
         while(game.isRunning()) {
             _gm.getGameStatus().update(game.toString());
