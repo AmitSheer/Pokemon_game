@@ -22,8 +22,8 @@ public class PathFinder implements Callable<Void> {
     public Void call() throws Exception {
             List<node_data> path = this._algo.shortestPath(_trainer.get_curr_node(), _pokemons.getEdge().getSrc());
             path.add(this._algo.getGraph().getNode(_pokemons.getEdge().getDest()));
-            double dist = this._algo.getGraph().getNode(_pokemons.getEdge().getSrc()).getWeight();// + this._pokemons.get(i).getEdge().getWeight();
-            trainersToPokemonsDist.add(new TrainerToPath(_trainer.getID(), _pokemons.getEdge().getSrc(), dist, path, _pokemons.get_id()));
+            double dist = this._algo.getGraph().getNode(_pokemons.getEdge().getSrc()).getWeight() + this._pokemons.getEdge().getWeight();
+            trainersToPokemonsDist.add(new TrainerToPath(_trainer.getID(), _pokemons.getEdge().getSrc(), dist/ _trainer.get_speed(), path, _pokemons.get_id()));
         return null;
     }
 }

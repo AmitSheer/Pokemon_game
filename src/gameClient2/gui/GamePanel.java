@@ -1,6 +1,7 @@
 package gameClient2.gui;
 
 import api.*;
+import gameClient2.GameLogic.Game;
 import gameClient2.GameLogic.GameManager;
 import gameClient2.GameLogic.Pokemon;
 import gameClient2.GameLogic.PokemonTrainer;
@@ -10,6 +11,7 @@ import gameClient2.util.Range2Range;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.text.JTextComponent;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -22,10 +24,14 @@ public class GamePanel extends JPanel {
     private static String _pikachuImgPath = "src/gameClient2/assets/Pikachu.png";
     private static String _miauImgPath = "src/gameClient2/assets/Miau.png";
     private static String _agentsImgPath = "src/gameClient2/assets/Boaz.png";
-    private static BufferedImage _pika, _miau, _agent;
-    private int _ind;
+    private static String _backgroundImgPath = "src/gameClient2/assets/grass.jpg";
+    private static Image _pika, _miau, _agent,_background;
+    private static MyFrame _frame;
+    private static Game game;
     private GameManager _gm;
     private Range2Range _w2f;
+
+
 
     public GamePanel() throws IOException {
         super();
@@ -35,8 +41,36 @@ public class GamePanel extends JPanel {
         _pika = ImageIO.read(new File(_pikachuImgPath));
         _miau = ImageIO.read(new File(_miauImgPath));
         _agent = ImageIO.read(new File(_agentsImgPath));
+        _gm = new GameManager();
     }
 
+    public GamePanel(MyFrame frame) throws IOException {
+        _frame = frame;
+        this.setOpaque(false);
+        this.setBackground(Color.WHITE);
+        this.setSize(frame.getWidth(), frame.getHeight());
+        //BufferedImage img = ImageIO.read(getAssets(),_pikachuImgPath);
+        _pika = ImageIO.read(new File(_pikachuImgPath));
+        _miau = ImageIO.read(new File(_miauImgPath));
+        _agent = ImageIO.read(new File(_agentsImgPath));
+        _background = ImageIO.read(new File(_backgroundImgPath));
+        _gm = new GameManager();
+        game = new Game();
+    }
+
+    public void startGame(int scenario,int id){
+        try{
+            if(game.isRunning()){
+                game.gameStop();
+            }
+        }catch(Exception ignore ){}
+        game.startGame(this,scenario,id);
+
+    }
+    public void startGame(){
+        game = new Game();
+        game.startGame(this);
+    }
     public void update(GameManager gm) {
         this._gm = gm;
         updatePanel();
@@ -45,18 +79,20 @@ public class GamePanel extends JPanel {
     protected void paintComponent(Graphics g) {
         BufferedImage bufferedImage = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_4BYTE_ABGR_PRE);
         Graphics2D g2d = bufferedImage.createGraphics();
+        super.paintComponent(g);
         int w = this.getWidth();
         int h = this.getHeight();
         g2d.clearRect(0, 0, w, h);
         g2d.fillRect(0,0,w,h);
         updatePanel();
+        Dimension d = _frame.getSize();
+        g2d.drawImage(_background,0,0,d.width,d.height,null);
         drawInfo(g2d);
         drawGraph(g2d);
-        drawPokemons(g2d);
         drawAgants(g2d);
-        Graphics2D g2dComponent = (Graphics2D) g;
-
-        g2dComponent.drawImage(bufferedImage, null, 0, 0);
+        drawPokemons(g2d);
+        g.drawImage(bufferedImage,0,0,null);
+//        g2dComponent.drawImage(bufferedImage, null, 0, 0);
     }
 
     private void updatePanel() {
@@ -68,9 +104,10 @@ public class GamePanel extends JPanel {
     }
 
     private void drawInfo(Graphics g) {
+
         GameStatus str = _gm.getGameStatus();
         Graphics2D g2D = (Graphics2D) g;
-        g2D.setColor(Color.BLACK);
+        g2D.setColor(Color.black);
         g2D.setFont(new Font("OCR A Extended", Font.PLAIN, (this.getHeight() + this.getWidth()) / 80));
         //String dt=_ar
         int x0 = this.getWidth() / 70;
@@ -100,7 +137,6 @@ public class GamePanel extends JPanel {
         }
         iter = gg.getV().iterator();
         g.setColor(Color.blue);
-
         while(iter.hasNext()){
             drawNode(iter.next(), 5, g);
         }
@@ -115,9 +151,6 @@ public class GamePanel extends JPanel {
                 GeoLocations c = new GeoLocations(f.getLocation().toString());
                 int r = 10;
                 g.setColor(Color.green);
-//                if (f.getType() < 0) {
-//                    //g.setColor(Color.orange);
-//                }
                 if (c != null) {
                     geo_location fp = this._w2f.world2frame(f.getLocation());
                     if(f.getType()<0) {
@@ -125,9 +158,6 @@ public class GamePanel extends JPanel {
                     }else{
                         g.drawImage(_miau.getScaledInstance(2 * r, 2 * r, Image.SCALE_SMOOTH), (int) fp.x() - r, (int) fp.y() - r, null);
                     }
-                    //g.fillOval((int) fp.x() - r, (int) fp.y() - r, 2 * r, 2 * r);
-                    //	g.drawString(""+n.getKey(), fp.ix(), fp.iy()-4*r);
-
                 }
             }
         }
@@ -167,4 +197,5 @@ public class GamePanel extends JPanel {
         g.drawLine((int) s0.x(), (int) s0.y(), (int) d0.x(), (int) d0.y());
         //	g.drawString(""+n.getKey(), fp.ix(), fp.iy()-4*r);
     }
+
 }
