@@ -121,7 +121,7 @@ public class GameManager {
 
         while(pokemonFilled.size()< _pokemons.size()&&trainersFilled.size()< _trainers.size()){
             TrainerToPath trainerToPokemon = trainersToPokemonsDist.remove();
-            while(trainersFilled.contains(trainerToPokemon.getSrc())||pokemonFilled.contains(trainerToPokemon.get_pokemonId())) {
+            while(trainersFilled.contains(trainerToPokemon.getSrc())||pokemonFilled.contains(trainerToPokemon.get_pokemonId())||trainerToPokemon.getWeight()==Integer.MAX_VALUE) {
                 trainerToPokemon = trainersToPokemonsDist.remove();
             }
             trainersFilled.add(trainerToPokemon.getSrc());

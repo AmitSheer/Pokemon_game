@@ -1,17 +1,12 @@
 package gameClient2.GameLogic;
 
 import Server.Game_Server_Ex2;
-import api.GraphParser;
-import api.directed_weighted_graph;
-import api.edge_data;
-import api.game_service;
+import api.*;
 import gameClient2.gui.GamePanel;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 
 public class Game implements Runnable{
@@ -72,8 +67,7 @@ public class Game implements Runnable{
             int dest = ag.getNextNode();
             int src = ag.get_curr_node();
             double v = ag.get_money();
-            if(dest==-1&flag) {
-                flag = false;
+            if(dest==-1) {
                 _gm.findShortestForAgents();
                 game.chooseNextEdge(ag.getID(),ag.getNextNode());
             }else{
@@ -108,11 +102,35 @@ public class Game implements Runnable{
                 //if(c.getType()<0 ) {nn = c.getEdge().getSrc();}
                 game.addAgent(nn);
             }
-                          pts = GameManager.getTrainers(game.getAgents(),gg);
+            pts = GameManager.getTrainers(game.getAgents(),gg);
             _gm.setTrainers(pts);
         }
         catch (JSONException e) {e.printStackTrace();}
 
+    }
+
+    private void loadAgents(game_service game, int rs, ArrayList<Pokemon> cl_fs, directed_weighted_graph gg) {
+        if (_gm.getAlgo().isConnected()) {
+            for (int a = 0; a < rs; a++) {
+                int ind = a % cl_fs.size();
+                Pokemon c = cl_fs.get(ind);
+                int nn = c.getEdge().getSrc();
+                game.addAgent(nn);
+            }
+        } else {
+            System.out.println("Not connected");
+            List<Integer> nodeKeys = Tarjan.getSccNodes();
+            int index = 0;
+            for (; index < nodeKeys.size() && index < rs; index++) {
+                for (Pokemon p : _gm.getPokemons()) {
+                    if (_gm.getAlgo().shortestPathDist(nodeKeys.get(index), p.getEdge().getSrc()) != 0) {
+                        game.addAgent(p.getEdge().getSrc());
+                        break;
+                    }
+                }
+            }
+            _gm.setTrainers(GameManager.getTrainers(game.getAgents(), gg));
+        }
     }
     public boolean isRunning(){
         return game.isRunning();

@@ -25,7 +25,8 @@ public class GamePanel extends JPanel {
     private static String _miauImgPath = "src/gameClient2/assets/Miau.png";
     private static String _agentsImgPath = "src/gameClient2/assets/Boaz.png";
     private static String _backgroundImgPath = "src/gameClient2/assets/grass.jpg";
-    private static Image _pika, _miau, _agent,_background;
+    private static String _townImgPath = "src/gameClient2/assets/town.jpg";
+    private static Image _pika, _miau, _agent,_background, _town;
     private static MyFrame _frame;
     private static Game game;
     private GameManager _gm;
@@ -41,6 +42,7 @@ public class GamePanel extends JPanel {
         _pika = ImageIO.read(new File(_pikachuImgPath));
         _miau = ImageIO.read(new File(_miauImgPath));
         _agent = ImageIO.read(new File(_agentsImgPath));
+        _town = ImageIO.read(new File(_townImgPath));
         _gm = new GameManager();
     }
 
@@ -54,6 +56,7 @@ public class GamePanel extends JPanel {
         _miau = ImageIO.read(new File(_miauImgPath));
         _agent = ImageIO.read(new File(_agentsImgPath));
         _background = ImageIO.read(new File(_backgroundImgPath));
+        _town = ImageIO.read(new File(_townImgPath));
         _gm = new GameManager();
         game = new Game();
     }
@@ -107,8 +110,8 @@ public class GamePanel extends JPanel {
 
         GameStatus str = _gm.getGameStatus();
         Graphics2D g2D = (Graphics2D) g;
-        g2D.setColor(Color.black);
-        g2D.setFont(new Font("OCR A Extended", Font.PLAIN, (this.getHeight() + this.getWidth()) / 80));
+        g2D.setColor(Color.white);
+        g2D.setFont(new Font("OCR A Extended", Font.BOLD, (this.getHeight() + this.getWidth()) / 80));
         //String dt=_ar
         int x0 = this.getWidth() / 70;
         int y0 = this.getHeight() / 20;
@@ -126,7 +129,7 @@ public class GamePanel extends JPanel {
     private void drawGraph(Graphics g) {
         directed_weighted_graph gg = _gm.getGraph();
         Iterator<node_data> iter = gg.getV().iterator();
-        g.setColor(Color.gray);
+        g.setColor(Color.white);
         while (iter.hasNext()) {
             node_data n = iter.next();
             Iterator<edge_data> itr = gg.getE(n.getKey()).iterator();
@@ -136,7 +139,7 @@ public class GamePanel extends JPanel {
             }
         }
         iter = gg.getV().iterator();
-        g.setColor(Color.blue);
+        g.setColor(Color.red);
         while(iter.hasNext()){
             drawNode(iter.next(), 5, g);
         }
@@ -150,11 +153,11 @@ public class GamePanel extends JPanel {
                 Pokemon f = itr.next();
                 GeoLocations c = new GeoLocations(f.getLocation().toString());
                 int r = 10;
-                g.setColor(Color.green);
+                //g.setColor(Color.green);
                 if (c != null) {
                     geo_location fp = this._w2f.world2frame(f.getLocation());
                     if(f.getType()<0) {
-                        g.drawImage(_pika.getScaledInstance(2 * r, 2 * r, Image.SCALE_SMOOTH), (int) fp.x() - r, (int) fp.y() - r, null);
+                        g.drawImage(_pika.getScaledInstance(2 * r+this.getWidth()/100, 2 * r+this.getHeight()/100, Image.SCALE_SMOOTH), (int) fp.x() - r-this.getWidth()/100, (int) fp.y() - r-this.getHeight()/200, null);
                     }else{
                         g.drawImage(_miau.getScaledInstance(2 * r, 2 * r, Image.SCALE_SMOOTH), (int) fp.x() - r, (int) fp.y() - r, null);
                     }
@@ -175,7 +178,7 @@ public class GamePanel extends JPanel {
             i++;
             if (c != null) {
                 geo_location fp = this._w2f.world2frame(c);
-                g.drawImage(_agent.getScaledInstance(2 * r, 2 * r, Image.SCALE_SMOOTH), (int) fp.x() - r, (int) fp.y() - r, null);
+                g.drawImage(_agent.getScaledInstance(2 * r+this.getWidth()/100, 2 * r+this.getHeight()/100, Image.SCALE_SMOOTH), (int) fp.x() -r-_frame.getWidth()/200, (int) fp.y() - r-_frame.getHeight()/200, null);
                 //g.fillOval((int) fp.x() - r, (int) fp.y() - r, 2 * r, 2 * r);
             }
         }
@@ -184,7 +187,8 @@ public class GamePanel extends JPanel {
     private void drawNode(node_data n, int r, Graphics g) {
         geo_location pos = n.getLocation();
         geo_location fp = this._w2f.world2frame(pos);
-        g.fillOval((int) fp.x() - r, (int) fp.y() - r, 2 * r, 2 * r);
+        g.drawImage(_town.getScaledInstance(2 * r+this.getWidth()/100, 2 * r+this.getHeight()/100, Image.SCALE_SMOOTH),(int)fp.x()-(r+this.getWidth()/300), (int) fp.y()-(r+this.getHeight()/200),null);
+        //g.fillOval((int) fp.x() - r, (int) fp.y() - r, this.getWidth()/100, this.getHeight()/100);
         //g.drawString("" + n.getKey(), (int) fp.x(), (int) fp.y() - 4 * r);
     }
 

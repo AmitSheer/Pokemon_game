@@ -36,9 +36,8 @@ public class MyFrame extends JFrame {
         getContentPane().add(_sp, BorderLayout.CENTER);
         setPreferredSize(new Dimension(1000, 700));
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        _sp.setResizeWeight(1);
-        _sp.setToolTipText("Tap to Expand/Minimize");
-        //_sp.setMaximumSize(new Dimension(,this.getHeight()));
+        _sp.setResizeWeight(0);
+        //_sp.setToolTipText("Tap to Expand/Minimize");
         _sp.setDividerLocation(850);
         _sp.setBackground(Color.white);
         setVisible(true);

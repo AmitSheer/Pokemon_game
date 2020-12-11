@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
-public class BFS {
+public class Tarjan {
     private static int[] ids;
     private static int[] lows;
     private static boolean[] onStack;
@@ -35,12 +35,12 @@ public class BFS {
         if (g.nodeSize() == 0) return true;
         for (node_data node : g.getV()) {
             if (node.getTag() == -1)
-                dfs(node);
+                tarjan(node);
         }
         return sccCount == 1;
     }
 
-    private static void dfs(node_data node) {
+    private static void tarjan(node_data node) {
         node.setTag(id);
         ids[node.getTag()] = lows[node.getTag()] = node.getTag();
         id++;
@@ -49,7 +49,7 @@ public class BFS {
         for (edge_data to : graph.getE(node.getKey())) {
             node_data curr = graph.getNode(to.getDest());
             if (curr.getTag() == -1) {
-                dfs(curr);
+                tarjan(curr);
                 lows[node.getTag()] = Math.min(lows[node.getTag()], lows[curr.getTag()]);
             } else if (onStack[curr.getTag()])
                 lows[node.getTag()] = Math.min(lows[node.getTag()], lows[curr.getTag()]);

@@ -37,8 +37,8 @@ public class DWGraph_Algo implements dw_graph_algorithms {
 
     @Override
     public boolean isConnected() {
-        BFS.reset(graph);
-        return  BFS.init(this.graph);
+        Tarjan.reset(graph);
+        return  Tarjan.init(this.graph);
     }
 
     @Override

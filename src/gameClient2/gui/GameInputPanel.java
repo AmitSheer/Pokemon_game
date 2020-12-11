@@ -26,7 +26,7 @@ public class GameInputPanel extends JPanel {
         _id.setSize(10,10);
         _scenario = new JSpinner(new SpinnerNumberModel(0,0,23,1));
         _scenario.setSize(10,10);
-        _startRunButton = new JButton("blablabla");
+        _startRunButton = new JButton("Start Scenario");
         _startRunButton.setSize(10,10);
         _startRunButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
