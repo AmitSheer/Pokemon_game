@@ -47,11 +47,6 @@ public class Game implements Runnable{
             moveTrainers(game, gg);
             try {
                 _gp.repaint();
-                if(badPokemon.size()>0){
-                    dt=50;
-                }else{
-                    dt=100;
-                }
                 Thread.sleep(dt);
             }
             catch(Exception e) {
@@ -90,11 +85,9 @@ public class Game implements Runnable{
         String lg = game.move();
         String fs =  game.getPokemons();
         _gm.updateAgents(lg);
-        List<Pokemon> ffs = GameManager.json2Pokemons(fs);
+        HashSet<Pokemon> ffs = GameManager.json2Pokemons(fs);
         ffs.forEach(p->GameManager.updateEdge(p,gg));
-        System.out.println(ffs.toString());
         _gm.setPokemons(ffs);
-        System.out.println(_gm.getPokemons().toString());
         boolean flag = true;
         for(PokemonTrainer trainer: _gm.getTrainers()) {
             nextEdge(trainer);
@@ -121,11 +114,9 @@ public class Game implements Runnable{
             System.out.println(info);
             System.out.println(game.getPokemons());
             int src_node = 0;  // arbitrary node, you should start at one of the pokemon
-            ArrayList<Pokemon> cl_fs = GameManager.json2Pokemons(game.getPokemons());
-            for(int a = 0;a<cl_fs.size();a++) { GameManager.updateEdge(cl_fs.get(a),gg);}
             for(int a = 0;a<rs;a++) {
-                int ind = a%cl_fs.size();
-                Pokemon c = cl_fs.get(ind);
+                int ind = a%_gm.getPokemons().size();
+                Pokemon c = _gm.getPokemons().get(ind);
                 int nn = c.getEdge().getSrc();
                 //if(c.getType()<0 ) {nn = c.getEdge().getSrc();}
                 game.addAgent(nn);
@@ -239,8 +230,8 @@ public class Game implements Runnable{
             trainersFilled.add(trainerToPokemon.getSrc());
             pokemonFilled.add(trainerToPokemon.get_pokemonId());
             _gm.updateTrainerPath(trainerToPokemon.get_path(),trainerToPokemon.getSrc());
-            _gm.getTrainer(trainerToPokemon.getSrc()).setNextPoke(_gm.getPokemon(trainerToPokemon.get_pokemonId()));
-            _gm.getPokemon(trainerToPokemon.get_pokemonId()).setTrainerId(trainerToPokemon.getSrc());
+//            _gm.getTrainer(trainerToPokemon.getSrc()).setNextPoke(_gm.getPokemon(trainerToPokemon.get_pokemonId()));
+//            _gm.getPokemon(trainerToPokemon.get_pokemonId()).setTrainerId(trainerToPokemon.getSrc());
         }
     }
 }

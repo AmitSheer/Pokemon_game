@@ -22,7 +22,7 @@ public class GameManager {
     public static final double EPS1 = 0.001, EPS2=EPS1*EPS1, EPS=EPS2;
     private dw_graph_algorithms _algo;
     private directed_weighted_graph _graph;
-    private List<Pokemon> _pokemons;
+    private HashSet<Pokemon> _pokemons;
     private HashMap<Integer, PokemonTrainer> _trainers;
     private GameStatus _gs;
     private String time ="";
@@ -32,7 +32,7 @@ public class GameManager {
         this._trainers = new HashMap<>();
         _gs = new GameStatus();
         _graph = new DWGraph_DS();
-        _pokemons = new LinkedList<>();
+        _pokemons = new HashSet<>();
     }
 
     public String getTime() {
@@ -48,10 +48,10 @@ public class GameManager {
     }
 
     public List<Pokemon> getPokemons() {
-        return  _pokemons;
+        return  _pokemons.stream().collect(Collectors.toUnmodifiableList());
     }
 
-    public void setPokemons(List<Pokemon> pokemons) {
+    public void setPokemons(HashSet<Pokemon> pokemons) {
         _pokemons = pokemons;
         _pokemons.forEach(pokemon -> updateEdge(pokemon,this.getGraph()));
     }
@@ -59,10 +59,6 @@ public class GameManager {
     public void setPokemons(String pokemons) {
         setPokemons(json2Pokemons(pokemons));
     }
-    public Pokemon getPokemon(int id) {
-        return _pokemons.get(id);
-    }
-
 
     public dw_graph_algorithms getAlgo() {
         return _algo;
@@ -95,47 +91,6 @@ public class GameManager {
         this._graph = _graph;
     }
 
-    public void findShortestForAgents(){
-//        ExecutorService executor = Executors.newFixedThreadPool(5);
-//        System.out.println(Instant.now().toString());
-//        List<Callable<Void>> threads = new LinkedList<>();
-//        for (PokemonTrainer pt :
-//                getTrainers()) {
-//            for (Pokemon p :
-//                    _pokemons) {
-//                threads.add(new PathFinder(pt,p,this._algo.copy()));
-//            }
-//        }
-//        try {
-//            executor.invokeAll(threads);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//        PriorityQueue<TrainerToPath> trainersToPokemonsDist = PathFinder.trainersToPokemonsDist;
-        PriorityQueue<TrainerToPath> trainersToPokemonsDist = new PriorityQueue<>(new CompareToEdge());
-        for (int i = 0; i < _pokemons.size(); i++) {
-            for (PokemonTrainer trainer : getTrainers()) {
-                List<node_data> path = this._algo.shortestPath(trainer.get_curr_node(),_pokemons.get(i).getEdge().getSrc());
-                path.add(this._graph.getNode(_pokemons.get(i).getEdge().getDest()));
-                double dist = this._graph.getNode(_pokemons.get(i).getEdge().getSrc()).getWeight() + this._pokemons.get(i).getEdge().getWeight();
-                trainersToPokemonsDist.add(new TrainerToPath(trainer.getID(),_pokemons.get(i).getEdge().getSrc(),dist,path,_pokemons.get(i).get_id()));
-            }
-        }
-
-        HashSet<Integer> trainersFilled = new HashSet<>();
-        HashSet<Integer> pokemonFilled = new HashSet<>();
-
-        while(pokemonFilled.size()< _pokemons.size()&&trainersFilled.size()< _trainers.size()){
-            TrainerToPath trainerToPokemon = trainersToPokemonsDist.remove();
-            while(trainersFilled.contains(trainerToPokemon.getSrc())||pokemonFilled.contains(trainerToPokemon.get_pokemonId())||trainerToPokemon.getWeight()==Integer.MAX_VALUE) {
-                trainerToPokemon = trainersToPokemonsDist.remove();
-            }
-            trainersFilled.add(trainerToPokemon.getSrc());
-            pokemonFilled.add(trainerToPokemon.get_pokemonId());
-            _trainers.get(trainerToPokemon.getSrc()).setPathToPokemon(trainerToPokemon.get_path());
-        }
-
-    }
 
     public void updateAgents(String log) {
         //Iterator<PokemonTrainer> ptIter = log.iterator();
@@ -197,8 +152,8 @@ public class GameManager {
         return isOnEdge(p,src, dest, g);
     }
 
-    public static ArrayList<Pokemon> json2Pokemons(String fs) {
-        ArrayList<Pokemon> ans = new  ArrayList<Pokemon>();
+    public static HashSet<Pokemon> json2Pokemons(String fs) {
+        HashSet<Pokemon> ans = new HashSet<>();
         JsonArray allPokemons = JsonParser.parseString(fs).getAsJsonObject().getAsJsonArray("Pokemons");
         for(int i=0;i<allPokemons.size();i++) {
             JsonObject pp = allPokemons.get(i).getAsJsonObject();
