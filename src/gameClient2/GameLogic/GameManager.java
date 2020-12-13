@@ -12,12 +12,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.nio.file.Path;
-import java.time.Instant;
 import java.util.*;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
 /**
@@ -44,11 +39,15 @@ public class GameManager {
         return time;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setTime(Date time) {
+        this.time = time.getMinutes()+":"+time.getSeconds();
     }
 
-    public Collection<Pokemon> getPokemons() {
+    public void updateTrainerPath(List<node_data> pathToPokemon, int trainerId){
+        _trainers.get(trainerId).setPathToPokemon(pathToPokemon);
+    }
+
+    public List<Pokemon> getPokemons() {
         return  _pokemons;
     }
 
@@ -60,6 +59,10 @@ public class GameManager {
     public void setPokemons(String pokemons) {
         setPokemons(json2Pokemons(pokemons));
     }
+    public Pokemon getPokemon(int id) {
+        return _pokemons.get(id);
+    }
+
 
     public dw_graph_algorithms getAlgo() {
         return _algo;
@@ -71,6 +74,9 @@ public class GameManager {
 
     public List<PokemonTrainer> getTrainers() {
         return _trainers.values().stream().collect(Collectors.toUnmodifiableList());
+    }
+    public PokemonTrainer getTrainer(int id) {
+        return _trainers.get(id);
     }
 
     public void setTrainers(List<PokemonTrainer> trainers) {

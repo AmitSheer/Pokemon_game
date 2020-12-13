@@ -63,7 +63,6 @@ public class Pokemon {
         Pokemon pokemon = (Pokemon) o;
         return _type == pokemon._type &&
                 Double.compare(pokemon._value, _value) == 0 &&
-//                _id == pokemon._id &&
                 Objects.equals(_edge, pokemon._edge) &&
                 Objects.equals(_pos, pokemon._pos);
     }

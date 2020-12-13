@@ -12,6 +12,28 @@ import java.util.List;
  */
 public class PokemonTrainer {
     private edge_data _curr_edge;
+    private List<node_data> _pathToPokemon;
+    private node_data _curr_node;
+    private node_data _next_node;
+    private directed_weighted_graph _gg;
+    private geo_location _pos;
+    private Pokemon nextPoke;
+    private double _speed;
+    private int _id;
+    private double _value;
+    private int _dest;
+
+
+
+    public PokemonTrainer(int start_node, directed_weighted_graph gg) {
+        this._gg = gg;
+        this._curr_node = this._gg.getNode(start_node);
+        this._dest = start_node;
+        this._pos = _curr_node.getLocation();
+        this._id = -1;
+        this._pathToPokemon = new LinkedList<>();
+        set_speed(0);
+    }
 
     public List<node_data> get_pathToPokemon() {
         return _pathToPokemon;
@@ -21,11 +43,6 @@ public class PokemonTrainer {
         this._pathToPokemon = _pathToPokemon;
     }
 
-    private List<node_data> _pathToPokemon;
-    private node_data _curr_node;
-    private node_data _next_node;
-    private directed_weighted_graph _gg;
-    private geo_location _pos;
 
     public Pokemon getNextPoke() {
         return nextPoke;
@@ -35,31 +52,11 @@ public class PokemonTrainer {
         this.nextPoke = nextPoke;
     }
 
-    private Pokemon nextPoke;
-
-    private double _speed;
-    private int _id;
-    private double _value;
-
-
-    public PokemonTrainer(int start_node, directed_weighted_graph gg) {
-        this._gg = gg;
-        this._curr_node = this._gg.getNode(start_node);
-        this._pos = _curr_node.getLocation();
-        this._id = -1;
-        this._pathToPokemon = new LinkedList<>();
-        set_speed(0);
-    }
-
     public void setPathToPokemon(List<node_data> pathToPokemon) {
         //pathToPokemon.remove(0);
         this._pathToPokemon = pathToPokemon;
         this.set_next_node(this._pathToPokemon.remove(0).getKey());
         //this._curr_edge = _gg.getEdge(this.get_curr_node(),this._next_node.getKey());
-    }
-
-    public void moveTrainer(){
-        if(_pathToPokemon.size()!=0) _pathToPokemon.remove(0);
     }
 
     public int getNextNode() {
