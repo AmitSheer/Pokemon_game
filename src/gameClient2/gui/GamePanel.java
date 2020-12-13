@@ -98,6 +98,7 @@ public class GamePanel extends JPanel {
         drawInfo(g2d);
         updatePanel();
         g2d.drawImage(_background,0,0,d.width,d.height,null);
+        this._infoText = (this.getHeight() / 20)*5;
         drawInfo(g2d);
         drawGraph(g2d);
         drawAgants(g2d);
@@ -107,7 +108,7 @@ public class GamePanel extends JPanel {
 
     private void updatePanel() {
         Range rx = new Range(20, this.getWidth() - 20);
-        Range ry = new Range(this.getHeight() - 100, _infoText);
+        Range ry = new Range(this.getHeight()-50, _infoText);
         Range2D frame = new Range2D(rx, ry);
         directed_weighted_graph g = _gm.getGraph();
         _w2f = GameManager.w2f(g, frame);
@@ -117,16 +118,26 @@ public class GamePanel extends JPanel {
         GameStatus str = _gm.getGameStatus();
         Graphics2D g2D = (Graphics2D) g;
         g2D.setColor(Color.white);
-        g2D.setFont(new Font("OCR A Extended", Font.BOLD, (this.getHeight() + this.getWidth()) / 80));
+        g2D.setFont(new Font(Font.MONOSPACED, Font.BOLD, (this.getHeight() + this.getWidth()) / 80));
         int x0 = this.getWidth() / 70;
         int y0 = this.getHeight() / 20;
-        g2D.drawString("Time to finish: " +_gm.getTime(), (int) x0 * 5, (int) y0);
+
+        if(showTotal){
+            g2D.drawString("Total: " +_gm.getGameStatus().get_grade(), (int) x0 * 5, (int) y0);
+        }else{
+            g2D.drawString("Time to finish: " +_gm.getTime(), (int) x0 * 5, (int) y0);
+        }
         y0 = y0 +this.getHeight() / 20;
+        int counter=0;
         for (PokemonTrainer trainer : _gm.getTrainers()) {
+            counter++;
             g2D.drawString("Agent" + trainer.getID() + " : " + trainer.get_money(), (int) x0 * 5, (int) y0);
             y0 = y0 +this.getHeight() / 20;
+            if(counter%3==0){
+                y0 =  this.getHeight()/20+this.getHeight()/20;
+                x0 = x0 * 5+x0;
+            }
         }
-        this._infoText = y0;
         //g2D.drawString("Grade: "+_gm.getGameStatus().get_grade(), (int) x0 * 5, (int) y0);
         //g2D.drawString("Moves:"+_gm.getGameStatus().get_moves(), (int) x0 * 5, (int) y0);
     }

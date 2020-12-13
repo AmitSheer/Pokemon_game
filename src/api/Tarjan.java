@@ -1,5 +1,6 @@
 package api;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
@@ -8,14 +9,14 @@ public class Tarjan {
     private static int[] ids;
     private static int[] lows;
     private static boolean[] onStack;
-    private static Stack<Integer> stack;
     private static int id;
+    private static Stack<node_data> stack;
+    private static List<List<Integer>> sccNodes;
 
-    public static List<Integer> getSccNodes() {
+
+    public static List<List<Integer>> getSccNodes() {
         return sccNodes;
     }
-
-    private static List<Integer> sccNodes;
     public static int getSccCount() {
         return sccCount;
     }
@@ -44,7 +45,7 @@ public class Tarjan {
         node.setTag(id);
         ids[node.getTag()] = lows[node.getTag()] = node.getTag();
         id++;
-        stack.push(node.getTag());
+        stack.push(node);
         onStack[node.getTag()] = true;
         for (edge_data to : graph.getE(node.getKey())) {
             node_data curr = graph.getNode(to.getDest());
@@ -54,14 +55,16 @@ public class Tarjan {
             } else if (onStack[curr.getTag()])
                 lows[node.getTag()] = Math.min(lows[node.getTag()], lows[curr.getTag()]);
         }
+        List<Integer> components = new ArrayList<>();
         if (ids[node.getTag()] == lows[node.getTag()]) {
-            sccNodes.add(node.getKey());
             while (!stack.empty()) {
-                int node_id = stack.pop();
-                onStack[node_id] = false;
-                lows[node_id] = ids[node_id];
-                if (node_id == node.getTag()) break;
+                node_data nodeFromStack = stack.pop();
+                components.add(nodeFromStack.getKey());
+                onStack[nodeFromStack.getTag()] = false;
+                lows[nodeFromStack.getTag()] = ids[nodeFromStack.getTag()];
+                if (nodeFromStack.getTag() == node.getTag()) break;
             }
+            sccNodes.add(components);
             sccCount++;
         }
     }

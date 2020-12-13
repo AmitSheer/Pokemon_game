@@ -9,7 +9,7 @@ import org.json.JSONObject;
 public class GameStatus {
     private int _pokemonNum;
     private int _moves;
-    private int _grade;
+    private double _grade;
     private int _gameLevel;
     private String _graph;
     private int _agentsNum;
@@ -30,7 +30,7 @@ public class GameStatus {
         set_pokemonNum(jsonData.get("pokemons").getAsInt());
         set_isLogin(jsonData.get("is_logged_in").getAsBoolean());
         set_moves(jsonData.get("moves").getAsInt());
-        set_grade(jsonData.get("grade").getAsInt());
+        set_grade(jsonData.get("grade").getAsDouble());
         set_gameLevel(jsonData.get("game_level").getAsInt());
         set_maxUserLevel(jsonData.get("max_user_level").getAsInt());
         set_id(jsonData.get("id").getAsInt());
@@ -54,11 +54,11 @@ public class GameStatus {
         this._moves = _moves;
     }
 
-    public int get_grade() {
+    public double get_grade() {
         return _grade;
     }
 
-    public void set_grade(int _grade) {
+    public void set_grade(double _grade) {
         this._grade = _grade;
     }
 

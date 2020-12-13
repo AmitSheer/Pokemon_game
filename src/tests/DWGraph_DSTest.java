@@ -36,7 +36,7 @@ class DWGraph_DSTest extends BaseTest {
     void connectWithTheSameID() {
         graph.addNode(new NodeData(0));
         graph.connect(0,0,1);
-        assertNull(graph.getEdge(0, 0));
+        assertEquals(new EdgeData(0,0,0),graph.getEdge(0, 0));
     }
 
     @Test

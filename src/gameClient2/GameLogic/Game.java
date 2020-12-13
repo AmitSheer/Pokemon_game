@@ -71,10 +71,12 @@ public class Game implements Runnable{
                 e.printStackTrace();
             }
         }
+        _gm.setGameStatus(game.toString());
         String res = game.toString();
 
         System.out.println(res);
         _gp.setShowTotal(true);
+        _gp.repaint();
         if(isCloseWhenDone){
             System.exit(0);
         }
@@ -97,7 +99,7 @@ public class Game implements Runnable{
                 findShortestForAgents();
             }
             if(trainer.getPathToPokemon().size()==0){
-                System.out.println("asd");
+                findShortestForAgents();
             }
             trainer.set_next_node();
             game.chooseNextEdge(trainer.getID(),trainer.get_dest());
@@ -141,12 +143,10 @@ public class Game implements Runnable{
             int rs = ttt.getInt("agents");
             System.out.println(info);
             System.out.println(game.getPokemons());
-            int src_node = 0;  // arbitrary node, you should start at one of the pokemon
             for(int a = 0;a<rs;a++) {
                 int ind = a%_gm.getPokemons().size();
                 Pokemon c = _gm.getPokemons().get(ind);
                 int nn = c.getEdge().getSrc();
-                //if(c.getType()<0 ) {nn = c.getEdge().getSrc();}
                 game.addAgent(nn);
             }
             pts = GameManager.getTrainers(game.getAgents(),gg);
@@ -166,17 +166,17 @@ public class Game implements Runnable{
             }
         } else {
             System.out.println("Not connected");
-            List<Integer> nodeKeys = Tarjan.getSccNodes();
-            int index = 0;
-            for (; index < nodeKeys.size() && index < rs; index++) {
-                for (Pokemon p : _gm.getPokemons()) {
-                    if (_gm.getAlgo().shortestPathDist(nodeKeys.get(index), p.getEdge().getSrc()) != 0) {
-                        game.addAgent(p.getEdge().getSrc());
-                        break;
-                    }
-                }
-            }
-            _gm.setTrainers(GameManager.getTrainers(game.getAgents(), gg));
+            List<List<Integer>> nodeKeys = Tarjan.getSccNodes();
+//            int index = 0;
+//            for (; index < nodeKeys.size() && index < rs; index++) {
+//                for (Pokemon p : _gm.getPokemons()) {
+//                    if (_gm.getAlgo().shortestPathDist(nodeKeys.get(index), p.getEdge().getSrc()) != 0) {
+//                        game.addAgent(p.getEdge().getSrc());
+//                        break;
+//                    }
+//                }
+//            }
+//            _gm.setTrainers(GameManager.getTrainers(game.getAgents(), gg));
         }
     }
 
@@ -252,17 +252,17 @@ public class Game implements Runnable{
             }
 
 
-//            flag = true;
-//            while(flag&&trainersToPokemonsDist.size()!=0){
-//                flag=false;
-//                for (Integer trainerId : trainersFilled) {
-//                    if(_gm.getTrainer(trainerId).getPathToPokemon().containsAll(trainerToPokemon.get_path())&&trainersToPokemonsDist.size()>0){
-//                        flag=true;
-//                        trainerToPokemon = trainersToPokemonsDist.remove();
-//                        break;
-//                    }
-//                }
-//            }
+            flag = true;
+            while(flag&&trainersToPokemonsDist.size()!=0){
+                flag=false;
+                for (Integer trainerId : trainersFilled) {
+                    if(_gm.getTrainer(trainerId).getPathToPokemon().containsAll(trainerToPokemon.get_path())&&trainersToPokemonsDist.size()>0){
+                        flag=true;
+                        trainerToPokemon = trainersToPokemonsDist.remove();
+                        break;
+                    }
+                }
+            }
             trainersFilled.add(trainerToPokemon.getSrc());
             pokemonFilled.add(trainerToPokemon.get_pokemon());
             _gm.updateTrainerPath(trainerToPokemon.get_path(),trainerToPokemon.getSrc());
