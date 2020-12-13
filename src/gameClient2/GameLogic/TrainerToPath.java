@@ -7,11 +7,11 @@ import java.util.List;
 
 public class TrainerToPath extends EdgeData {
     private List<node_data> _path;
-    private Integer _pokemonId;
-    public TrainerToPath(int src, int dest, double w, List<node_data> path, int pokemonId) {
+    private Pokemon _pokemon;
+    public TrainerToPath(int src, int dest, double w, List<node_data> path, Pokemon pokemonId) {
         super(src, dest, w);
         this._path = path;
-        this._pokemonId=pokemonId;
+        this._pokemon =pokemonId;
     }
 
     public List<node_data> get_path() {
@@ -22,11 +22,11 @@ public class TrainerToPath extends EdgeData {
         this._path = _path;
     }
 
-    public Integer get_pokemonId() {
-        return _pokemonId;
+    public Pokemon get_pokemon() {
+        return _pokemon;
     }
 
-    public void set_pokemonId(Integer _pokemonId) {
-        this._pokemonId = _pokemonId;
+    public void set_pokemon(Pokemon _pokemon) {
+        this._pokemon = this._pokemon;
     }
 }

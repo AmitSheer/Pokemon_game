@@ -6,14 +6,23 @@ import gameClient2.gui.GamePanel;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.time.Instant;
 import java.util.*;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class Game implements Runnable{
-    private static game_service game;
-    private static GameManager _gm;
+    private game_service game;
+    private GameManager _gm;
     private  GamePanel _gp;
-    private static Thread server;
-    private static List<Pokemon> badPokemon;
+    private Thread server;
+    private List<Pokemon> badPokemon;
+    private boolean isCloseWhenDone;
+
+    public Game(boolean isCloseWhenDone) {
+        this.isCloseWhenDone = isCloseWhenDone;
+    }
 
     public void startGame(GamePanel panel){
         _gp = panel;
@@ -25,15 +34,15 @@ public class Game implements Runnable{
     public void startGame(GamePanel panel,int scenario,int id){
         _gp = panel;
         game = Game_Server_Ex2.getServer(scenario);
-        //game.login(id);
+        game.login(id);
         server = new Thread(this);
         server.start();
-//        game.login(id);
     }
 
     @Override
     public void run() {
         directed_weighted_graph gg = GraphParser.Json2Graph(game.getGraph());
+        badPokemon = new LinkedList<>();
         loadGameData();
         _gp.update(_gm);
         long dt=98;
@@ -44,9 +53,18 @@ public class Game implements Runnable{
         while(game.isRunning()) {
             a.setTime(game.timeToEnd());
             _gm.setTime(a);
+            badPokemon.removeIf(p -> !_gm.getPokemons().contains(p));
+            if(badPokemon.size()>0){
+                dt=20;
+                //System.out.println(dt);
+            }else{
+                dt=100;
+//                System.out.println(dt);
+            }
             moveTrainers(game, gg);
             try {
                 _gp.repaint();
+                //System.out.println(_gm.getTime());
                 Thread.sleep(dt);
             }
             catch(Exception e) {
@@ -56,22 +74,33 @@ public class Game implements Runnable{
         String res = game.toString();
 
         System.out.println(res);
+        _gp.setShowTotal(true);
+        if(isCloseWhenDone){
+            System.exit(0);
+        }
     }
 
     /**
      * choose move trainer to the next node to go to
      * @param trainer trainer to change
      */
-    private static void nextEdge( PokemonTrainer trainer){
+    private void nextEdge( PokemonTrainer trainer){
         int id = trainer.getID();
-        int dest = trainer.getNextNode();
+        int dest = trainer.get_dest();
         int src = trainer.get_curr_node();
         double v = trainer.get_money();
         if(dest==-1) {
-            findShortestForAgents();
-            game.chooseNextEdge(trainer.getID(),trainer.getNextNode());
-        }else{
-            game.chooseNextEdge(trainer.getID(),trainer.getNextNode());
+            if(trainer.getPathToPokemon().size()==0){
+                if(_gm.getPokemons().contains(trainer.getNextPoke())&&trainer.getEndNodeId()== trainer.get_curr_node()){
+                    badPokemon.add(trainer.getNextPoke());
+                }
+                findShortestForAgents();
+            }
+            if(trainer.getPathToPokemon().size()==0){
+                System.out.println("asd");
+            }
+            trainer.set_next_node();
+            game.chooseNextEdge(trainer.getID(),trainer.get_dest());
         }
         //System.out.println("Agent: "+id+", val: "+v+"   turned to node: "+dest);
     }
@@ -88,7 +117,6 @@ public class Game implements Runnable{
         HashSet<Pokemon> ffs = GameManager.json2Pokemons(fs);
         ffs.forEach(p->GameManager.updateEdge(p,gg));
         _gm.setPokemons(ffs);
-        boolean flag = true;
         for(PokemonTrainer trainer: _gm.getTrainers()) {
             nextEdge(trainer);
         }
@@ -167,9 +195,9 @@ public class Game implements Runnable{
     /**
      * Find the shortest path to Pokemon
      */
-    private static void findShortestForAgents(){
+    private void findShortestForAgents(){
 //        ExecutorService executor = Executors.newFixedThreadPool(5);
-//        System.out.println(Instant.now().toString());
+////        System.out.println(Instant.now().toString());
 //        List<Callable<Void>> threads = new LinkedList<>();
 //        for (PokemonTrainer pt :
 //               _gm.getTrainers()) {
@@ -187,50 +215,58 @@ public class Game implements Runnable{
         PriorityQueue<TrainerToPath> trainersToPokemonsDist = new PriorityQueue<>(new CompareToEdge());
         for (int i = 0; i < _gm.getPokemons().size(); i++) {
             for (PokemonTrainer trainer : _gm.getTrainers()) {
-                List<node_data> path = _gm.getAlgo().shortestPath(trainer.get_curr_node(),_gm.getPokemons().get(i).getEdge().getSrc());
+                List<node_data> path;
+                if(trainer.get_dest()==-1){
+                    path = _gm.getAlgo().shortestPath(trainer.get_curr_node(),_gm.getPokemons().get(i).getEdge().getSrc());
+                }else {
+                    path = _gm.getAlgo().shortestPath(trainer.get_dest(),_gm.getPokemons().get(i).getEdge().getSrc());
+                }
                 path.add(_gm.getGraph().getNode(_gm.getPokemons().get(i).getEdge().getDest()));
                 double dist = _gm.getGraph().getNode(_gm.getPokemons().get(i).getEdge().getSrc()).getWeight() + _gm.getPokemons().get(i).getEdge().getWeight();
-                trainersToPokemonsDist.add(new TrainerToPath(trainer.getID(),_gm.getPokemons().get(i).getEdge().getSrc(),dist,path,_gm.getPokemons().get(i).get_id()));
+                trainersToPokemonsDist.add(new TrainerToPath(trainer.getID(),_gm.getPokemons().get(i).getEdge().getSrc(),dist,path,_gm.getPokemons().get(i)));
             }
         }
 
         HashSet<Integer> trainersFilled = new HashSet<>();
-        HashSet<Integer> pokemonFilled = new HashSet<>();
+        HashSet<Pokemon> pokemonFilled = new HashSet<>();
 
-        while(pokemonFilled.size()< _gm.getPokemons().size()&&trainersFilled.size()< _gm.getTrainers().size()){
+        while(pokemonFilled.size()< _gm.getPokemons().size()&&trainersFilled.size()< _gm.getTrainers().size()&&trainersToPokemonsDist.size()!=0){
             TrainerToPath trainerToPokemon = trainersToPokemonsDist.remove();
-            while(trainersToPokemonsDist.size()>0&&trainersFilled.contains(trainerToPokemon.getSrc())||pokemonFilled.contains(trainerToPokemon.get_pokemonId())||trainerToPokemon.getWeight()==Integer.MAX_VALUE){
-                trainerToPokemon = trainersToPokemonsDist.remove();
+            while((trainersToPokemonsDist.size()>0&&trainersFilled.contains(trainerToPokemon.getSrc())||pokemonFilled.contains(trainerToPokemon.get_pokemon())||trainerToPokemon.getWeight()==Integer.MAX_VALUE)&&trainersToPokemonsDist.size()!=0){
+                try{
+                    trainerToPokemon = trainersToPokemonsDist.remove();
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
             }
-//            boolean flag = true;
-//            while(flag){
-//                flag=false;
-//                for (Integer pokeId : pokemonFilled) {
-//                    if(_gm.getPokemon(pokeId).getEdge().equals(_gm.getPokemon(trainerToPokemon.get_pokemonId()).getEdge())&&trainersToPokemonsDist.size()>0){
-//                        flag=true;
-//                        trainerToPokemon = trainersToPokemonsDist.remove();
-//                        break;
-//                    }
-//                }
-//            }
+            boolean flag = true;
+            while(flag&&trainersToPokemonsDist.size()!=0){
+                flag=false;
+                for (Pokemon pokeId : pokemonFilled) {
+                    if(pokeId.getEdge().equals(trainerToPokemon.get_pokemon().getEdge())&&trainersToPokemonsDist.size()>0){
+                        flag=true;
+                        trainerToPokemon = trainersToPokemonsDist.remove();
+                        break;
+                    }
+                }
+            }
 
-//
+
 //            flag = true;
-//            while(flag){
+//            while(flag&&trainersToPokemonsDist.size()!=0){
 //                flag=false;
 //                for (Integer trainerId : trainersFilled) {
-//                    if(_gm.getTrainer(trainerId).get_pathToPokemon().containsAll(trainerToPokemon.get_path())&&trainersToPokemonsDist.size()>0){
+//                    if(_gm.getTrainer(trainerId).getPathToPokemon().containsAll(trainerToPokemon.get_path())&&trainersToPokemonsDist.size()>0){
 //                        flag=true;
 //                        trainerToPokemon = trainersToPokemonsDist.remove();
-//                        System.out.println("bllalalalala");
 //                        break;
 //                    }
 //                }
 //            }
             trainersFilled.add(trainerToPokemon.getSrc());
-            pokemonFilled.add(trainerToPokemon.get_pokemonId());
+            pokemonFilled.add(trainerToPokemon.get_pokemon());
             _gm.updateTrainerPath(trainerToPokemon.get_path(),trainerToPokemon.getSrc());
-//            _gm.getTrainer(trainerToPokemon.getSrc()).setNextPoke(_gm.getPokemon(trainerToPokemon.get_pokemonId()));
+            _gm.getTrainer(trainerToPokemon.getSrc()).setNextPoke(trainerToPokemon.get_pokemon());
 //            _gm.getPokemon(trainerToPokemon.get_pokemonId()).setTrainerId(trainerToPokemon.getSrc());
         }
     }

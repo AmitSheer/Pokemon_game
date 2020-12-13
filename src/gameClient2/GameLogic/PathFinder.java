@@ -23,7 +23,14 @@ public class PathFinder implements Callable<Void> {
             List<node_data> path = this._algo.shortestPath(_trainer.get_curr_node(), _pokemons.getEdge().getSrc());
             path.add(this._algo.getGraph().getNode(_pokemons.getEdge().getDest()));
             double dist = this._algo.getGraph().getNode(_pokemons.getEdge().getSrc()).getWeight() + this._pokemons.getEdge().getWeight();
-            trainersToPokemonsDist.add(new TrainerToPath(_trainer.getID(), _pokemons.getEdge().getSrc(), dist/ _trainer.get_speed(), path, _pokemons.get_id()));
+            if(_trainer.get_dest()==-1){
+                    path = _algo.shortestPath(_trainer.get_curr_node(),_pokemons.getEdge().getSrc());
+            }else {
+                    path = _algo.shortestPath(_trainer.get_dest(),_pokemons.getEdge().getSrc());
+            }
+            path.add(_algo.getGraph().getNode(_pokemons.getEdge().getDest()));
+            dist = dist + _pokemons.getEdge().getWeight();
+            trainersToPokemonsDist.add(new TrainerToPath(_trainer.getID(), _pokemons.getEdge().getSrc(), dist/ _trainer.get_speed(), path, _pokemons));
         return null;
     }
 }

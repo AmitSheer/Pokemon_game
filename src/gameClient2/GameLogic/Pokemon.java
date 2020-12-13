@@ -24,6 +24,9 @@ public class Pokemon {
         setEdge(e);
     }
 
+    public Pokemon() {
+    }
+
     public int getType() {
         return _type;
     }

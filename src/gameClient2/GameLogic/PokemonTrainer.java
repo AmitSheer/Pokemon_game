@@ -16,6 +16,7 @@ public class PokemonTrainer {
     private node_data _curr_node;
     private node_data _next_node;
     private directed_weighted_graph _gg;
+    private int endNodeId;
     private geo_location _pos;
     private Pokemon nextPoke;
     private double _speed;
@@ -32,16 +33,14 @@ public class PokemonTrainer {
         this._pos = _curr_node.getLocation();
         this._id = -1;
         this._pathToPokemon = new LinkedList<>();
+        this.nextPoke = new Pokemon();
         set_speed(0);
     }
 
-    public List<node_data> get_pathToPokemon() {
+    public List<node_data> getPathToPokemon() {
         return _pathToPokemon;
     }
 
-    public void set_pathToPokemon(List<node_data> _pathToPokemon) {
-        this._pathToPokemon = _pathToPokemon;
-    }
 
 
     public Pokemon getNextPoke() {
@@ -55,19 +54,20 @@ public class PokemonTrainer {
     public void setPathToPokemon(List<node_data> pathToPokemon) {
         //pathToPokemon.remove(0);
         this._pathToPokemon = pathToPokemon;
-        this.set_next_node(this._pathToPokemon.remove(0).getKey());
+        this.endNodeId = _pathToPokemon.get(_pathToPokemon.size()-1).getKey();
+        //       this.set_next_node(this._pathToPokemon.remove(0).getKey());
         //this._curr_edge = _gg.getEdge(this.get_curr_node(),this._next_node.getKey());
     }
 
-    public int getNextNode() {
-        int ans = -2;
-        if (this._curr_edge == null) {
-            ans = -1;
-        } else {
-            ans = this._curr_edge.getDest();
-        }
-        return ans;
-    }
+//    public int getNextNode() {
+//        int ans = -2;
+//        if (this._curr_edge == null) {
+//            ans = -1;
+//        } else {
+//            ans = this._curr_edge.getDest();
+//        }
+//        return ans;
+//    }
 
     public void update(String json) {
         JSONObject line;
@@ -83,16 +83,16 @@ public class PokemonTrainer {
                 GeoLocations pp = new GeoLocations(p);
                 int src = ttt.getInt("src");
                 int dest = ttt.getInt("dest");
-                if(_pathToPokemon.size()>0&&dest==-1){
-                    set_next_node(_pathToPokemon.remove(0).getKey());
-                }else if(dest==-1){
-                    set_next_node(-1);
-                }
+//                if(_pathToPokemon.size()==0&&dest==-1){
+////                    set_next_node(_pathToPokemon.remove(0).getKey());
+////                }else if(dest==-1){
+//                    set_next_node(-1);
+//                }
                 double value = ttt.getDouble("value");
                 this.setLocation(new GeoLocations(p));
                 this.set_curr_node(src);
                 this.set_speed(speed);
-                //this.set_next_node(dest);
+                this.set_next_node(dest);
                 this.set_money(value);
             }
         }
@@ -135,15 +135,26 @@ public class PokemonTrainer {
 
 
     private void set_next_node(int _next_node) {
-        this._next_node = _gg.getNode(_next_node);
         if(_next_node==-1){
             _curr_edge=null;
+            _dest=-1;
         }else{
+            this._next_node = _gg.getNode(_next_node);
             this._curr_edge = _gg.getEdge(this.get_curr_node(),_next_node);
+            _dest=_next_node;
+
         }
     }
     public void set_next_node() {
-        this._next_node = _gg.getNode(_pathToPokemon.remove(0).getKey());
+//        this._next_node = _gg.getNode(_pathToPokemon.remove(0).getKey());
+        try{
+            set_next_node(_pathToPokemon.remove(0).getKey());
+        }catch(Exception e){
+            set_next_node(-1);
+        }
+//            System.out.println("ads");
+//            throw e;
+//        }
     }
 
 
@@ -156,5 +167,21 @@ public class PokemonTrainer {
     }
 
     public void update(PokemonTrainer next) {
+    }
+
+    public int get_dest() {
+        return _dest;
+    }
+
+    public void set_dest(int _dest) {
+        this._dest = _dest;
+    }
+
+    public int getEndNodeId() {
+        return endNodeId;
+    }
+
+    public void setEndNodeId(int endNodeId) {
+        this.endNodeId = endNodeId;
     }
 }
