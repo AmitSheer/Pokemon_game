@@ -6,11 +6,7 @@ import gameClient2.gui.GamePanel;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.time.Instant;
 import java.util.*;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class Game implements Runnable{
     private static game_service game;
@@ -48,7 +44,7 @@ public class Game implements Runnable{
         while(game.isRunning()) {
             a.setTime(game.timeToEnd());
             _gm.setTime(a);
-            moveAgants(game, gg);
+            moveTrainers(game, gg);
             try {
                 _gp.repaint();
                 if(badPokemon.size()>0){
@@ -85,7 +81,12 @@ public class Game implements Runnable{
         //System.out.println("Agent: "+id+", val: "+v+"   turned to node: "+dest);
     }
 
-    private void moveAgants(game_service game, directed_weighted_graph gg) {
+    /**
+     * updates agent location and tell server to move trainers to new location
+     * @param game current game
+     * @param gg current graph
+     */
+    private void moveTrainers(game_service game, directed_weighted_graph gg) {
         String lg = game.move();
         String fs =  game.getPokemons();
         _gm.updateAgents(lg);
@@ -99,6 +100,10 @@ public class Game implements Runnable{
             nextEdge(trainer);
         }
     }
+
+    /**
+     * loads the game data and the trainers
+     */
     private void loadGameData(){
         directed_weighted_graph gg = GraphParser.Json2Graph(game.getGraph());
         _gm = new GameManager();
@@ -159,12 +164,19 @@ public class Game implements Runnable{
     public boolean isRunning(){
         return game.isRunning();
     }
+
+    /**
+     * stops the server and game
+     */
     public synchronized void gameStop(){
         server.stop();
         game.stopGame();
     }
 
-    public static void findShortestForAgents(){
+    /**
+     * Find the shortest path to Pokemon
+     */
+    private static void findShortestForAgents(){
 //        ExecutorService executor = Executors.newFixedThreadPool(5);
 //        System.out.println(Instant.now().toString());
 //        List<Callable<Void>> threads = new LinkedList<>();
