@@ -14,7 +14,9 @@ public class MyFrame extends JFrame {
     private static JSplitPane _sp;
 
     public MyFrame(int id ,int scenario){
-
+        this.setSize(1000,700);
+        init();
+        _gp.startGame(scenario,id);
     }
 
     public MyFrame(){

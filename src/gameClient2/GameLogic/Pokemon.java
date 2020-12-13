@@ -13,6 +13,7 @@ public class Pokemon {
     private int _dest;
     private int _id;
     private geo_location _pos;
+    private int _trainerId;
 
     public Pokemon(int key, double value, geo_location pos, int type, edge_data e){
         _id = key;
@@ -62,7 +63,7 @@ public class Pokemon {
         Pokemon pokemon = (Pokemon) o;
         return _type == pokemon._type &&
                 Double.compare(pokemon._value, _value) == 0 &&
-                _id == pokemon._id &&
+//                _id == pokemon._id &&
                 Objects.equals(_edge, pokemon._edge) &&
                 Objects.equals(_pos, pokemon._pos);
     }
@@ -83,5 +84,13 @@ public class Pokemon {
                 ", _id=" + _id +
                 ", _pos=" + _pos +
                 '}';
+    }
+
+    public void setTrainerId(int _trainerId) {
+        this._trainerId = _trainerId;
+    }
+
+    public int getTrainerId() {
+        return _trainerId;
     }
 }

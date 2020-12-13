@@ -12,11 +12,30 @@ import java.util.List;
  */
 public class PokemonTrainer {
     private edge_data _curr_edge;
+
+    public List<node_data> get_pathToPokemon() {
+        return _pathToPokemon;
+    }
+
+    public void set_pathToPokemon(List<node_data> _pathToPokemon) {
+        this._pathToPokemon = _pathToPokemon;
+    }
+
     private List<node_data> _pathToPokemon;
     private node_data _curr_node;
     private node_data _next_node;
     private directed_weighted_graph _gg;
     private geo_location _pos;
+
+    public Pokemon getNextPoke() {
+        return nextPoke;
+    }
+
+    public void setNextPoke(Pokemon nextPoke) {
+        this.nextPoke = nextPoke;
+    }
+
+    private Pokemon nextPoke;
 
     private double _speed;
     private int _id;
@@ -118,7 +137,7 @@ public class PokemonTrainer {
     }
 
 
-    public void set_next_node(int _next_node) {
+    private void set_next_node(int _next_node) {
         this._next_node = _gg.getNode(_next_node);
         if(_next_node==-1){
             _curr_edge=null;
@@ -129,6 +148,7 @@ public class PokemonTrainer {
     public void set_next_node() {
         this._next_node = _gg.getNode(_pathToPokemon.remove(0).getKey());
     }
+
 
     public geo_location getLocation() {
         return _pos;

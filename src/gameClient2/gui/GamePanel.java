@@ -11,7 +11,6 @@ import gameClient2.util.Range2Range;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.text.JTextComponent;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -78,6 +77,7 @@ public class GamePanel extends JPanel {
         this._gm = gm;
         updatePanel();
     }
+
     @Override
     protected void paintComponent(Graphics g) {
         BufferedImage bufferedImage = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_4BYTE_ABGR_PRE);
@@ -95,7 +95,6 @@ public class GamePanel extends JPanel {
         drawAgants(g2d);
         drawPokemons(g2d);
         g.drawImage(bufferedImage,0,0,null);
-//        g2dComponent.drawImage(bufferedImage, null, 0, 0);
     }
 
     private void updatePanel() {
@@ -112,18 +111,16 @@ public class GamePanel extends JPanel {
         Graphics2D g2D = (Graphics2D) g;
         g2D.setColor(Color.white);
         g2D.setFont(new Font("OCR A Extended", Font.BOLD, (this.getHeight() + this.getWidth()) / 80));
-        //String dt=_ar
         int x0 = this.getWidth() / 70;
         int y0 = this.getHeight() / 20;
-
-        //g2D.drawString(_gm.getTime(), (int) x0 * 5, (int) y0);
-        g2D.drawString("Grade: "+_gm.getGameStatus().get_grade(), (int) x0 * 5, (int) y0);
+        g2D.drawString("Time to finish: " +_gm.getTime(), (int) x0 * 5, (int) y0);
         y0 = y0 +this.getHeight() / 20;
-        g2D.drawString("Moves:"+_gm.getGameStatus().get_moves(), (int) x0 * 5, (int) y0);
-//        g2D.setFont(new Font("OCR A Extended", Font.PLAIN, (this.getHeight() + this.getWidth()) /90));
-//        for (int i = 0; i < str.size(); i++) {
-//            g2D.drawString(str.get(i), (int) x0*5, (int) y0 + (i*2+2) * 20);
-//        }
+        for (PokemonTrainer trainer : _gm.getTrainers()) {
+            g2D.drawString("Agent" + trainer.getID() + " : " + trainer.get_money(), (int) x0 * 5, (int) y0);
+            y0 = y0 +this.getHeight() / 20;
+        }
+        //g2D.drawString("Grade: "+_gm.getGameStatus().get_grade(), (int) x0 * 5, (int) y0);
+        //g2D.drawString("Moves:"+_gm.getGameStatus().get_moves(), (int) x0 * 5, (int) y0);
     }
 
     private void drawGraph(Graphics g) {
@@ -153,13 +150,12 @@ public class GamePanel extends JPanel {
                 Pokemon f = itr.next();
                 GeoLocations c = new GeoLocations(f.getLocation().toString());
                 int r = 10;
-                //g.setColor(Color.green);
                 if (c != null) {
                     geo_location fp = this._w2f.world2frame(f.getLocation());
                     if(f.getType()<0) {
                         g.drawImage(_pika.getScaledInstance(2 * r+this.getWidth()/100, 2 * r+this.getHeight()/100, Image.SCALE_SMOOTH), (int) fp.x() - r-this.getWidth()/100, (int) fp.y() - r-this.getHeight()/200, null);
                     }else{
-                        g.drawImage(_miau.getScaledInstance(2 * r, 2 * r, Image.SCALE_SMOOTH), (int) fp.x() - r, (int) fp.y() - r, null);
+                        g.drawImage(_miau.getScaledInstance(2 * r+this.getWidth()/100, 2 * r+this.getHeight()/100, Image.SCALE_SMOOTH), (int) fp.x() - r-this.getWidth()/100, (int) fp.y() - r-this.getHeight()/200, null);
                     }
                 }
             }
@@ -168,19 +164,19 @@ public class GamePanel extends JPanel {
 
     private void drawAgants(Graphics g) {
         List<PokemonTrainer> rs = _gm.getTrainers();
-        //	Iterator<OOP_Point3D> itr = rs.iterator();
-
-        g.setColor(Color.red);
         int i = 0;
         while (rs != null && i < rs.size()) {
             geo_location c = rs.get(i).getLocation();
             int r = 8;
-            i++;
             if (c != null) {
                 geo_location fp = this._w2f.world2frame(c);
                 g.drawImage(_agent.getScaledInstance(2 * r+this.getWidth()/100, 2 * r+this.getHeight()/100, Image.SCALE_SMOOTH), (int) fp.x() -r-_frame.getWidth()/200, (int) fp.y() - r-_frame.getHeight()/200, null);
-                //g.fillOval((int) fp.x() - r, (int) fp.y() - r, 2 * r, 2 * r);
+                try {
+                   // g.drawString("" + rs.get(i).getID(), (int) fp.x(), (int) fp.y() - 4 * r);
+                    //g.drawString("" + rs.get(i).getNextNode(), (int) fp.x(), (int) fp.y() - 3 * r);
+                }catch (Exception Ignore){}
             }
+            i++;
         }
     }
 
@@ -199,7 +195,6 @@ public class GamePanel extends JPanel {
         geo_location s0 = this._w2f.world2frame(s);
         geo_location d0 = this._w2f.world2frame(d);
         g.drawLine((int) s0.x(), (int) s0.y(), (int) d0.x(), (int) d0.y());
-        //	g.drawString(""+n.getKey(), fp.ix(), fp.iy()-4*r);
     }
 
 }
