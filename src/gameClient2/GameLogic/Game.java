@@ -46,7 +46,7 @@ public class Game implements Runnable{
     public void run() {
         directed_weighted_graph gg = GraphParser.Json2Graph(game.getGraph());
         badPokemon = new LinkedList<>();
-        loadGameData();
+        loadGameData(gg);
         _gp.update(_gm);
         dt=110;
         System.out.println(game.getAgents());
@@ -158,8 +158,7 @@ public class Game implements Runnable{
     /**
      * loads the game data and the trainers
      */
-    private void loadGameData(){
-        directed_weighted_graph gg = GraphParser.Json2Graph(game.getGraph());
+    private void loadGameData(directed_weighted_graph gg){
         _gm = new GameManager();
         _gm.setGameStatus(game.toString());
         _gm.setGraph(gg);

@@ -19,6 +19,10 @@ public class DWGraph_Algo implements dw_graph_algorithms {
         return graph;
     }
 
+    /**
+     * creates deep copy of init graph
+     * @return the copied graph, the new reference
+     */
     @Override
     public directed_weighted_graph copy() {
         directed_weighted_graph copiedGraph = new DWGraph_DS();
@@ -35,11 +39,21 @@ public class DWGraph_Algo implements dw_graph_algorithms {
         return copiedGraph;
     }
 
+    /**
+     * checks if all nodes in graph are strongly connected
+     * @return
+     */
     @Override
     public boolean isConnected() {
         return  Tarjan.init(this.graph);
     }
 
+    /**
+     * finds shortest path to node
+     * @param src - start node
+     * @param dest - end (target) node
+     * @return return distance
+     */
     @Override
     public double shortestPathDist(int src, int dest) {
         if (this.graph.getV().size() == 0 || this.graph.getNode(src) == null || this.graph.getNode(src) == null) {
@@ -54,6 +68,12 @@ public class DWGraph_Algo implements dw_graph_algorithms {
         }
     }
 
+    /**
+     * finds the shortest path to node
+     * @param src - start node
+     * @param dest - end (target) node
+     * @return list of node path
+     */
     @Override
     public List<node_data> shortestPath(int src, int dest) {
         List<node_data> nodePathToDest = new LinkedList<>();
@@ -67,6 +87,11 @@ public class DWGraph_Algo implements dw_graph_algorithms {
         return nodePathToDest;
     }
 
+    /**
+     *
+     * @param file - the file name (may include a relative path).
+     * @return true if saved successfully
+     */
     @Override
     public boolean save(String file) {
         try{
@@ -82,6 +107,11 @@ public class DWGraph_Algo implements dw_graph_algorithms {
 
     }
 
+    /**
+     *
+     * @param file - file name of JSON file
+     * @return tru if loaded successfuly
+     */
     @Override
     public boolean load(String file) {
         try{
@@ -94,6 +124,7 @@ public class DWGraph_Algo implements dw_graph_algorithms {
         }
         return true;
     }
+
     class Dijkstra {
         /**
          * implementation of Dijkstra algorithm for weighted graph
@@ -146,4 +177,6 @@ public class DWGraph_Algo implements dw_graph_algorithms {
             }
         }
     }
+
+
 }
