@@ -55,20 +55,13 @@ public class MyFrame extends JFrame {
         pack();
         //startGame();
     }
+
     public static GamePanel get_gp() {
         return _gp;
     }
 
-    public static void startGame(){
-        _gp.startGame();
-    }
-
     public static void startGame(int scenario,int id){
         _gp.startGame(scenario, id,false);
-    }
-
-    public static void main(String[] args) {
-        MyFrame f= new MyFrame();
     }
 
 }

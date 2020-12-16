@@ -11,7 +11,7 @@ import java.util.List;
  * goes to catch all pokemon
  */
 public class PokemonTrainer {
-    private EdgeData _curr_edge;
+    private edge_data _curr_edge;
     private List<node_data> _pathToPokemon;
     private node_data _curr_node;
     private node_data _next_node;
@@ -205,7 +205,7 @@ public class PokemonTrainer {
      * returns current edge trainer is on
      * @return
      */
-    public EdgeData get_curr_edge() {
+    public edge_data get_curr_edge() {
         return _curr_edge;
     }
 
