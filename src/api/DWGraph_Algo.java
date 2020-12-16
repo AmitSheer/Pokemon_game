@@ -94,22 +94,6 @@ public class DWGraph_Algo implements dw_graph_algorithms {
         }
         return true;
     }
-
-    public static void main(String[] args){
-        DWGraph_DS g = new DWGraph_DS();
-        g.addNode(new NodeData(0));
-        g.addNode(new NodeData(1));
-        g.addNode(new NodeData(2));
-        g.connect(0,1,1);
-        g.connect(0,2,1);
-        g.getNode(0).setLocation(new GeoLocation(1,1,1));
-        DWGraph_Algo a = new DWGraph_Algo();
-        a.init(g);
-        System.out.println(a.graph.toString());
-        a.save("./aasdasd");
-        a.init(new DWGraph_DS());
-        a.load("./aasdasd");
-    }
     class Dijkstra {
         /**
          * implementation of Dijkstra algorithm for weighted graph
