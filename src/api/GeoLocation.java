@@ -3,26 +3,26 @@ package api;
 
 import java.util.Objects;
 
-public class GeoLocations implements geo_location {
+public class GeoLocation implements geo_location {
     private double _x;
     private double _y;
     private double _z;
 
-    public GeoLocations(){
+    public GeoLocation(){
 
     }
 
-    public GeoLocations(double x, double y, double z){
+    public GeoLocation(double x, double y, double z){
         _x = x;
         _y = y;
         _z = z;
     }
-    public GeoLocations(geo_location g){
+    public GeoLocation(geo_location g){
         _x = g.x();
         _y = g.y();
         _z = g.z();
     }
-    public GeoLocations(String g){
+    public GeoLocation(String g){
         String [] pos = g.split(",");
         _x = Double.parseDouble(pos[0]);
         _y = Double.parseDouble(pos[1]);
@@ -56,8 +56,8 @@ public class GeoLocations implements geo_location {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof GeoLocations)) return false;
-        GeoLocations that = (GeoLocations) o;
+        if (!(o instanceof GeoLocation)) return false;
+        GeoLocation that = (GeoLocation) o;
         return Double.compare(that._x, _x) == 0 &&
                 Double.compare(that._y, _y) == 0 &&
                 Double.compare(that._z, _z) == 0;

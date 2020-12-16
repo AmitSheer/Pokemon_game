@@ -11,7 +11,7 @@ import java.util.List;
  * goes to catch all pokemon
  */
 public class PokemonTrainer {
-    private edge_data _curr_edge;
+    private EdgeData _curr_edge;
     private List<node_data> _pathToPokemon;
     private node_data _curr_node;
     private node_data _next_node;
@@ -24,8 +24,6 @@ public class PokemonTrainer {
     private double _value;
     private int _dest;
 
-
-
     public PokemonTrainer(int start_node, directed_weighted_graph gg) {
         this._gg = gg;
         this._curr_node = this._gg.getNode(start_node);
@@ -37,42 +35,47 @@ public class PokemonTrainer {
         set_speed(0);
     }
 
+    /**
+     * returns list of nodes the trainer needs to go through
+     * @return
+     */
     public List<node_data> getPathToPokemon() {
         return _pathToPokemon;
     }
 
-
-
+    /**
+     *
+     * @return the next pokemon the trainer needs to eat
+     */
     public Pokemon getNextPoke() {
         return nextPoke;
     }
 
+    /**
+     * sets the next pokemon the trainer needs to eat
+     * @param nextPoke
+     */
     public void setNextPoke(Pokemon nextPoke) {
         this.nextPoke = nextPoke;
     }
 
+    /**
+     * sets the new path the trainer needs to follow
+     * @param pathToPokemon
+     */
     public void setPathToPokemon(List<node_data> pathToPokemon) {
-        //pathToPokemon.remove(0);
         this._pathToPokemon = pathToPokemon;
-        this.endNodeId = _pathToPokemon.get(_pathToPokemon.size()-1).getKey();
-        //       this.set_next_node(this._pathToPokemon.remove(0).getKey());
-        //this._curr_edge = _gg.getEdge(this.get_curr_node(),this._next_node.getKey());
+        if(_pathToPokemon.size()!=0)
+            this.endNodeId = _pathToPokemon.get(_pathToPokemon.size()-1).getKey();
     }
 
-//    public int getNextNode() {
-//        int ans = -2;
-//        if (this._curr_edge == null) {
-//            ans = -1;
-//        } else {
-//            ans = this._curr_edge.getDest();
-//        }
-//        return ans;
-//    }
-
+    /**
+     * updates all of the data of the trainer from JSON format string
+     * @param json
+     */
     public void update(String json) {
         JSONObject line;
         try {
-            // "GameServer":{"graph":"A0","pokemons":3,"agents":1}}
             line = new JSONObject(json);
             JSONObject ttt = line.getJSONObject("Agent");
             int id = ttt.getInt("id");
@@ -80,16 +83,11 @@ public class PokemonTrainer {
                 if(this.getID() == -1) {_id = id;}
                 double speed = ttt.getDouble("speed");
                 String p = ttt.getString("pos");
-                GeoLocations pp = new GeoLocations(p);
+                GeoLocation pp = new GeoLocation(p);
                 int src = ttt.getInt("src");
                 int dest = ttt.getInt("dest");
-//                if(_pathToPokemon.size()==0&&dest==-1){
-////                    set_next_node(_pathToPokemon.remove(0).getKey());
-////                }else if(dest==-1){
-//                    set_next_node(-1);
-//                }
                 double value = ttt.getDouble("value");
-                this.setLocation(new GeoLocations(p));
+                this.setLocation(new GeoLocation(p));
                 this.set_curr_node(src);
                 this.set_speed(speed);
                 this.set_next_node(dest);
@@ -101,6 +99,10 @@ public class PokemonTrainer {
         }
     }
 
+    /**
+     *
+     * @return trainers id
+     */
     public int getID() {
         return _id;
     }
@@ -117,10 +119,6 @@ public class PokemonTrainer {
         this._curr_node = _gg.getNode(_curr_node);
     }
 
-    public double get_speed() {
-        return _speed;
-    }
-
     public void set_speed(double _speed) {
         this._speed = _speed;
     }
@@ -134,29 +132,15 @@ public class PokemonTrainer {
     }
 
 
-    private void set_next_node(int _next_node) {
+    public void set_next_node(int _next_node) {
         if(_next_node==-1){
             _curr_edge=null;
-            _dest=-1;
         }else{
             this._next_node = _gg.getNode(_next_node);
-            this._curr_edge = _gg.getEdge(this.get_curr_node(),_next_node);
-            _dest=_next_node;
-
+            this._curr_edge = (EdgeData) _gg.getEdge(this.get_curr_node(),_next_node);
         }
+        _dest=_next_node;
     }
-    public void set_next_node() {
-//        this._next_node = _gg.getNode(_pathToPokemon.remove(0).getKey());
-        try{
-            set_next_node(_pathToPokemon.remove(0).getKey());
-        }catch(Exception e){
-            set_next_node(-1);
-        }
-//            System.out.println("ads");
-//            throw e;
-//        }
-    }
-
 
     public geo_location getLocation() {
         return _pos;
@@ -166,22 +150,19 @@ public class PokemonTrainer {
         this._pos = _pos;
     }
 
-    public void update(PokemonTrainer next) {
-    }
-
     public int get_dest() {
         return _dest;
-    }
-
-    public void set_dest(int _dest) {
-        this._dest = _dest;
     }
 
     public int getEndNodeId() {
         return endNodeId;
     }
 
-    public void setEndNodeId(int endNodeId) {
-        this.endNodeId = endNodeId;
+    public EdgeData get_curr_edge() {
+        return _curr_edge;
+    }
+
+    public void set_curr_edge(edge_data _curr_edge) {
+        this._curr_edge = (EdgeData) _curr_edge;
     }
 }

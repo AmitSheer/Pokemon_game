@@ -21,7 +21,7 @@ public class NodeData implements node_data {
         this._info = String.valueOf(key);
         this._tag = 0;
         this._w = 0;
-        _location = new GeoLocations();
+        _location = new GeoLocation();
     }
     public NodeData(int key, geo_location e) {
         this._key = key;
@@ -43,7 +43,7 @@ public class NodeData implements node_data {
 
     @Override
     public void setLocation(geo_location p) {
-        _location = new GeoLocations(p);
+        _location = new GeoLocation(p);
 
     }
 

@@ -2,11 +2,9 @@ package api;
 
 import com.google.gson.*;
 import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonToken;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class GraphParser {
@@ -19,14 +17,13 @@ public class GraphParser {
         JsonObject jsonObject = JsonParser.parseString(json).getAsJsonObject();
         return getDirected_weighted_graph(jsonObject);
     }
-
     @NotNull
     private static directed_weighted_graph getDirected_weighted_graph(JsonObject jsonObject) {
         directed_weighted_graph graph = new DWGraph_DS();
         for (JsonElement element : jsonObject.getAsJsonArray("Nodes")) {
             NodeData n = new NodeData(element.getAsJsonObject().get("id").getAsInt());
             String [] geoPos = element.getAsJsonObject().get("pos").getAsString().split(",");
-            n.setLocation(new GeoLocations(Double.parseDouble(geoPos[0]),Double.parseDouble(geoPos[1]),Double.parseDouble(geoPos[2])));
+            n.setLocation(new GeoLocation(Double.parseDouble(geoPos[0]),Double.parseDouble(geoPos[1]),Double.parseDouble(geoPos[2])));
             graph.addNode(n);
         }
         for (JsonElement element : jsonObject.getAsJsonArray("Edges")) {

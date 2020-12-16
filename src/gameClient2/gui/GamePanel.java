@@ -34,9 +34,6 @@ public class GamePanel extends JPanel {
     private Range2Range _w2f;
     private boolean showTotal;
 
-
-
-
     public GamePanel() throws IOException {
         super();
         this.setOpaque(false);
@@ -167,7 +164,7 @@ public class GamePanel extends JPanel {
             Iterator<Pokemon> itr = fs.iterator();
             while (itr.hasNext()) {
                 Pokemon f = itr.next();
-                GeoLocations c = new GeoLocations(f.getLocation().toString());
+                GeoLocation c = new GeoLocation(f.getLocation().toString());
                 int r = 10;
                 if (c != null) {
                     geo_location fp = this._w2f.world2frame(f.getLocation());

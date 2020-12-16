@@ -12,17 +12,13 @@ public class Tarjan {
     private static int id;
     private static Stack<node_data> stack;
     private static List<List<Integer>> sccNodes;
+    private static int sccCount;
+    private static directed_weighted_graph graph;
 
 
     public static List<List<Integer>> getSccNodes() {
         return sccNodes;
     }
-    public static int getSccCount() {
-        return sccCount;
-    }
-
-    private static int sccCount;
-    private static directed_weighted_graph graph;
 
     public static boolean init(directed_weighted_graph g) {
         sccNodes = new LinkedList<>();
@@ -33,6 +29,7 @@ public class Tarjan {
         id = 0;
         sccCount = 0;
         graph = g;
+        reset(graph);
         if (g.nodeSize() == 0) return true;
         for (node_data node : g.getV()) {
             if (node.getTag() == -1)
@@ -69,26 +66,7 @@ public class Tarjan {
         }
     }
 
-//
-//        public static boolean bfs(directed_weighted_graph graph, node_data start){
-//            Queue<node_data> nodeDataQueue = new LinkedList<>();
-//            HashSet<Integer> visited = new HashSet<>();
-//            visited.add(start.getKey());
-//            nodeDataQueue.add(start);
-//            while(!nodeDataQueue.isEmpty()){
-//                start = nodeDataQueue.remove();
-//                //updates all of neighbors as visited
-//                for (edge_data edge: graph.getE(start.getKey())) {
-//                    if(!visited.contains(edge.getDest())) {
-//                        nodeDataQueue.add(graph.getNode(edge.getDest()));
-//                        visited.add(edge.getDest());
-//                    }
-//                }
-//            }
-//            return visited.size()==graph.nodeSize();
-//        }
-
-    public static void reset(directed_weighted_graph graph) {
+    private static void reset(directed_weighted_graph graph) {
         graph.getV().forEach(node -> {
             node.setTag(-1);
             node.setWeight(0);

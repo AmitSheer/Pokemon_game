@@ -2,9 +2,6 @@ package gameClient2.gui;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.google.gson.internal.bind.JsonTreeReader;
-import com.google.gson.stream.JsonReader;
-import org.json.JSONObject;
 
 public class GameStatus {
     private int _pokemonNum;
@@ -12,7 +9,7 @@ public class GameStatus {
     private double _grade;
     private int _gameLevel;
     private String _graph;
-    private int _agentsNum;
+    private int _trainersNum;
     private boolean _isLogin;
     private int _id;
     private int _maxUserLevel;
@@ -35,7 +32,7 @@ public class GameStatus {
         set_maxUserLevel(jsonData.get("max_user_level").getAsInt());
         set_id(jsonData.get("id").getAsInt());
         set_graph(jsonData.get("graph").getAsString());
-        set_agentsNum(jsonData.get("agents").getAsInt());
+        set_trainersNum(jsonData.get("agents").getAsInt());
     }
 
     public int get_pokemonNum() {
@@ -78,12 +75,12 @@ public class GameStatus {
         this._graph = _graph;
     }
 
-    public int get_agentsNum() {
-        return _agentsNum;
+    public int get_trainersNum() {
+        return _trainersNum;
     }
 
-    public void set_agentsNum(int _agentsNum) {
-        this._agentsNum = _agentsNum;
+    public void set_trainersNum(int _trainersNum) {
+        this._trainersNum = _trainersNum;
     }
 
     public boolean is_isLogin() {
@@ -121,7 +118,7 @@ public class GameStatus {
                 ", _maxUserLevel=" + _maxUserLevel +
                 ", _id=" + _id +
                 ", graph:" + _graph +
-                ", agents:" + _agentsNum +
+                ", agents:" + _trainersNum +
                 '}';
     }
 }
