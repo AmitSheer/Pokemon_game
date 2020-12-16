@@ -107,31 +107,58 @@ public class PokemonTrainer {
         return _id;
     }
 
+    /**
+     * sets trainers id
+     * @param ID
+     */
     public void setID(int ID) {
         this._id = ID;
     }
 
+    /**
+     *
+     * @return current node trainer is on
+     */
     public int get_curr_node() {
         return _curr_node.getKey();
     }
 
+    /**
+     * sets new node trainer is on
+     * @param _curr_node
+     */
     public void set_curr_node(int _curr_node) {
         this._curr_node = _gg.getNode(_curr_node);
     }
 
+    /**
+     * sets the trainer current travel speed
+     * @param _speed
+     */
     public void set_speed(double _speed) {
         this._speed = _speed;
     }
 
+    /**
+     *
+     * @return the total value of pokemons the trainer collected
+     */
     public double get_money() {
         return _value;
     }
 
+    /**
+     * sets new total value of pokemons the trainer collected
+     * @param _value
+     */
     public void set_money(double _value) {
         this._value = _value;
     }
 
-
+    /**
+     * sets next node to visit
+     * @param _next_node
+     */
     public void set_next_node(int _next_node) {
         if(_next_node==-1){
             _curr_edge=null;
@@ -142,26 +169,50 @@ public class PokemonTrainer {
         _dest=_next_node;
     }
 
+    /**
+     *
+     * @return returns trainer current location
+     */
     public geo_location getLocation() {
         return _pos;
     }
 
+    /**
+     * sets trainer new location
+     * @param _pos
+     */
     public void setLocation(geo_location _pos) {
         this._pos = _pos;
     }
 
+    /**
+     * returns trainer destination
+     * @return
+     */
     public int get_dest() {
         return _dest;
     }
 
+    /**
+     *
+     * @return the last node trainer needs to go to
+     */
     public int getEndNodeId() {
         return endNodeId;
     }
 
+    /**
+     * returns current edge trainer is on
+     * @return
+     */
     public EdgeData get_curr_edge() {
         return _curr_edge;
     }
 
+    /**
+     * sets a new edge the agent is on
+     * @param _curr_edge
+     */
     public void set_curr_edge(edge_data _curr_edge) {
         this._curr_edge = (EdgeData) _curr_edge;
     }
