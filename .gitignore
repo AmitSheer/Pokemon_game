@@ -166,7 +166,7 @@ local.properties
 
 *.kotlin_module
 
-*.iml
+#*.iml
 
 *.json
 saveAndLoad
