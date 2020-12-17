@@ -40,15 +40,15 @@ public class MyFrame extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         _sp.setResizeWeight(1);
         //_sp.setToolTipText("Tap to Expand/Minimize");
-        _sp.setDividerLocation(850);
+        _sp.setDividerLocation(800);
         _sp.setBackground(Color.white);
-        _sp.getLeftComponent().setMaximumSize(new Dimension(250,this.getHeight()));
+        //_sp.getLeftComponent().setMaximumSize(new Dimension(250,this.getHeight()));
 
         setVisible(true);
         _sp.addPropertyChangeListener(new PropertyChangeListener() {
             public void propertyChange(PropertyChangeEvent changeEvent) {
                 if (changeEvent.getPropertyName().equals(JSplitPane.DIVIDER_LOCATION_PROPERTY)) {
-                    _gp.setSize(_sp.getWidth() - _sp.getWidth() + _sp.getDividerLocation(),_gp.getHeight());
+                    _gp.setSize(_sp.getDividerLocation(),_gp.getHeight());
                 }
             }
         });

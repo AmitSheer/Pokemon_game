@@ -71,14 +71,10 @@ public class GamePanel extends JPanel {
         game.startGame(this,scenario,id);
 
     }
-    public void startGame(){
-        game = new Game(false);
-        showTotal=false;
-        game.startGame(this);
-    }
+
+
     public void update(GameManager gm) {
         this._gm = gm;
-//        this.infoPanel.updateInfo(gm);
         updatePanel();
     }
 
@@ -92,7 +88,6 @@ public class GamePanel extends JPanel {
         g2d.clearRect(0, 0, w, h);
         g2d.fillRect(0,0,w,h);
         Dimension d = _frame.getSize();
-        drawInfo(g2d);
         updatePanel();
         g2d.drawImage(_background,0,0,d.width,d.height,null);
         this._infoText = (this.getHeight() / 20)*5;
@@ -112,7 +107,6 @@ public class GamePanel extends JPanel {
     }
 
     private void drawInfo(Graphics g) {
-        GameStatus str = _gm.getGameStatus();
         Graphics2D g2D = (Graphics2D) g;
         g2D.setColor(Color.white);
         g2D.setFont(new Font(Font.MONOSPACED, Font.BOLD, (this.getHeight() + this.getWidth()) / 80));
@@ -135,8 +129,6 @@ public class GamePanel extends JPanel {
                 x0 = x0 * 5+x0;
             }
         }
-        //g2D.drawString("Grade: "+_gm.getGameStatus().get_grade(), (int) x0 * 5, (int) y0);
-        //g2D.drawString("Moves:"+_gm.getGameStatus().get_moves(), (int) x0 * 5, (int) y0);
     }
 
     private void drawGraph(Graphics g) {
@@ -201,7 +193,7 @@ public class GamePanel extends JPanel {
         geo_location fp = this._w2f.world2frame(pos);
         g.drawImage(_town.getScaledInstance(2 * r+this.getWidth()/100, 2 * r+this.getHeight()/100, Image.SCALE_SMOOTH),(int)fp.x()-(r+this.getWidth()/300), (int) fp.y()-(r+this.getHeight()/200),null);
         //g.fillOval((int) fp.x() - r, (int) fp.y() - r, this.getWidth()/100, this.getHeight()/100);
-        g.drawString("" + n.getKey(), (int) fp.x(), (int) fp.y() - 4 * r);
+//        g.drawString("" + n.getKey(), (int) fp.x(), (int) fp.y() - 4 * r);
     }
 
     private void drawEdge(edge_data e, Graphics g) {

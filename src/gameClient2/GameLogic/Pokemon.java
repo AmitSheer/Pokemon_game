@@ -3,6 +3,8 @@ package gameClient2.GameLogic;
 import api.edge_data;
 import api.geo_location;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Objects;
 
 public class Pokemon {
@@ -10,6 +12,9 @@ public class Pokemon {
     private double _value;
     private edge_data _edge;
     private geo_location _pos;
+    private boolean _marked;
+    private List<Pokemon> _ClosePokemons;
+
 
     public Pokemon(double value, geo_location pos, int type, edge_data e){
         _pos = pos;
@@ -17,9 +22,26 @@ public class Pokemon {
         _type=type;
         _value = value;
         setEdge(e);
+        _ClosePokemons= new LinkedList<>();
     }
 
     public Pokemon() {
+    }
+
+    public List<Pokemon> getClosePokemons() {
+        return _ClosePokemons;
+    }
+
+    public void setClosePokemons(List<Pokemon> _ClosePokemons) {
+        this._ClosePokemons = _ClosePokemons;
+    }
+
+    public boolean isMarked() {
+        return _marked;
+    }
+
+    public void setMarked(boolean _marked) {
+        this._marked = _marked;
     }
 
     /**

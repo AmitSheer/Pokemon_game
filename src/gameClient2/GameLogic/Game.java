@@ -28,7 +28,7 @@ public class Game implements Runnable{
     public void startGame(GamePanel panel){
         _gp = panel;
         _gm = new GameManager();
-        game = Game_Server_Ex2.getServer(11);
+        game = Game_Server_Ex2.getServer(30);
         server = new Thread(this);
         server.start();
     }
@@ -70,9 +70,9 @@ public class Game implements Runnable{
             try {
                 _gp.repaint();
                 //System.out.println(_gm.getTime());
-                System.out.println(dt);
+                //System.out.println(dt);
                 Thread.sleep(dt);
-                dt = 100;
+                dt = 99;
             }
             catch(Exception e) {
                 e.printStackTrace();
@@ -167,6 +167,7 @@ public class Game implements Runnable{
         String info = game.toString();
         JSONObject line;
         List<PokemonTrainer> pts;
+        markPokemonGroups();
         try {
             line = new JSONObject(info);
             JSONObject ttt = line.getJSONObject("GameServer");
@@ -185,12 +186,13 @@ public class Game implements Runnable{
 //                game.addAgent(nn);
 //                rs--;
 //            }
-            for(int a = 0;a<rs;a++) {
-                int ind = a%_gm.getPokemons().size();
-                Pokemon c = _gm.getPokemons().get(ind);
-                int nn = c.getEdge().getSrc();
-                game.addAgent(nn);
-            }
+            loadTrainers(rs,_gm.getPokemons());
+//            for(int a = 0;a<rs;a++) {
+//                int ind = a%_gm.getPokemons().size();
+//                Pokemon c = _gm.getPokemons().get(ind);
+//                int nn = c.getEdge().getSrc();
+//                game.addAgent(nn);
+//            }
             GameManager.getTrainers(game.getAgents(),gg);
             //_gm.setTrainers(pts);
         }
@@ -198,28 +200,75 @@ public class Game implements Runnable{
 
     }
 
-    private void loadAgents(game_service game, int rs, ArrayList<Pokemon> cl_fs, directed_weighted_graph gg) {
+    private void markPokemonGroups(){
+        for (Pokemon currentPokemon : _gm.getPokemons()) {
+            for (Pokemon pokemon : _gm.getPokemons()) {
+                if(!pokemon.equals(currentPokemon)){
+                    List<node_data> dist = _gm.getAlgo().shortestPath(pokemon.getEdge().getSrc(),currentPokemon.getEdge().getSrc());
+                    if(dist.size()<3){
+                        currentPokemon.getClosePokemons().add(pokemon);
+                        pokemon.getClosePokemons().add(currentPokemon);
+                    }
+                }
+            }
+        }
+    }
+    private void loadTrainers(int rs, List<Pokemon> cl_fs) {
+        PriorityQueue<Pokemon> pokemonQueue = new PriorityQueue<>(new Comparator<Pokemon>() {
+            @Override
+            public int compare(Pokemon o1, Pokemon o2) {
+                return o2.getClosePokemons().size()-o1.getClosePokemons().size();
+            }
+        });
+        pokemonQueue.addAll(_gm.getPokemons());
         if (_gm.getAlgo().isConnected()) {
-            for (int a = 0; a < rs; a++) {
-                int ind = a % cl_fs.size();
-                Pokemon c = cl_fs.get(ind);
+            int index = 0;
+            for (;index < rs && index<pokemonQueue.size(); index++) {
+                Pokemon nn = pokemonQueue.poll();
+                pokemonQueue.removeIf(p->nn.getClosePokemons().contains(p));
+                game.addAgent(nn.getEdge().getSrc());
+            }
+            for (; index < rs; index++) {
+                int ind = index%_gm.getPokemons().size();
+                Pokemon c = _gm.getPokemons().get(ind);
                 int nn = c.getEdge().getSrc();
                 game.addAgent(nn);
             }
         } else {
             System.out.println("Not connected");
-            List<List<Integer>> nodeKeys = Tarjan.getSccNodes();
+            List<List<Integer>> connections = Tarjan.getSccNodes();
             int index = 0;
-//            for (; index < nodeKeys.size() && index < rs; index++) {
-//                for (Pokemon p : _gm.getPokemons()) {
-//                    if (_gm.getAlgo().shortestPathDist(nodeKeys.get(index), p.getEdge().getSrc()) != 0) {
-//                        game.addAgent(p.getEdge().getSrc());
-//                        break;
-//                    }
-//                }
-//            }
-//            _gm.setTrainers(GameManager.getTrainers(game.getAgents(), gg));
+            int [] numOfTrainersForEachScc = new int[connections.size()];
+            PriorityQueue<List<Integer>> sccBySize = new PriorityQueue<>(new Comparator<List<Integer>>() {
+                @Override
+                public int compare(List<Integer> o1, List<Integer> o2) {
+                    if (o1.size() == o2.size())
+                        return 0;
+                    else if (o1.size() < o2.size())
+                        return 1;
+                    return -1;
+                }
+            });
+            connections = sccBySize.stream().collect(Collectors.toList());
+            for (; index < sccBySize.size() && index < rs; index++) {
+                int pokemonIndex = -1;
+                for (Pokemon p : _gm.getPokemons()) {
+                    if (connections.get(index).contains(p.getEdge().getSrc())&&!p.isMarked()) {
+                        pokemonIndex = p.getEdge().getSrc();
+                        game.addAgent(p.getEdge().getSrc());
+                        p.setMarked(true);
+                        numOfTrainersForEachScc[index]++;
+                        break;
+                    }
+                }
+                if (pokemonIndex == -1 && connections.get(index).size() > 1) {
+                    numOfTrainersForEachScc[index]++;
+                    game.addAgent(connections.get(index).get(0));
+                }
+            }
+            int agentsLeft = rs-index;
         }
+        GameManager.getTrainers(game.getAgents(), _gm.getGraph());
     }
 
     public boolean isRunning(){
