@@ -90,6 +90,8 @@ public class GameInputPanel extends JPanel {
                 Matcher matcher = regEx.matcher(text);
                 if(!matcher.matches()){
                     return;
+                }else if(offset>String.valueOf(Integer.MAX_VALUE).length()){
+                    return;
                 }
                 super.replace(fb, offset, length, text, attrs);
             }
@@ -100,9 +102,9 @@ public class GameInputPanel extends JPanel {
      * when pressed the button will tell the game to start
      */
     private void selectionButtonPressed() {
-        int scenarioNum = Integer.parseInt(_scenario.getText());
-        int idNum = Integer.parseInt(_id.getText());
         try {
+            int scenarioNum = Integer.parseInt(_scenario.getText());
+            int idNum = Integer.parseInt(_id.getText());
             MyFrame.startGame(scenarioNum, idNum);
             _scenarioPanel.getComponent(1).setBackground(Color.white);
         }catch(Exception e){
