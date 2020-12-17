@@ -3,58 +3,96 @@ package gameClient2.GameLogic;
 import api.edge_data;
 import api.geo_location;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Objects;
 
 public class Pokemon {
     private int _type;
     private double _value;
     private edge_data _edge;
-    private int _src;
-    private int _dest;
-    private int _id;
     private geo_location _pos;
-    private int _trainerId;
+    private boolean _marked;
+    private List<Pokemon> _ClosePokemons;
 
-    public Pokemon(int key, double value, geo_location pos, int type, edge_data e){
-        _id = key;
+
+    public Pokemon(double value, geo_location pos, int type, edge_data e){
         _pos = pos;
         _value = value;
         _type=type;
         _value = value;
         setEdge(e);
+        _ClosePokemons= new LinkedList<>();
     }
 
+    public Pokemon() {
+    }
+
+    public List<Pokemon> getClosePokemons() {
+        return _ClosePokemons;
+    }
+
+    public void setClosePokemons(List<Pokemon> _ClosePokemons) {
+        this._ClosePokemons = _ClosePokemons;
+    }
+
+    public boolean isMarked() {
+        return _marked;
+    }
+
+    public void setMarked(boolean _marked) {
+        this._marked = _marked;
+    }
+
+    /**
+     * returns the pokemon type
+     * @return type
+     */
     public int getType() {
         return _type;
     }
 
+    /**
+     * sets the pokemon type
+     * @param _type of pokemon
+     */
     public void setType(int _type) {
         this._type = _type;
     }
 
+    /**
+     * gets current edge
+     * @return
+     */
     public edge_data getEdge() {
         return _edge;
     }
 
+    /**
+     * sets the current edge
+     * @param _edge new edge
+     */
     public void setEdge(edge_data _edge) {
         this._edge = _edge;
     }
 
-    public int get_id() {
-        return _id;
-    }
 
-    public void set_id(int _id) {
-        this._id = _id;
-    }
-
+    /**
+     *
+     * @return  current location
+     */
     public geo_location getLocation() {
         return _pos;
     }
 
-    public void set_pos(geo_location _pos) {
+    /**
+     *  updates current location
+     * @param _pos location to put
+     */
+    public void setLocation(geo_location _pos) {
         this._pos = _pos;
     }
+
 
     @Override
     public boolean equals(Object o) {
@@ -69,7 +107,7 @@ public class Pokemon {
 
     @Override
     public int hashCode() {
-        return Objects.hash(_type, _value, _edge, _src, _dest, _id, _pos);
+        return Objects.hash(_type, _value, _edge,  _pos);
     }
 
     @Override
@@ -78,18 +116,7 @@ public class Pokemon {
                 "_type=" + _type +
                 ", _value=" + _value +
                 ", _edge=" + _edge +
-                ", _src=" + _src +
-                ", _dest=" + _dest +
-                ", _id=" + _id +
                 ", _pos=" + _pos +
                 '}';
-    }
-
-    public void setTrainerId(int _trainerId) {
-        this._trainerId = _trainerId;
-    }
-
-    public int getTrainerId() {
-        return _trainerId;
     }
 }

@@ -47,6 +47,29 @@ class DWGraph_AlgoTest extends BaseTest {
 
     @Tag("isConnected")
     @Test
+    void isConnectedFalseAndGetSCC() {
+        graphCreator(1,10,0,1);
+        for (int i = 1; i < 10; i++) {
+            graph.connect(i-1,i,1);
+            graph.connect(i,i-1,1);
+        }
+        algo.init(graph);
+        graph.removeNode(3);
+        algo.init(graph);
+        assertFalse(algo.isConnected());
+        List<List<Integer>> scc = Tarjan.getSccNodes();
+        assertEquals(2, scc.size());
+        for (int i = 0; i < 9; i++) {
+            if(2<i){
+                assertTrue(scc.get(1).contains(i+1));
+            }else{
+                assertTrue(scc.get(0).contains(i));
+            }
+        }
+    }
+
+    @Tag("isConnected")
+    @Test
     void isConnectedWithNotConnectedButThenConnectedGraph() {
         graphCreator(1,10,0,1);
         graph.connect(1,0,1);

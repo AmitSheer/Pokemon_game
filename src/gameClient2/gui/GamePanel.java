@@ -20,18 +20,19 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class GamePanel extends JPanel {
-    private static String _pikachuImgPath = "src/gameClient2/assets/Pikachu.png";
-    private static String _miauImgPath = "src/gameClient2/assets/Miau.png";
-    private static String _agentsImgPath = "src/gameClient2/assets/Boaz.png";
-    private static String _backgroundImgPath = "src/gameClient2/assets/grass.jpg";
-    private static String _townImgPath = "src/gameClient2/assets/town.jpg";
+
+    private static String _pikachuImgPath = "./assets/Pikachu.png";
+    private static String _miauImgPath = "./assets/Miau.png";
+    private static String _agentsImgPath = "./assets/Boaz.png";
+    private static String _backgroundImgPath = "./assets/grass.jpg";
+    private static String _townImgPath = "./assets/town.jpg";
     private static Image _pika, _miau, _agent,_background, _town;
     private static MyFrame _frame;
     private static Game game;
+    private int _infoText;
     private GameManager _gm;
     private Range2Range _w2f;
-
-
+    private boolean showTotal;
 
     public GamePanel() throws IOException {
         super();
@@ -50,29 +51,28 @@ public class GamePanel extends JPanel {
         this.setOpaque(false);
         this.setBackground(Color.WHITE);
         this.setSize(frame.getWidth(), frame.getHeight());
-        //BufferedImage img = ImageIO.read(getAssets(),_pikachuImgPath);
         _pika = ImageIO.read(new File(_pikachuImgPath));
         _miau = ImageIO.read(new File(_miauImgPath));
         _agent = ImageIO.read(new File(_agentsImgPath));
         _background = ImageIO.read(new File(_backgroundImgPath));
         _town = ImageIO.read(new File(_townImgPath));
         _gm = new GameManager();
-        game = new Game();
+        showTotal= false;
     }
 
-    public void startGame(int scenario,int id){
+    public void startGame(int scenario,int id,boolean isCloseWhenDone){
         try{
             if(game.isRunning()){
                 game.gameStop();
             }
         }catch(Exception ignore ){}
+        game = new Game(isCloseWhenDone);
+        showTotal = false;
         game.startGame(this,scenario,id);
 
     }
-    public void startGame(){
-        game = new Game();
-        game.startGame(this);
-    }
+
+
     public void update(GameManager gm) {
         this._gm = gm;
         updatePanel();
@@ -87,9 +87,10 @@ public class GamePanel extends JPanel {
         int h = this.getHeight();
         g2d.clearRect(0, 0, w, h);
         g2d.fillRect(0,0,w,h);
-        updatePanel();
         Dimension d = _frame.getSize();
+        updatePanel();
         g2d.drawImage(_background,0,0,d.width,d.height,null);
+        this._infoText = (this.getHeight() / 20)*5;
         drawInfo(g2d);
         drawGraph(g2d);
         drawAgants(g2d);
@@ -99,28 +100,35 @@ public class GamePanel extends JPanel {
 
     private void updatePanel() {
         Range rx = new Range(20, this.getWidth() - 20);
-        Range ry = new Range(this.getHeight() - 10, 150);
+        Range ry = new Range(this.getHeight()-50, _infoText);
         Range2D frame = new Range2D(rx, ry);
         directed_weighted_graph g = _gm.getGraph();
         _w2f = GameManager.w2f(g, frame);
     }
 
     private void drawInfo(Graphics g) {
-
-        GameStatus str = _gm.getGameStatus();
         Graphics2D g2D = (Graphics2D) g;
         g2D.setColor(Color.white);
-        g2D.setFont(new Font("OCR A Extended", Font.BOLD, (this.getHeight() + this.getWidth()) / 80));
+        g2D.setFont(new Font(Font.MONOSPACED, Font.BOLD, (this.getHeight() + this.getWidth()) / 80));
         int x0 = this.getWidth() / 70;
         int y0 = this.getHeight() / 20;
-        g2D.drawString("Time to finish: " +_gm.getTime(), (int) x0 * 5, (int) y0);
+
+        if(showTotal){
+            g2D.drawString("Total: " +_gm.getGameStatus().get_grade(), (int) x0 * 5, (int) y0);
+        }else{
+            g2D.drawString("Time to finish: " +_gm.getTime(), (int) x0 * 5, (int) y0);
+        }
         y0 = y0 +this.getHeight() / 20;
+        int counter=0;
         for (PokemonTrainer trainer : _gm.getTrainers()) {
+            counter++;
             g2D.drawString("Agent" + trainer.getID() + " : " + trainer.get_money(), (int) x0 * 5, (int) y0);
             y0 = y0 +this.getHeight() / 20;
+            if(counter%3==0){
+                y0 =  this.getHeight()/20+this.getHeight()/20;
+                x0 = x0 * 5+x0;
+            }
         }
-        //g2D.drawString("Grade: "+_gm.getGameStatus().get_grade(), (int) x0 * 5, (int) y0);
-        //g2D.drawString("Moves:"+_gm.getGameStatus().get_moves(), (int) x0 * 5, (int) y0);
     }
 
     private void drawGraph(Graphics g) {
@@ -148,7 +156,7 @@ public class GamePanel extends JPanel {
             Iterator<Pokemon> itr = fs.iterator();
             while (itr.hasNext()) {
                 Pokemon f = itr.next();
-                GeoLocations c = new GeoLocations(f.getLocation().toString());
+                GeoLocation c = new GeoLocation(f.getLocation().toString());
                 int r = 10;
                 if (c != null) {
                     geo_location fp = this._w2f.world2frame(f.getLocation());
@@ -185,7 +193,7 @@ public class GamePanel extends JPanel {
         geo_location fp = this._w2f.world2frame(pos);
         g.drawImage(_town.getScaledInstance(2 * r+this.getWidth()/100, 2 * r+this.getHeight()/100, Image.SCALE_SMOOTH),(int)fp.x()-(r+this.getWidth()/300), (int) fp.y()-(r+this.getHeight()/200),null);
         //g.fillOval((int) fp.x() - r, (int) fp.y() - r, this.getWidth()/100, this.getHeight()/100);
-        //g.drawString("" + n.getKey(), (int) fp.x(), (int) fp.y() - 4 * r);
+//        g.drawString("" + n.getKey(), (int) fp.x(), (int) fp.y() - 4 * r);
     }
 
     private void drawEdge(edge_data e, Graphics g) {
@@ -197,4 +205,11 @@ public class GamePanel extends JPanel {
         g.drawLine((int) s0.x(), (int) s0.y(), (int) d0.x(), (int) d0.y());
     }
 
+    public boolean getShowTotal() {
+        return showTotal;
+    }
+
+    public void setShowTotal(boolean showTotal) {
+        this.showTotal = showTotal;
+    }
 }

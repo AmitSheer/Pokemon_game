@@ -1,5 +1,5 @@
 package gameClient2.util;
-import api.GeoLocations;
+import api.GeoLocation;
 import api.geo_location;
 
 /**
@@ -17,14 +17,14 @@ public class Range2D {
 		_x_range = new Range(w._x_range);
 		_y_range = new Range(w._y_range);
 	} 
-	public GeoLocations getPortion(geo_location p) {
+	public GeoLocation getPortion(geo_location p) {
 		double x = _x_range.getPortion(p.x());
 		double y = _y_range.getPortion(p.y());
-		return new GeoLocations(x,y,0);
+		return new GeoLocation(x,y,0);
 	}
-	public GeoLocations fromPortion(geo_location p) {
+	public GeoLocation fromPortion(geo_location p) {
 		double x = _x_range.fromPortion(p.x());
 		double y = _y_range.fromPortion(p.y());
-		return new GeoLocations(x,y,0);
+		return new GeoLocation(x,y,0);
 	}	
 }

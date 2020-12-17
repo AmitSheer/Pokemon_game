@@ -76,9 +76,9 @@ public class EdgeData implements edge_data {
         EdgeData edgeData = (EdgeData) o;
         return _src == edgeData._src &&
                 _dest == edgeData._dest &&
-                Double.compare(edgeData._w, _w) == 0 &&
-                _tag == edgeData._tag &&
-                Objects.equals(_info, edgeData._info);
+                Double.compare(edgeData._w, _w) == 0 ;//&&
+                //_tag == edgeData._tag &&
+                //Objects.equals(_info, edgeData._info);
     }
 
     @Override

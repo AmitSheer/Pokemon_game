@@ -13,18 +13,18 @@ public class MyFrame extends JFrame {
     private static GameInputPanel _gip;
     private static JSplitPane _sp;
 
-    public MyFrame(int id ,int scenario){
+    public MyFrame(int id ,int scenario,boolean isCloseWhenFinishRun){
         this.setSize(1000,700);
         init();
-        _gp.startGame(scenario,id);
+        _gp.startGame(scenario,id,isCloseWhenFinishRun);
     }
 
     public MyFrame(){
         this.setSize(1000,700);
         init();
     }
-    private void init(){
 
+    private void init(){
         try {
             _gp = new GamePanel(this);
         } catch (IOException e) {
@@ -38,15 +38,17 @@ public class MyFrame extends JFrame {
         getContentPane().add(_sp, BorderLayout.CENTER);
         setPreferredSize(new Dimension(1000, 700));
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        _sp.setResizeWeight(0);
+        _sp.setResizeWeight(1);
         //_sp.setToolTipText("Tap to Expand/Minimize");
-        _sp.setDividerLocation(850);
+        _sp.setDividerLocation(800);
         _sp.setBackground(Color.white);
+        //_sp.getLeftComponent().setMaximumSize(new Dimension(250,this.getHeight()));
+
         setVisible(true);
         _sp.addPropertyChangeListener(new PropertyChangeListener() {
             public void propertyChange(PropertyChangeEvent changeEvent) {
                 if (changeEvent.getPropertyName().equals(JSplitPane.DIVIDER_LOCATION_PROPERTY)) {
-                    _gp.setSize(_sp.getWidth() - _sp.getWidth() + _sp.getDividerLocation(),_gp.getHeight());
+                    _gp.setSize(_sp.getDividerLocation(),_gp.getHeight());
                 }
             }
         });
@@ -54,16 +56,12 @@ public class MyFrame extends JFrame {
         //startGame();
     }
 
-    public static void startGame(){
-        _gp.startGame();
+    public static GamePanel get_gp() {
+        return _gp;
     }
 
     public static void startGame(int scenario,int id){
-        _gp.startGame(scenario, id);
-    }
-
-    public static void main(String[] args) {
-        MyFrame f= new MyFrame();
+        _gp.startGame(scenario, id,false);
     }
 
 }

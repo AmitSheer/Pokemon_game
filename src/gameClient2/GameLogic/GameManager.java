@@ -23,7 +23,8 @@ public class GameManager {
     private dw_graph_algorithms _algo;
     private directed_weighted_graph _graph;
     private HashSet<Pokemon> _pokemons;
-    private HashMap<Integer, PokemonTrainer> _trainers;
+    //used hash map for easy and fast access to trainers
+    private static HashMap<Integer, PokemonTrainer> _trainers;
     private GameStatus _gs;
     private String time ="";
 
@@ -35,124 +36,187 @@ public class GameManager {
         _pokemons = new HashSet<>();
     }
 
+    /**
+     *
+     * @return time until game ends
+     */
     public String getTime() {
         return time;
     }
 
+    /**
+     * sets time until game ends
+     * @param time to set
+     */
     public void setTime(Date time) {
         this.time = time.getMinutes()+":"+time.getSeconds();
     }
 
+    /**
+     * updates the path of a specific trainer
+     * @param pathToPokemon the path to put
+     * @param trainerId trainer id
+     */
     public void updateTrainerPath(List<node_data> pathToPokemon, int trainerId){
         _trainers.get(trainerId).setPathToPokemon(pathToPokemon);
     }
 
+    /**
+     *
+     * @return all pokemons on graph
+     */
     public List<Pokemon> getPokemons() {
         return  _pokemons.stream().collect(Collectors.toUnmodifiableList());
     }
 
+    /**
+     * sets a new HashSet of Pokemons
+     * @param pokemons
+     */
     public void setPokemons(HashSet<Pokemon> pokemons) {
         _pokemons = pokemons;
         _pokemons.forEach(pokemon -> updateEdge(pokemon,this.getGraph()));
     }
 
+    /**
+     * sets a new HashSet of Pokemons from string
+     * @param pokemons
+     */
     public void setPokemons(String pokemons) {
-        setPokemons(json2Pokemons(pokemons));
+        setPokemons(json2Pokemons(pokemons,_graph));
     }
 
+    /**
+     *
+     * @return current algo used
+     */
     public dw_graph_algorithms getAlgo() {
         return _algo;
     }
 
+    /**
+     * sets a new algo to be used
+     * @param _algo
+     */
     public void setAlgo(dw_graph_algorithms _algo) {
         this._algo = _algo;
     }
 
+    /**
+     * gets the trainers
+     * @return returns the trainers as List
+     */
     public List<PokemonTrainer> getTrainers() {
         return _trainers.values().stream().collect(Collectors.toUnmodifiableList());
     }
+
+    /**
+     *
+     * @param id trainer id
+     * @return specific trainer
+     */
     public PokemonTrainer getTrainer(int id) {
         return _trainers.get(id);
     }
 
+    /**
+     *
+     * @param trainers to put in HashMap
+     */
     public void setTrainers(List<PokemonTrainer> trainers) {
-        for (PokemonTrainer pt :
-                trainers) {
+        for (PokemonTrainer pt : trainers) {
             this._trainers.put(pt.getID(), pt);
         }
     }
 
+    /**
+     *
+     * @return current graph
+     */
     public directed_weighted_graph getGraph() {
         return _graph;
     }
 
-
+    /**
+     * sets a new graph
+     * @param _graph
+     */
     public void setGraph(directed_weighted_graph _graph) {
         this._graph = _graph;
     }
 
-
-    public void updateAgents(String log) {
-        //Iterator<PokemonTrainer> ptIter = log.iterator();
-        try {
-//            System.out.println(log);
-            JSONObject ttt = new JSONObject(log);
-            JSONArray ags = ttt.getJSONArray("Agents");
-            for(int i=0;i<ags.length();i++) {
-                JsonObject trainer = (JsonObject) JsonParser.parseString(ags.get(i).toString()).getAsJsonObject();
-                int id = trainer.get("Agent").getAsJsonObject().get("id").getAsInt();
-                _trainers.get(id).update(trainer.toString());
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
+    /**
+     *
+     * @return current game status
+     */
     public GameStatus getGameStatus() {
         return _gs;
     }
 
+    /**
+     * sets a new game status
+     * @param gs
+     */
     public void setGameStatus(String gs) {
         this._gs.update(gs);
     }
 
     /////////////////////////////////////////////////////////////////////////////////////
 
+    /**
+     * find and updates edge for a pokemon
+     * @param fr pokemon to find edge
+     * @param g graph to check where the pokemon is located
+     */
     public static void updateEdge(Pokemon fr, directed_weighted_graph g) {
         //	oop_edge_data ans = null;
         Iterator<node_data> itr = g.getV().iterator();
-        while(itr.hasNext()) {
+        boolean foundEdge = false;
+        while(!foundEdge&&itr.hasNext()) {
             node_data v = itr.next();
             Iterator<edge_data> iter = g.getE(v.getKey()).iterator();
             while(iter.hasNext()) {
                 edge_data e = iter.next();
                 boolean f = isOnEdge(fr.getLocation(), e,fr.getType(), g);
-                if(f) {fr.setEdge(e);}
+                if(f) {
+                    fr.setEdge(e);
+                    foundEdge=true;
+                    break;
+                }
             }
         }
     }
 
-    private static boolean isOnEdge(geo_location p, geo_location src, geo_location dest ) {
-        boolean ans = false;
-        double dist = src.distance(dest);
-        double d1 = src.distance(p) + p.distance(dest);
-        if(dist>d1-EPS2) {ans = true;}
-        return ans;
-    }
-    private static boolean isOnEdge(geo_location p, int s, int d, directed_weighted_graph g) {
-        geo_location src = g.getNode(s).getLocation();
-        geo_location dest = g.getNode(d).getLocation();
-        return isOnEdge(p,src,dest);
-    }
+    /**
+     * Checks if given pokemon is on edge
+     * @param p location of pokemon
+     * @param e edge to check
+     * @param type the direction the pokemon is going
+     * @param g current graph
+     * @return true if pokemon is on edge
+     */
     private static boolean isOnEdge(geo_location p, edge_data e, int type, directed_weighted_graph g) {
         int src = g.getNode(e.getSrc()).getKey();
         int dest = g.getNode(e.getDest()).getKey();
         if(type<0 && dest>src) {return false;}
         if(type>0 && src>dest) {return false;}
-        return isOnEdge(p,src, dest, g);
+        geo_location srcLocation = g.getNode(src).getLocation();
+        geo_location destLocation = g.getNode(dest).getLocation();
+        boolean ans = false;
+        double dist = srcLocation.distance(destLocation);
+        double d1 = srcLocation.distance(p) + p.distance(destLocation);
+        if(dist>d1-EPS2) {ans = true;}
+        return ans;
+//        return isOnEdge(p,srcLocation, destLocation);
     }
 
-    public static HashSet<Pokemon> json2Pokemons(String fs) {
+    /**
+     * converts JSON string of pokemons to a Pokemon Object
+     * @param fs JSON of pokemon
+     * @param graph to use in order to update edge
+     * @return the pokemons in HashSet form
+     */
+    public static HashSet<Pokemon> json2Pokemons(String fs, directed_weighted_graph graph) {
         HashSet<Pokemon> ans = new HashSet<>();
         JsonArray allPokemons = JsonParser.parseString(fs).getAsJsonObject().getAsJsonArray("Pokemons");
         for(int i=0;i<allPokemons.size();i++) {
@@ -161,29 +225,43 @@ public class GameManager {
             int t = pk.get("type").getAsInt();
             double v = pk.get("value").getAsDouble();
             String p = pk.get("pos").getAsString();
-            GeoLocations g = new GeoLocations(p);
-            Pokemon f = new Pokemon(i,v,g,t,null);
+            GeoLocation g = new GeoLocation(p);
+            Pokemon f = new Pokemon(v,g,t,null);
+            updateEdge(f,graph);
             ans.add(f);
         }
         return ans;
     }
 
-    public static List<PokemonTrainer> getTrainers(String aa, directed_weighted_graph gg) {
-        ArrayList<PokemonTrainer> ans = new ArrayList<PokemonTrainer>();
+    /**
+     * converts a JSON and updates the current trainers held in GameManager
+     * @param aa JSON of Trainers
+     * @param gg graph to start agents
+     */
+    public static void getTrainers(String aa, directed_weighted_graph gg) {
         try {
             JSONObject ttt = new JSONObject(aa);
             JSONArray ags = ttt.getJSONArray("Agents");
             for(int i=0;i<ags.length();i++) {
-                PokemonTrainer c = new PokemonTrainer(0,gg);
-                c.update(ags.get(i).toString());
-                ans.add(c);
+                JsonObject trainer = (JsonObject) JsonParser.parseString(ags.get(i).toString()).getAsJsonObject();
+                int id = trainer.get("Agent").getAsJsonObject().get("id").getAsInt();
+                if(_trainers.get(id)==null){
+                    PokemonTrainer c = new PokemonTrainer(0,gg);
+                    _trainers.put(id,c);
+                }
+                _trainers.get(id).update(trainer.toString());
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return ans;
     }
 
+    /**
+     * finds the max range of the graph,
+     * meaning finds the max point for(x,y) and the min point of nodes.
+     * @param g graph to find the min,max of x,y points
+     * @return the new range
+     */
     private static Range2D GraphRange(directed_weighted_graph g) {
         Iterator<node_data> itr = g.getV().iterator();
         double x0=0,x1=0,y0=0,y1=0;
@@ -207,6 +285,12 @@ public class GameManager {
         return new Range2D(xr,yr);
     }
 
+    /**
+     * converts game to size to fit new panel size
+     * @param g graph to check
+     * @param frame current size of the space to work with
+     * @return the new range convertor of points
+     */
     public static Range2Range w2f(directed_weighted_graph g, Range2D frame) {
         Range2D world = GraphRange(g);
         Range2Range ans = new Range2Range(world, frame);
