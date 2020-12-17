@@ -236,37 +236,54 @@ public class Game implements Runnable{
             }
         } else {
             System.out.println("Not connected");
-            List<List<Integer>> connections = Tarjan.getSccNodes();
             int index = 0;
-            int [] numOfTrainersForEachScc = new int[connections.size()];
             PriorityQueue<List<Integer>> sccBySize = new PriorityQueue<>(new Comparator<List<Integer>>() {
                 @Override
                 public int compare(List<Integer> o1, List<Integer> o2) {
-                    if (o1.size() == o2.size())
-                        return 0;
-                    else if (o1.size() < o2.size())
-                        return 1;
-                    return -1;
+                    return o2.size()- o1.size();
                 }
             });
-            connections = sccBySize.stream().collect(Collectors.toList());
+            sccBySize.addAll(Tarjan.getSccNodes());
+            List<List<Integer>> connections = new LinkedList<>(sccBySize.stream().collect(Collectors.toList()));
+            //this for loop runs under the assumption that there are at least enough agents for all scc
+            int pokemonIndex = -1;
             for (; index < sccBySize.size() && index < rs; index++) {
-                int pokemonIndex = -1;
-                for (Pokemon p : _gm.getPokemons()) {
-                    if (connections.get(index).contains(p.getEdge().getSrc())&&!p.isMarked()) {
-                        pokemonIndex = p.getEdge().getSrc();
-                        game.addAgent(p.getEdge().getSrc());
-                        p.setMarked(true);
-                        numOfTrainersForEachScc[index]++;
+                for (Pokemon pok : pokemonQueue) {
+                    if (connections.get(index).contains(pok.getEdge().getSrc())&&!pok.isMarked()) {
+                        pokemonQueue.removeIf(p->pok.getClosePokemons().contains(p));
+                        pokemonIndex = pok.getEdge().getSrc();
+                        game.addAgent(pok.getEdge().getSrc());
+                        pok.setMarked(true);
                         break;
                     }
                 }
                 if (pokemonIndex == -1 && connections.get(index).size() > 1) {
-                    numOfTrainersForEachScc[index]++;
                     game.addAgent(connections.get(index).get(0));
                 }
             }
-            int agentsLeft = rs-index;
+            pokemonIndex = -1;
+            //this will add agents to the graph according to the relative size of scc to the size of the graph
+            for (List<Integer> scc : connections) {
+                int numOfAgents = Math.floorDiv(scc.size(),_gm.getGraph().nodeSize());
+                for (int i = 0; i < numOfAgents; i++) {
+                    for (Pokemon p : _gm.getPokemons()) {
+                        if (!p.isMarked() && scc.contains(p.getEdge().getSrc())) {
+                            pokemonIndex = p.getEdge().getSrc();
+                            game.addAgent(p.getEdge().getSrc());
+                            p.setMarked(true);
+                            break;
+                        }
+                    }
+                    if (pokemonIndex == -1) {
+                        game.addAgent(scc.get(index));
+                    }
+                    index++;
+                }
+            }
+            for (;  index < rs; index++) {
+                int ind = index%connections.get(0).size();
+                game.addAgent(connections.get(0).get(ind));
+            }
         }
         GameManager.getTrainers(game.getAgents(), _gm.getGraph());
     }
