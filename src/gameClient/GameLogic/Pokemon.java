@@ -1,4 +1,4 @@
-package gameClient2.GameLogic;
+package gameClient.GameLogic;
 
 import api.edge_data;
 import api.geo_location;

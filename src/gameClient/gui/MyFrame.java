@@ -1,6 +1,4 @@
-package gameClient2.gui;
-
-import gameClient2.GameLogic.GameManager;
+package gameClient.gui;
 
 import javax.swing.*;
 import java.awt.*;

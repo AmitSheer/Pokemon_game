@@ -1,13 +1,11 @@
-package gameClient2.GameLogic;
+package gameClient.GameLogic;
 
 import Server.Game_Server_Ex2;
 import api.*;
-import gameClient2.gui.GamePanel;
+import gameClient.gui.GamePanel;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import javax.print.attribute.UnmodifiableSetException;
-import java.sql.Array;
 import java.util.*;
 import java.util.stream.Collectors;
 

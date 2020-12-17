@@ -1,6 +1,6 @@
-package gameClient2;
+package gameClient;
 
-import gameClient2.gui.MyFrame;
+import gameClient.gui.MyFrame;
 
 public class Ex2{
     public static void main(String[] args) {

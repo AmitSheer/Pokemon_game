@@ -1,7 +1,6 @@
-package gameClient;
+package gameClient_ByProfessorAndTA;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class MainPanel extends JPanel {
 }

@@ -1,13 +1,13 @@
-package gameClient2.gui;
+package gameClient.gui;
 
 import api.*;
-import gameClient2.GameLogic.Game;
-import gameClient2.GameLogic.GameManager;
-import gameClient2.GameLogic.Pokemon;
-import gameClient2.GameLogic.PokemonTrainer;
-import gameClient2.util.Range;
-import gameClient2.util.Range2D;
-import gameClient2.util.Range2Range;
+import gameClient.GameLogic.Game;
+import gameClient.GameLogic.GameManager;
+import gameClient.GameLogic.Pokemon;
+import gameClient.GameLogic.PokemonTrainer;
+import gameClient.util.Range;
+import gameClient.util.Range2D;
+import gameClient.util.Range2Range;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

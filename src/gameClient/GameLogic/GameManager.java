@@ -1,13 +1,13 @@
-package gameClient2.GameLogic;
+package gameClient.GameLogic;
 
 import api.*;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import gameClient2.gui.GameStatus;
-import gameClient2.util.Range;
-import gameClient2.util.Range2D;
-import gameClient2.util.Range2Range;
+import gameClient.gui.GameStatus;
+import gameClient.util.Range;
+import gameClient.util.Range2D;
+import gameClient.util.Range2Range;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;

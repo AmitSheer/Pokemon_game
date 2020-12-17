@@ -1,6 +1,6 @@
-package gameClient;
+package gameClient_ByProfessorAndTA;
 import api.edge_data;
-import gameClient.util.Point3D;
+import gameClient_ByProfessorAndTA.util.Point3D;
 import org.json.JSONObject;
 
 public class CL_Pokemon {
