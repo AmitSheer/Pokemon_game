@@ -2,6 +2,7 @@ package gameClient2.gui;
 
 import javax.swing.*;
 import javax.swing.text.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.regex.Matcher;
@@ -9,9 +10,7 @@ import java.util.regex.Pattern;
 
 
 public class GameInputPanel extends JPanel {
-    //private static List<Integer> SCENARIO_LIST = Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23);
     private static JTextField _id;
-//    private static JSpinner _scenario;
     private static JTextField _scenario;
     private static JButton _startRunButton;
     private static MyFrame _frame;
@@ -105,8 +104,9 @@ public class GameInputPanel extends JPanel {
         int idNum = Integer.parseInt(_id.getText());
         try {
             MyFrame.startGame(scenarioNum, idNum);
+            _scenarioPanel.getComponent(1).setBackground(Color.white);
         }catch(Exception e){
-
+            _scenarioPanel.getComponent(1).setBackground(Color.red);
         }
     }
 }
