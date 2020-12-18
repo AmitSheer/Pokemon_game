@@ -11,13 +11,10 @@
   <component name="ChangeListManager">
     <list default="true" id="ccacee23-5644-4071-849f-2ba09364de09" name="Default Changelist" comment="removed unnecessary usages of classes and an called for methods">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/src/gameClient/gui/GameInputPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameClient/gui/GameInputPanel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/gameClient/gui/MyFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameClient/gui/MyFrame.java" afterDir="false" />
-=======
       <change beforePath="$PROJECT_DIR$/out/artifacts/Ex2_jar/Ex2.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/Ex2_jar/Ex2.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/gameClient/gui/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameClient/gui/GamePanel.java" afterDir="false" />
->>>>>>> b9092477df4fda178eca253fd8b3f458567f58e0
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
