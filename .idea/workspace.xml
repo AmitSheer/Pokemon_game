@@ -10,16 +10,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ccacee23-5644-4071-849f-2ba09364de09" name="Default Changelist" comment="removed unnecessary usages of classes and an called for methods">
-      <change afterPath="$PROJECT_DIR$/src/gameClient/GameLogic/ShortestPathAlgo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Pokemon_game/tests/BaseTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Pokemon_game/tests/BaseTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gameClient/GameLogic/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameClient/GameLogic/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gameClient/GameLogic/GameManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameClient/GameLogic/GameManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gameClient/GameLogic/PokemonTrainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameClient/GameLogic/PokemonTrainer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gameClient/gui/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameClient/gui/GamePanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gameClient/gui/MyFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameClient/gui/MyFrame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tests/BaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/BaseTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tests/Game_Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/Game_Test.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/Ex2_jar/Ex2.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/Ex2_jar/Ex2.jar" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,7 +65,7 @@
       <recent name="gameClient.util" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.Game_Test">
+  <component name="RunManager" selected="Application.Ex2">
     <configuration name="Ex2" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="gameClient.Ex2" />
       <module name="Pokemon_game" />
@@ -164,10 +156,10 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Ex2" />
         <item itemvalue="JUnit.Game_Test" />
         <item itemvalue="JUnit.Game_Test.GameWithNotSCCGraphAfter20Seconds" />
         <item itemvalue="JUnit.Game_Test.GameWithNotSCCGraph" />
-        <item itemvalue="Application.Ex2" />
         <item itemvalue="JUnit.DWGraph_AlgoTest.isConnectedFalseAndGetSCC" />
       </list>
     </recent_temporary>
