@@ -21,11 +21,11 @@ import java.util.stream.Collectors;
 
 public class GamePanel extends JPanel {
 
-    private static String _pikachuImgPath = "./assets/Pikachu.png";
-    private static String _miauImgPath = "./assets/Miau.png";
-    private static String _agentsImgPath = "./assets/Boaz.png";
-    private static String _backgroundImgPath = "./assets/grass.jpg";
-    private static String _townImgPath = "./assets/town.jpg";
+    private static String _pikachuImgPath = "assets/Pikachu.png";
+    private static String _miauImgPath = "assets/Miau.png";
+    private static String _agentsImgPath = "assets/Boaz.png";
+    private static String _backgroundImgPath = "assets/grass.jpg";
+    private static String _townImgPath = "assets/town.jpg";
     private static Image _pika, _miau, _agent,_background, _town;
     private static MyFrame _frame;
     private static Game game;

@@ -47,8 +47,8 @@ cmake-build-*/
 # File-based project format
 *.iws
 
-# IntelliJ
-out/
+## IntelliJ
+#out/
 
 # mpeltonen/sbt-idea plugin
 .idea_modules/
@@ -170,3 +170,4 @@ local.properties
 
 *.json
 saveAndLoad
+/out/production/
