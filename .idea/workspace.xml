@@ -10,41 +10,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ccacee23-5644-4071-849f-2ba09364de09" name="Default Changelist" comment="removed unnecessary usages of classes and an called for methods">
-      <change afterPath="$PROJECT_DIR$/src/gameClient/util/Point3D.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Pokemon_game/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Pokemon_game/META-INF/MANIFEST.MF" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Pokemon_game/api/DWGraph_DS.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Pokemon_game/api/DWGraph_DS.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Pokemon_game/api/directed_weighted_graph.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Pokemon_game/api/directed_weighted_graph.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Pokemon_game/api/dw_graph_algorithms.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Pokemon_game/api/dw_graph_algorithms.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Pokemon_game/api/edge_data.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Pokemon_game/api/edge_data.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Pokemon_game/api/edge_location.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Pokemon_game/api/edge_location.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Pokemon_game/api/game_service.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Pokemon_game/api/game_service.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Pokemon_game/api/geo_location.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Pokemon_game/api/geo_location.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Pokemon_game/api/node_data.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Pokemon_game/api/node_data.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Pokemon_game/gameClient2/Ex2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Pokemon_game/gameClient2/GameLogic/Game$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Pokemon_game/gameClient2/GameLogic/Game$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Pokemon_game/gameClient2/GameLogic/Game$CompareToEdge.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Pokemon_game/gameClient2/GameLogic/Game$TrainerToPath.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Pokemon_game/gameClient2/GameLogic/Game.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Pokemon_game/gameClient2/GameLogic/GameManager.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Pokemon_game/gameClient2/GameLogic/Pokemon.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Pokemon_game/gameClient2/GameLogic/PokemonTrainer.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Pokemon_game/gameClient2/HowToInitJFrame.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Pokemon_game/gameClient2/gui/GameInputPanel$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Pokemon_game/gameClient2/gui/GameInputPanel$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Pokemon_game/gameClient2/gui/GameInputPanel$3.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Pokemon_game/gameClient2/gui/GameInputPanel.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Pokemon_game/gameClient2/gui/GamePanel.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Pokemon_game/gameClient2/gui/GameStatus.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Pokemon_game/gameClient2/gui/MyFrame$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Pokemon_game/gameClient2/gui/MyFrame.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Pokemon_game/gameClient2/util/Range.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Pokemon_game/gameClient2/util/Range2D.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Pokemon_game/gameClient2/util/Range2Range.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Pokemon_game/tests/BaseTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Pokemon_game/tests/BaseTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gameClient/GameLogic/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameClient/GameLogic/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/Ex2_jar/Ex2.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/Ex2_jar/Ex2.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gameClient/gui/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameClient/gui/GamePanel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -92,6 +60,9 @@
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\Git\Pokemon_game" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="gameClient.util" />
     </key>
   </component>
   <component name="RunManager" selected="Application.Ex2">
