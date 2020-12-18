@@ -10,8 +10,41 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ccacee23-5644-4071-849f-2ba09364de09" name="Default Changelist" comment="removed unnecessary usages of classes and an called for methods">
+      <change afterPath="$PROJECT_DIR$/src/gameClient/util/Point3D.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pokemon_game.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Pokemon_game.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Pokemon_game/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Pokemon_game/META-INF/MANIFEST.MF" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Pokemon_game/api/DWGraph_DS.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Pokemon_game/api/DWGraph_DS.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Pokemon_game/api/directed_weighted_graph.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Pokemon_game/api/directed_weighted_graph.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Pokemon_game/api/dw_graph_algorithms.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Pokemon_game/api/dw_graph_algorithms.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Pokemon_game/api/edge_data.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Pokemon_game/api/edge_data.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Pokemon_game/api/edge_location.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Pokemon_game/api/edge_location.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Pokemon_game/api/game_service.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Pokemon_game/api/game_service.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Pokemon_game/api/geo_location.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Pokemon_game/api/geo_location.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Pokemon_game/api/node_data.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Pokemon_game/api/node_data.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Pokemon_game/gameClient2/Ex2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Pokemon_game/gameClient2/GameLogic/Game$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Pokemon_game/gameClient2/GameLogic/Game$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Pokemon_game/gameClient2/GameLogic/Game$CompareToEdge.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Pokemon_game/gameClient2/GameLogic/Game$TrainerToPath.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Pokemon_game/gameClient2/GameLogic/Game.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Pokemon_game/gameClient2/GameLogic/GameManager.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Pokemon_game/gameClient2/GameLogic/Pokemon.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Pokemon_game/gameClient2/GameLogic/PokemonTrainer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Pokemon_game/gameClient2/HowToInitJFrame.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Pokemon_game/gameClient2/gui/GameInputPanel$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Pokemon_game/gameClient2/gui/GameInputPanel$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Pokemon_game/gameClient2/gui/GameInputPanel$3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Pokemon_game/gameClient2/gui/GameInputPanel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Pokemon_game/gameClient2/gui/GamePanel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Pokemon_game/gameClient2/gui/GameStatus.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Pokemon_game/gameClient2/gui/MyFrame$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Pokemon_game/gameClient2/gui/MyFrame.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Pokemon_game/gameClient2/util/Range.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Pokemon_game/gameClient2/util/Range2D.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Pokemon_game/gameClient2/util/Range2Range.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Pokemon_game/tests/BaseTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Pokemon_game/tests/BaseTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gameClient/GameLogic/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameClient/GameLogic/Game.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,6 +63,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1lbIX0CHPHc46sWtxd8JkFfrMM1" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -216,33 +250,28 @@
           <option name="timeStamp" value="55" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/tests/DWGraph_AlgoTest.java</url>
-          <line>63</line>
-          <option name="timeStamp" value="67" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/gameClient/GameLogic/Game.java</url>
-          <line>148</line>
+          <line>120</line>
           <option name="timeStamp" value="106" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/gameClient/GameLogic/Game.java</url>
-          <line>253</line>
+          <line>205</line>
           <option name="timeStamp" value="110" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/gameClient/GameLogic/Game.java</url>
-          <line>246</line>
+          <line>198</line>
           <option name="timeStamp" value="111" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/gameClient/GameLogic/Game.java</url>
-          <line>283</line>
+          <line>235</line>
           <option name="timeStamp" value="112" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/gameClient/GameLogic/Game.java</url>
-          <line>282</line>
+          <line>234</line>
           <option name="timeStamp" value="113" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -260,6 +289,7 @@
     <pin-to-top-manager>
       <pinned-members>
         <PinnedItemInfo parentTag="gameClient2.GameLogic.PokemonTrainer" memberName="_pathToPokemon" />
+        <PinnedItemInfo parentTag="gameClient2.GameLogic.PokemonTrainer" memberName="_id" />
       </pinned-members>
     </pin-to-top-manager>
   </component>

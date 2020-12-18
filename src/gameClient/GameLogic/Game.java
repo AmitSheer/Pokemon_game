@@ -23,18 +23,10 @@ public class Game implements Runnable{
         this.isCloseWhenDone = isCloseWhenDone;
     }
 
-    public void startGame(GamePanel panel){
-        _gp = panel;
-        _gm = new GameManager();
-        game = Game_Server_Ex2.getServer(30);
-        server = new Thread(this);
-        server.start();
-    }
-
     public void startGame(GamePanel panel,int scenario,int id){
+        game = Game_Server_Ex2.getServer(scenario);
         _gp = panel;
         _gm = new GameManager();
-        game = Game_Server_Ex2.getServer(scenario);
         game.login(id);
         server = new Thread(this);
         server.start();
@@ -51,24 +43,13 @@ public class Game implements Runnable{
         game.startGame();
         Date a = new Date();
         a.setTime(game.timeToEnd());
-        //findShortestForAgents();
         while(game.isRunning()) {
             a.setTime(game.timeToEnd());
             _gm.setTime(a);
             badPokemon.removeIf(p -> !_gm.getPokemons().contains(p));
-            //System.out.println(game.getAgents());
             moveTrainers(game, gg);
-//            if(badPokemon.size()>0){
-//                dt=20;
-//                //System.out.println(dt);
-//            }else{
-//                dt=100;
-//                System.out.println(dt);
-//            }
             try {
                 _gp.repaint();
-                //System.out.println(_gm.getTime());
-                //System.out.println(dt);
                 Thread.sleep(dt);
                 dt = 99;
             }
@@ -96,17 +77,8 @@ public class Game implements Runnable{
         int dest = trainer.get_dest();
         int src = trainer.get_curr_node();
         double v = trainer.get_money();
-//        findShortestForAgents();
-        //System.out.println("Agent: "+id+", val: "+v+"   turned to node: "+dest);
-//        if (trainer.getPathToPokemon().size() == 1 && dest==-1) {
-//            if(badPokemon.stream().anyMatch(p-> p.getEdge().equals(trainer.get_curr_edge())))
-//            edge_data ed = _gm.getGraph().getEdge(trainer.get_curr_node(), trainer.getPathToPokemon().get(0).getKey()); ed.getWeight() < (0.001) / 2||
 
-//            else if ((trainer.get_speed() >= 5) && (ed.getWeight() < 1.5) )
-//                dt = 50;
-//        }
         if(badPokemon.size()>0) {
-//            System.out.println(badPokemon.toString());
             for (Pokemon p : badPokemon) {
                 if(dest==-1&&trainer.getPathToPokemon().size()==1)
                     if(p.getEdge().getSrc() == trainer.get_curr_node() && p.getEdge().getDest() == trainer.getPathToPokemon().get(0).getKey())
@@ -172,30 +144,10 @@ public class Game implements Runnable{
             int rs = ttt.getInt("agents");
             System.out.println(info);
             System.out.println(game.getPokemons());
-//            PriorityQueue<Pokemon> pkms = new PriorityQueue<Pokemon>(new Comparator<Pokemon>() {
-//                @Override
-//                public int compare(Pokemon o1, Pokemon o2) {
-//                    return o2.get_numOfClosePokemon()-o1.get_numOfClosePokemon();
-//                }
-//            });
-//            markClosePkms(_gm.getPokemons(),pkms);
-//            for (int i = 0; i < _gm.getPokemons().size() && i < rs; i++) {
-//                int nn = pkms.poll().getEdge().getSrc();
-//                game.addAgent(nn);
-//                rs--;
-//            }
             loadTrainers(rs,_gm.getPokemons());
-//            for(int a = 0;a<rs;a++) {
-//                int ind = a%_gm.getPokemons().size();
-//                Pokemon c = _gm.getPokemons().get(ind);
-//                int nn = c.getEdge().getSrc();
-//                game.addAgent(nn);
-//            }
             GameManager.getTrainers(game.getAgents(),gg);
-            //_gm.setTrainers(pts);
         }
         catch (JSONException e) {e.printStackTrace();}
-
     }
 
     private void markPokemonGroups(){
@@ -331,38 +283,22 @@ public class Game implements Runnable{
             //check if pokemon is already chosen
             //check if the queue isn't empty
             //check if the distance is not max Integer, meaning the graph is not scc and trainer cant visit pokemon
+            //check if a chosen pokemon is on the same edge as another pokemon
             TrainerToPath finalTrainerToPokemon = trainerToPokemon;
             while((trainersToPokemonsDist.size()>0&&trainersFilled.contains(trainerToPokemon.getSrc())||pokemonFilled.contains(trainerToPokemon.get_pokemon())||
-                    trainerToPokemon.getWeight()==Integer.MAX_VALUE|| edges.contains(trainerToPokemon.get_pokemon().getEdge()))&&trainersToPokemonsDist.size()!=0){
+                    trainerToPokemon.getWeight()==Integer.MAX_VALUE|| edges.contains(trainerToPokemon.get_pokemon().getEdge()))){
                 try{
                     trainerToPokemon = trainersToPokemonsDist.remove();
                 }catch(Exception e){
                     e.printStackTrace();
                 }
             }
-
-
-
-            //check the path to pokemon isn't contained in path that other trainers chose
-//            boolean flag = true;
-//            while(flag&&trainersToPokemonsDist.size()!=0){
-//                flag=false;
-//                for (Integer trainerId : trainersFilled) {
-//                    if(_gm.getTrainer(trainerId).getPathToPokemon().containsAll(trainerToPokemon.get_path())&&trainersToPokemonsDist.size()>0){
-//                        flag=true;
-//                        trainerToPokemon = trainersToPokemonsDist.remove();
-//                        break;
-//                    }
-//                }
-//            }
             trainersFilled.add(trainerToPokemon.getSrc());
             pokemonFilled.add(trainerToPokemon.get_pokemon());
             edges.add(trainerToPokemon.get_pokemon().getEdge());
             _gm.updateTrainerPath(trainerToPokemon.get_path(),trainerToPokemon.getSrc());
             _gm.getTrainer(trainerToPokemon.getSrc()).setNextPoke(trainerToPokemon.get_pokemon());
-//            trainerToPokemon.get_pokemon().set_pokemonTrainer(_gm.getTrainer(trainerToPokemon.getSrc()));
         }
-        //System.out.println(trainerToPokemon._path.toString());
     }
 
     /**
