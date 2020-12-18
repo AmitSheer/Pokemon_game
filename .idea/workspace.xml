@@ -11,7 +11,8 @@
   <component name="ChangeListManager">
     <list default="true" id="ccacee23-5644-4071-849f-2ba09364de09" name="Default Changelist" comment="removed unnecessary usages of classes and an called for methods">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pokemon_game.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Pokemon_game.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gameClient/gui/GameInputPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameClient/gui/GameInputPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gameClient/gui/MyFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameClient/gui/MyFrame.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,19 +65,6 @@
     <configuration name="Ex2" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="gameClient.Ex2" />
       <module name="Pokemon_game" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -160,6 +148,7 @@
       <workItem from="1608121724798" duration="25615000" />
       <workItem from="1608226744259" duration="5874000" />
       <workItem from="1608239152397" duration="80000" />
+      <workItem from="1608285159441" duration="334000" />
     </task>
     <task id="LOCAL-00002" summary="removed unnecessary usages of classes and an called for methods">
       <created>1608129099706</created>
@@ -244,11 +233,6 @@
           <url>file://$PROJECT_DIR$/src/gameClient/GameLogic/Game.java</url>
           <line>282</line>
           <option name="timeStamp" value="113" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/gameClient/gui/GameInputPanel.java</url>
-          <line>107</line>
-          <option name="timeStamp" value="114" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/gameClient/gui/GamePanel.java</url>

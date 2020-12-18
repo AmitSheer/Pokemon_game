@@ -58,6 +58,11 @@ public class MyFrame extends JFrame {
         return _gp;
     }
 
+    /**
+     * tells the game to start running
+     * @param scenario to run
+     * @param id to login with
+     */
     public static void startGame(int scenario,int id){
         _gp.startGame(scenario, id,false);
     }

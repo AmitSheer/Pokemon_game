@@ -102,13 +102,19 @@ public class GameInputPanel extends JPanel {
      * when pressed the button will tell the game to start
      */
     private void selectionButtonPressed() {
-        try {
-            int scenarioNum = Integer.parseInt(_scenario.getText());
+        try{
             int idNum = Integer.parseInt(_id.getText());
-            MyFrame.startGame(scenarioNum, idNum);
-            _scenarioPanel.getComponent(1).setBackground(Color.white);
+            _idPanel.getComponent(1).setBackground(Color.white);
+            try {
+                int scenarioNum = Integer.parseInt(_scenario.getText());
+                _scenarioPanel.getComponent(1).setBackground(Color.white);
+                MyFrame.startGame(scenarioNum, idNum);
+            }catch(Exception e){
+                _scenarioPanel.getComponent(1).setBackground(Color.red);
+            }
         }catch(Exception e){
-            _scenarioPanel.getComponent(1).setBackground(Color.red);
+            _idPanel.getComponent(1).setBackground(Color.red);
         }
+
     }
 }
