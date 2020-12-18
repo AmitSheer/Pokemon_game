@@ -66,7 +66,11 @@ public class PokemonTrainer {
     public void setPathToPokemon(List<node_data> pathToPokemon) {
         this._pathToPokemon = pathToPokemon;
         if(_pathToPokemon.size()!=0)
+            if (this._curr_node== _pathToPokemon.get(0))
+                _pathToPokemon.remove(0);
+            try{
             this.endNodeId = _pathToPokemon.get(_pathToPokemon.size()-1).getKey();
+            }catch(Exception e ){}
     }
 
     /**

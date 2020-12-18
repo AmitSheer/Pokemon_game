@@ -54,7 +54,7 @@ public class MyFrame extends JFrame {
         //startGame();
     }
 
-    public static GamePanel get_gp() {
+    public GamePanel get_gp() {
         return _gp;
     }
 

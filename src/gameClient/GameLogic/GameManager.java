@@ -20,9 +20,9 @@ import java.util.stream.Collectors;
  */
 public class GameManager {
     public static final double EPS1 = 0.001, EPS2=EPS1*EPS1, EPS=EPS2;
-    private dw_graph_algorithms _algo;
-    private directed_weighted_graph _graph;
-    private HashSet<Pokemon> _pokemons;
+    private static dw_graph_algorithms _algo;
+    private static directed_weighted_graph _graph;
+    private static List<Pokemon> _pokemons;
     //used hash map for easy and fast access to trainers
     private static HashMap<Integer, PokemonTrainer> _trainers;
     private GameStatus _gs;
@@ -33,7 +33,7 @@ public class GameManager {
         this._trainers = new HashMap<>();
         _gs = new GameStatus();
         _graph = new DWGraph_DS();
-        _pokemons = new HashSet<>();
+        _pokemons = new LinkedList<>();
     }
 
     /**
@@ -73,7 +73,7 @@ public class GameManager {
      * sets a new HashSet of Pokemons
      * @param pokemons
      */
-    public void setPokemons(HashSet<Pokemon> pokemons) {
+    public void setPokemons(List<Pokemon> pokemons) {
         _pokemons = pokemons;
         _pokemons.forEach(pokemon -> updateEdge(pokemon,this.getGraph()));
     }
@@ -216,8 +216,8 @@ public class GameManager {
      * @param graph to use in order to update edge
      * @return the pokemons in HashSet form
      */
-    public static HashSet<Pokemon> json2Pokemons(String fs, directed_weighted_graph graph) {
-        HashSet<Pokemon> ans = new HashSet<>();
+    public static List<Pokemon> json2Pokemons(String fs, directed_weighted_graph graph) {
+        List<Pokemon> ans = new ArrayList<>();
         JsonArray allPokemons = JsonParser.parseString(fs).getAsJsonObject().getAsJsonArray("Pokemons");
         for(int i=0;i<allPokemons.size();i++) {
             JsonObject pp = allPokemons.get(i).getAsJsonObject();

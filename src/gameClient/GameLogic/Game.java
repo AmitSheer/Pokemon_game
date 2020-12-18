@@ -6,6 +6,7 @@ import gameClient.gui.GamePanel;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -21,6 +22,7 @@ public class Game implements Runnable{
 
     public Game(boolean isCloseWhenDone) {
         this.isCloseWhenDone = isCloseWhenDone;
+        _gm = new GameManager();
     }
 
     public void startGame(GamePanel panel,int scenario,int id){
@@ -38,7 +40,7 @@ public class Game implements Runnable{
         badPokemon = new LinkedList<>();
         loadGameData(gg);
         _gp.update(_gm);
-        dt=110;
+        dt=100;
         System.out.println(game.getAgents());
         game.startGame();
         Date a = new Date();
@@ -51,7 +53,7 @@ public class Game implements Runnable{
             try {
                 _gp.repaint();
                 Thread.sleep(dt);
-                dt = 99;
+                dt = 100;
             }
             catch(Exception e) {
                 e.printStackTrace();
@@ -103,7 +105,7 @@ public class Game implements Runnable{
         String lg = game.move();
         String fs =  game.getPokemons();
         GameManager.getTrainers(lg,_gm.getGraph());
-        HashSet<Pokemon> ffs = GameManager.json2Pokemons(fs,gg);
+        List<Pokemon> ffs = GameManager.json2Pokemons(fs,gg);
         ffs.forEach(p->GameManager.updateEdge(p,gg));
         _gm.setPokemons(ffs);
         boolean finishedPath = false;
@@ -119,7 +121,7 @@ public class Game implements Runnable{
             }
         }
         if(finishedPath)
-            findShortestForAgents();
+            ShortestPathAlgo.findShortestForAgents(_gm);
         for(PokemonTrainer trainer: _gm.getTrainers()) {
             nextEdge(trainer);
         }
@@ -134,22 +136,23 @@ public class Game implements Runnable{
         _gm.setGraph(gg);
         _gm.setPokemons(game.getPokemons());
         _gm.getAlgo().init(gg);
-        String info = game.toString();
-        JSONObject line;
-        List<PokemonTrainer> pts;
         markPokemonGroups();
         try {
-            line = new JSONObject(info);
+            String info = game.toString();
+            JSONObject line= new JSONObject(info);;
             JSONObject ttt = line.getJSONObject("GameServer");
             int rs = ttt.getInt("agents");
             System.out.println(info);
             System.out.println(game.getPokemons());
-            loadTrainers(rs,_gm.getPokemons());
+            loadTrainers(rs);
             GameManager.getTrainers(game.getAgents(),gg);
         }
         catch (JSONException e) {e.printStackTrace();}
     }
 
+    /**
+     * finds pokemons in close proximity, by the number of edges between them
+     */
     private void markPokemonGroups(){
         for (Pokemon currentPokemon : _gm.getPokemons()) {
             for (Pokemon pokemon : _gm.getPokemons()) {
@@ -163,7 +166,14 @@ public class Game implements Runnable{
             }
         }
     }
-    private void loadTrainers(int rs, List<Pokemon> cl_fs) {
+
+    /**
+     * adds trainers to the graph
+     * if graph is connected then it is added according to markPokemonGroups
+     * if graph is connected then it is added based on the scc and other factors
+     * @param rs number of trainers to add
+     */
+    private void loadTrainers(int rs) {
         PriorityQueue<Pokemon> pokemonQueue = new PriorityQueue<>(new Comparator<Pokemon>() {
             @Override
             public int compare(Pokemon o1, Pokemon o2) {
@@ -196,8 +206,9 @@ public class Game implements Runnable{
             sccBySize.addAll(Tarjan.getSccNodes());
             List<List<Integer>> connections = new LinkedList<>(sccBySize.stream().collect(Collectors.toList()));
             //this for loop runs under the assumption that there are at least enough agents for all scc
-            int pokemonIndex = -1;
+            int pokemonIndex;
             for (; index < sccBySize.size() && index < rs; index++) {
+                pokemonIndex = -1;
                 for (Pokemon pok : pokemonQueue) {
                     if (connections.get(index).contains(pok.getEdge().getSrc())&&!pok.isMarked()) {
                         pokemonQueue.removeIf(p->pok.getClosePokemons().contains(p));
@@ -225,7 +236,8 @@ public class Game implements Runnable{
                         }
                     }
                     if (pokemonIndex == -1) {
-                        game.addAgent(scc.get(index));
+                        int ind = index%scc.size();
+                        game.addAgent(scc.get(ind));
                     }
                     index++;
                 }
@@ -250,56 +262,7 @@ public class Game implements Runnable{
         game.stopGame();
     }
 
-    /**
-     * Find the shortest path to Pokemon
-     */
-    private static void findShortestForAgents(){
-        PriorityQueue<TrainerToPath> trainersToPokemonsDist = new PriorityQueue<>(new CompareToEdge());
-        //gets all distance from point Trainer to Pokemon and adds it to PriorityQueue
-        for (int i = 0; i < _gm.getPokemons().size(); i++) {
-            for (PokemonTrainer trainer : _gm.getTrainers()) {
-                List<node_data> path;
-                //Check if Trainer is on edge
-                if(trainer.get_curr_edge()==null){
-                    path = _gm.getAlgo().shortestPath(trainer.get_curr_node(),_gm.getPokemons().get(i).getEdge().getSrc());
-                }else {
-                    path = _gm.getAlgo().shortestPath(trainer.get_dest(),_gm.getPokemons().get(i).getEdge().getSrc());
-                }
-                path.add(_gm.getGraph().getNode(_gm.getPokemons().get(i).getEdge().getDest()));
-                double dist = _gm.getGraph().getNode(_gm.getPokemons().get(i).getEdge().getSrc()).getWeight() + _gm.getPokemons().get(i).getEdge().getWeight();
-                trainersToPokemonsDist.add(new TrainerToPath(trainer.getID(), _gm.getPokemons().get(i).getEdge().getSrc(), dist, path, _gm.getPokemons().get(i)));
-            }
-        }
 
-        HashSet<Integer> trainersFilled = new HashSet<>();
-        HashSet<Pokemon> pokemonFilled = new HashSet<>();
-        HashSet<edge_data> edges = new HashSet<>();
-
-
-        TrainerToPath trainerToPokemon = null;
-        while(pokemonFilled.size()< _gm.getPokemons().size()&&trainersFilled.size()< _gm.getTrainers().size()&&trainersToPokemonsDist.size()!=0){
-            trainerToPokemon  = trainersToPokemonsDist.remove();
-            //check if the trainer already has a new path or not
-            //check if pokemon is already chosen
-            //check if the queue isn't empty
-            //check if the distance is not max Integer, meaning the graph is not scc and trainer cant visit pokemon
-            //check if a chosen pokemon is on the same edge as another pokemon
-            TrainerToPath finalTrainerToPokemon = trainerToPokemon;
-            while((trainersToPokemonsDist.size()>0&&trainersFilled.contains(trainerToPokemon.getSrc())||pokemonFilled.contains(trainerToPokemon.get_pokemon())||
-                    trainerToPokemon.getWeight()==Integer.MAX_VALUE|| edges.contains(trainerToPokemon.get_pokemon().getEdge()))){
-                try{
-                    trainerToPokemon = trainersToPokemonsDist.remove();
-                }catch(Exception e){
-                    e.printStackTrace();
-                }
-            }
-            trainersFilled.add(trainerToPokemon.getSrc());
-            pokemonFilled.add(trainerToPokemon.get_pokemon());
-            edges.add(trainerToPokemon.get_pokemon().getEdge());
-            _gm.updateTrainerPath(trainerToPokemon.get_path(),trainerToPokemon.getSrc());
-            _gm.getTrainer(trainerToPokemon.getSrc()).setNextPoke(trainerToPokemon.get_pokemon());
-        }
-    }
 
     /**
      * contains data for path from trainer to a pokemon

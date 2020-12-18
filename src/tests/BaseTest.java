@@ -15,7 +15,7 @@ public class BaseTest {
     static DWGraph_DS graph;
     static DWGraph_Algo algo;
     static FileOutputStream f;
-
+    static String PATH_GRAPH_DATA = "./data/";
 
     @BeforeEach
     void setUp() {

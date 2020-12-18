@@ -30,6 +30,11 @@ public class GamePanel extends JPanel {
     private static MyFrame _frame;
     private static Game game;
     private int _infoText;
+
+    public GameManager get_gm() {
+        return _gm;
+    }
+
     private GameManager _gm;
     private Range2Range _w2f;
     private boolean showTotal;
@@ -69,7 +74,6 @@ public class GamePanel extends JPanel {
         game = new Game(isCloseWhenDone);
         showTotal = false;
         game.startGame(this,scenario,id);
-
     }
 
 
