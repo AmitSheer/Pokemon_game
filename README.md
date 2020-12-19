@@ -1,7 +1,7 @@
 # Pokemon_game
 Catch all Pokemon in given graph. Assignment number 2 in OOP class.
 
-# Usage
+## Usage
 There are 2 options in order to run the program. One option is to run the program normaly and then input the ID and Scenario. The second option is to run the program through the
 cmd and input the ID and Scenario in the number after the JAR name, that way the jar opened window will close when the scenario time runs out.
 
@@ -11,11 +11,18 @@ cmd and input the ID and Scenario in the number after the JAR name, that way the
   3. In the window you have the option to input the:
     * ID to run with
     * Scenario to use
-  4. Then press the start button
+  4. Then press the start button\
+![panel](https://user-images.githubusercontent.com/26150015/102694529-56f6b300-422a-11eb-80f9-60cdcf167939.PNG)
+  5. View the game run on the left side of the divider\
+  ![gamePanel](https://user-images.githubusercontent.com/26150015/102694688-60344f80-422b-11eb-98f7-4d1e593d8227.PNG)
+
+  
   
 ### Open from application to run one scenario
   1. Go to folder `E:\Git\Pokemon_game\out\artifacts\Ex2_jar\`
   2. Run `java -jar Ex2.jar {USER_ID} {SCENARIO_NUMBER}`
+  3. View the game run on the left side of the divider\
+  ![gamePanel](https://user-images.githubusercontent.com/26150015/102694688-60344f80-422b-11eb-98f7-4d1e593d8227.PNG)
   3. The scenario will finish running and will save the result in the server.
 
 For the inner workings visit the wiki.
