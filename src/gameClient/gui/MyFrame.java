@@ -54,10 +54,6 @@ public class MyFrame extends JFrame {
         //startGame();
     }
 
-    public GamePanel get_gp() {
-        return _gp;
-    }
-
     /**
      * tells the game to start running
      * @param scenario to run
