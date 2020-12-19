@@ -39,7 +39,7 @@ Two algorithms are used in the program.
 2. Dijkstra - find the shrtest path by distance
 
 ### Dijkstra
-This algorithm check the graph for shortest path from one node to the other, by putting them into a priority queue ordered according to distance, or 'weight', of the path to the node. Then finding moving on the graph according to the order of the queue.
+This algorithm check the graph for shortest path from one node to the other, by putting them into a priority queue ordered according to distance, or 'weight', of the path to the node. Then moving on the graph according to the order of the queue.
 
 ### Tarjan
 This algorithm uses Breadth-First Search , but with a quirk. When a algorithm visits a node it adds it to  a stack, when it visits the starting node it unloads the stack and counts it as an SCC, and adds all of the unloaded nodes into a list of lists of SCC nodes.
