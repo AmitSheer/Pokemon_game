@@ -11,9 +11,130 @@
   <component name="ChangeListManager">
     <list default="true" id="ccacee23-5644-4071-849f-2ba09364de09" name="Default Changelist" comment="removed unnecessary usages of classes and an called for methods">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/gameClient/gui/GameStatus.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/gameClient/gui/GameStatus.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gameClient/GameLogic/GameManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameClient/GameLogic/GameManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gameClient/gui/GameStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameClient/GameLogic/GameStatus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/allclasses-index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/allpackages-index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/api/DWGraph_Algo.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/api/DWGraph_DS.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/api/EdgeData.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/api/GeoLocation.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/api/GraphParser.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/api/NodeData.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/api/Tarjan.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/api/directed_weighted_graph.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/api/dw_graph_algorithms.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/api/edge_data.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/api/edge_location.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/api/game_service.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/api/geo_location.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/api/node_data.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/api/package-summary.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/api/package-tree.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/constant-values.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/deprecated-list.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/element-list" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/gameClient/Ex2.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/gameClient/GameLogic/Game.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/gameClient/GameLogic/GameManager.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/gameClient/GameLogic/GameStatus.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/gameClient/GameLogic/Pokemon.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/gameClient/GameLogic/PokemonTrainer.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/gameClient/GameLogic/ShortestPathAlgo.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/gameClient/GameLogic/package-summary.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/gameClient/GameLogic/package-tree.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/gameClient/gui/GameInputPanel.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/gameClient/gui/GamePanel.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/gameClient/gui/MyFrame.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/gameClient/gui/package-summary.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/gameClient/gui/package-tree.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/gameClient/package-summary.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/gameClient/package-tree.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/gameClient/util/Point3D.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/gameClient/util/Range.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/gameClient/util/Range2D.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/gameClient/util/Range2Range.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/gameClient/util/package-summary.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/gameClient/util/package-tree.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/help-doc.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index-files/index-1.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index-files/index-10.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index-files/index-11.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index-files/index-12.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index-files/index-13.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index-files/index-14.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index-files/index-15.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index-files/index-16.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index-files/index-17.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index-files/index-18.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index-files/index-19.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index-files/index-2.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index-files/index-20.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index-files/index-21.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index-files/index-22.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index-files/index-23.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index-files/index-3.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index-files/index-4.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index-files/index-5.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index-files/index-6.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index-files/index-7.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index-files/index-8.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index-files/index-9.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/member-search-index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/overview-summary.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/overview-tree.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/package-search-index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/resources/glass.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/resources/x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/script-dir/external/jquery/jquery.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/script-dir/images/ui-bg_glass_55_fbf9ee_1x400.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/script-dir/images/ui-bg_glass_65_dadada_1x400.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/script-dir/images/ui-bg_glass_75_dadada_1x400.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/script-dir/images/ui-bg_glass_75_e6e6e6_1x400.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/script-dir/images/ui-bg_glass_95_fef1ec_1x400.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/script-dir/images/ui-bg_highlight-soft_75_cccccc_1x100.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/script-dir/images/ui-icons_222222_256x240.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/script-dir/images/ui-icons_2e83ff_256x240.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/script-dir/images/ui-icons_454545_256x240.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/script-dir/images/ui-icons_888888_256x240.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/script-dir/images/ui-icons_cd0a0a_256x240.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/script-dir/jquery-3.4.1.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/script-dir/jquery-ui.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/script-dir/jquery-ui.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/script-dir/jquery-ui.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/script-dir/jquery-ui.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/script-dir/jquery-ui.structure.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/script-dir/jquery-ui.structure.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/script-dir/jszip-utils/dist/jszip-utils-ie.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/script-dir/jszip-utils/dist/jszip-utils-ie.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/script-dir/jszip-utils/dist/jszip-utils.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/script-dir/jszip-utils/dist/jszip-utils.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/script-dir/jszip/dist/jszip.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/script-dir/jszip/dist/jszip.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/script.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/search.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/serialized-form.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/stylesheet.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/system-properties.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/tests/BaseTest.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/tests/package-summary.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/tests/package-tree.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/type-search-index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gameClient/Ex2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameClient/Ex2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gameClient/GameLogic/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameLogic/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gameClient/GameLogic/GameManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameLogic/GameManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gameClient/GameLogic/GameStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameLogic/GameStatus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gameClient/GameLogic/Pokemon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameLogic/Pokemon.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gameClient/GameLogic/PokemonTrainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameLogic/PokemonTrainer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gameClient/GameLogic/ShortestPathAlgo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameLogic/ShortestPathAlgo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gameClient/HowToInitJFrame.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gameClient/gui/GameInputPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/GameInputPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gameClient/gui/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/GamePanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gameClient/gui/MyFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/MyFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gameClient/util/Point3D.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gameClient/util/Range.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gameClient/util/Range2D.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gameClient/util/Range2Range.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tests/Game_Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/Game_Test.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -195,7 +316,14 @@
       <option name="project" value="LOCAL" />
       <updated>1608129119472</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="removed unnecessary usages of classes and an called for methods">
+      <created>1608398661411</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1608398661411</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -232,12 +360,12 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/gameClient/Ex2.java</url>
-          <line>10</line>
+          <line>13</line>
           <option name="timeStamp" value="55" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/gameClient/GameLogic/Game.java</url>
-          <line>177</line>
+          <url>file://$PROJECT_DIR$/src/GameLogic/Game.java</url>
+          <line>179</line>
           <option name="timeStamp" value="148" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">

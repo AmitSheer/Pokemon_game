@@ -1,10 +1,10 @@
-package gameClient.gui;
+package gui;
 
 import api.*;
-import gameClient.GameLogic.Game;
-import gameClient.GameLogic.GameManager;
-import gameClient.GameLogic.Pokemon;
-import gameClient.GameLogic.PokemonTrainer;
+import GameLogic.Game;
+import GameLogic.GameManager;
+import GameLogic.Pokemon;
+import GameLogic.PokemonTrainer;
 import gameClient.util.Range;
 import gameClient.util.Range2D;
 import gameClient.util.Range2Range;
@@ -19,6 +19,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Shows game progress and visualization of the game running
+ */
 public class GamePanel extends JPanel {
 
     private static String _pikachuImgPath = "assets/Pikachu.png";

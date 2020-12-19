@@ -1,11 +1,11 @@
 package tests;
 
 import api.Tarjan;
-import gameClient.GameLogic.Game;
-import gameClient.GameLogic.GameManager;
-import gameClient.GameLogic.ShortestPathAlgo;
-import gameClient.gui.GamePanel;
-import gameClient.gui.MyFrame;
+import GameLogic.Game;
+import GameLogic.GameManager;
+import GameLogic.ShortestPathAlgo;
+import gui.GamePanel;
+import gui.MyFrame;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

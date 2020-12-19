@@ -1,4 +1,4 @@
-package gameClient.gui;
+package gui;
 
 import javax.swing.*;
 import javax.swing.text.*;
@@ -8,7 +8,9 @@ import java.awt.event.ActionListener;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
+/**
+ * Panel that receives and sends data from the user to the game run
+ */
 public class GameInputPanel extends JPanel {
     private static JTextField _id;
     private static JTextField _scenario;

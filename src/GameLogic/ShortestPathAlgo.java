@@ -1,4 +1,4 @@
-package gameClient.GameLogic;
+package GameLogic;
 
 import api.Tarjan;
 import api.edge_data;
@@ -8,6 +8,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.PriorityQueue;
 
+/**
+ * finds the shortest path to Pokemon
+ */
 public class ShortestPathAlgo {
     /**
      * Find the shortest path to Pokemon

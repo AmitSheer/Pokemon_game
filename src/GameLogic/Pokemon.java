@@ -1,4 +1,4 @@
-package gameClient.GameLogic;
+package GameLogic;
 
 import api.edge_data;
 import api.geo_location;
@@ -7,6 +7,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Keeps Pokemon Data
+ */
 public class Pokemon {
     private int _type;
     private double _value;

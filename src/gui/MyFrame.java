@@ -1,4 +1,4 @@
-package gameClient.gui;
+package gui;
 
 import javax.swing.*;
 import java.awt.*;
@@ -6,6 +6,9 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
 
+/**
+ * Main frame of the GUI
+ */
 public class MyFrame extends JFrame {
     private static GamePanel _gp;
     private static GameInputPanel _gip;

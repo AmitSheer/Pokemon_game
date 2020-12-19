@@ -1,15 +1,17 @@
-package gameClient.GameLogic;
+package GameLogic;
 
 import Server.Game_Server_Ex2;
 import api.*;
-import gameClient.gui.GamePanel;
+import gui.GamePanel;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * responsible to managing the game run
+ */
 public class Game implements Runnable{
     private static game_service game;
     private static GameManager _gm;

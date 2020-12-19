@@ -1,8 +1,11 @@
-package gameClient.GameLogic;
+package GameLogic;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+/**
+ * Responsible to game data
+ */
 public class GameStatus {
     private int _pokemonNum;
     private int _moves;

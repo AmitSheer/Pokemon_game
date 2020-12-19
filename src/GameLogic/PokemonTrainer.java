@@ -1,4 +1,4 @@
-package gameClient.GameLogic;
+package GameLogic;
 
 import api.*;
 import org.json.JSONObject;
@@ -8,7 +8,7 @@ import java.util.List;
 
 
 /**
- * goes to catch all pokemon
+ * Keeps Trainer data and updates it
  */
 public class PokemonTrainer {
     private edge_data _curr_edge;
