@@ -12,7 +12,7 @@ cmd and input the ID and Scenario in the number after the JAR name, that way the
     * ID to run with
     * Scenario to use
   4. Then press the start button
-![panel](https://user-images.githubusercontent.com/26150015/102694529-56f6b300-422a-11eb-80f9-60cdcf167939.PNG)
+![panel](https://user-images.githubusercontent.com/26150015/102694529-56f6b300-422a-11eb-80f9-60cdcf167939.PNG)\
   5. Veiw the game run on the left side of the divider
   
   
