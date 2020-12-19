@@ -10,8 +10,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ccacee23-5644-4071-849f-2ba09364de09" name="Default Changelist" comment="removed unnecessary usages of classes and an called for methods">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/Ex2_jar/Ex2.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/Ex2_jar/Ex2.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/gameClient/gui/GameStatus.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/gameClient/gui/GameStatus.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gameClient/GameLogic/GameManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameClient/GameLogic/GameManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gameClient/gui/GameStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameClient/GameLogic/GameStatus.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,15 +47,16 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/data" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="org.jetbrains.plugins.github.ui.GithubSettingsConfigurable" />
+    <property name="settings.editor.selected.configurable" value="reference.settings.ide.settings.uml" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\Git\Pokemon_game\src" />
       <recent name="E:\Git\Pokemon_game\data" />
       <recent name="E:\Git\Pokemon_game\out\artifacts\Ex2_jar" />
       <recent name="E:\Git\Pokemon_game\src\gameClient2\gui" />
