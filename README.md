@@ -28,5 +28,20 @@ cmd and input the ID and Scenario in the number after the JAR name, that way the
   ![gamePanel](https://user-images.githubusercontent.com/26150015/102694688-60344f80-422b-11eb-98f7-4d1e593d8227.PNG)
   4. The scenario will finish running and will save the result in the server.
  
+# Structure
+This platforme is based on a directed connected graph, the algorithm's used to check the graph for three things:
+  1. SCC, strongly connected components
+  2. Shortest Path Distance, the shortest path from node to node
+  3. Shortest Path, the path to take to get from one node to the other
+## Algorithms
+Two algorithms are used in the program.
+1. Tarjan - check SCC
+2. Dijkstra - find the shrtest path by distance
+
+### Dijkstra
+This algorithm check the graph for shortest path from one node to the other, by putting them into a priority queue ordered according to distance, or 'weight', of the path to the node. Then finding moving on the graph according to the order of the queue.
+
+### Tarjan
+This algorithm uses Breadth-First Search , but with a quirk. When a algorithm visits a node it adds it to  a stack, when it visits the starting node it unloads the stack and counts it as an SCC, and adds all of the unloaded nodes into a list of lists of SCC nodes.
 
 For the inner workings visit the wiki.
