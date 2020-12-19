@@ -5,6 +5,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
+/**
+ * implementation of Tarjan algorithm
+ */
 public class Tarjan {
     private static int[] ids;
     private static int[] lows;

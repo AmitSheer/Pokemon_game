@@ -5,6 +5,9 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.Objects;
 
+/**
+ * data on node in graph
+ */
 public class NodeData implements node_data {
     @Expose
     @SerializedName(value = "id")

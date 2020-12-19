@@ -6,7 +6,9 @@ import com.google.gson.*;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 
-
+/**
+ * implementation of algorithm checks on directed graph
+ */
 public class DWGraph_Algo implements dw_graph_algorithms {
     private directed_weighted_graph graph;
     @Override

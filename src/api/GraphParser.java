@@ -7,6 +7,9 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * parser for json files into a graph
+ */
 public class GraphParser {
     /**
      * converts JSON to Graph

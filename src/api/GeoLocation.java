@@ -3,6 +3,9 @@ package api;
 
 import java.util.Objects;
 
+/**
+ * point on a graph with x,y,z axis
+ */
 public class GeoLocation implements geo_location {
     private double _x;
     private double _y;

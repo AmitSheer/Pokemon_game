@@ -5,6 +5,9 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.Objects;
 
+/**
+ * data of edges
+ */
 public class EdgeData implements edge_data {
     @Expose
     @SerializedName(value = "src")
