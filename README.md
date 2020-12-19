@@ -1,5 +1,6 @@
 # Pokemon_game
 Catch all Pokemon in given graph. Assignment number 2 in OOP class.
+Helping Professor Boaz catch all of the pokemon on the graph
 
 ## Usage
 There are 2 options in order to run the program. One option is to run the program normaly and then input the ID and Scenario. The second option is to run the program through the
