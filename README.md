@@ -1,7 +1,7 @@
 # Pokemon_game
 Catch all Pokemon in given graph. Assignment number 2 in OOP class.
 
-# Usage
+## Usage
 There are 2 options in order to run the program. One option is to run the program normaly and then input the ID and Scenario. The second option is to run the program through the
 cmd and input the ID and Scenario in the number after the JAR name, that way the jar opened window will close when the scenario time runs out.
 
@@ -18,4 +18,6 @@ cmd and input the ID and Scenario in the number after the JAR name, that way the
   2. Run `java -jar Ex2.jar {USER_ID} {SCENARIO_NUMBER}`
   3. The scenario will finish running and will save the result in the server.
 
+# Project Structure
+"Divided "
 For the inner workings visit the wiki.
