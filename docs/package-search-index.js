@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"api"},{"l":"gameClient"},{"l":"gameClient.util"},{"l":"GameLogic"},{"l":"gui"},{"l":"tests"}]
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"api"},{"l":"gameClient"},{"l":"gameClient.GameLogic"},{"l":"gameClient.gui"},{"l":"gameClient.util"},{"l":"tests"}]

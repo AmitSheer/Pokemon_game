@@ -1,4 +1,4 @@
-package GameLogic;
+package gameClient.GameLogic;
 
 import api.*;
 import org.json.JSONObject;

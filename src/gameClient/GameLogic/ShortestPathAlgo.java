@@ -1,4 +1,4 @@
-package GameLogic;
+package gameClient.GameLogic;
 
 import api.Tarjan;
 import api.edge_data;

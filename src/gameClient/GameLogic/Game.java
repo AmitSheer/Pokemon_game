@@ -1,8 +1,8 @@
-package GameLogic;
+package gameClient.GameLogic;
 
 import Server.Game_Server_Ex2;
 import api.*;
-import gui.GamePanel;
+import gameClient.gui.GamePanel;
 import org.json.JSONException;
 import org.json.JSONObject;
 

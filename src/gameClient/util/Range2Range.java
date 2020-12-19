@@ -10,7 +10,7 @@ import api.geo_location;
 
 public class Range2Range {
 	private Range2D _world, _frame;
-	
+
 	public Range2Range(Range2D w, Range2D f) {
 		_world = new Range2D(w);
 		_frame = new Range2D(f);

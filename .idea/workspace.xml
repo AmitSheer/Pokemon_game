@@ -11,6 +11,14 @@
   <component name="ChangeListManager">
     <list default="true" id="ccacee23-5644-4071-849f-2ba09364de09" name="Default Changelist" comment="removed unnecessary usages of classes and an called for methods">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/GameLogic/Game.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/GameLogic/GameManager.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/GameLogic/GameStatus.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/GameLogic/Pokemon.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/GameLogic/PokemonTrainer.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/GameLogic/ShortestPathAlgo.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/GameLogic/package-summary.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/GameLogic/package-tree.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/allclasses-index.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/allpackages-index.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/api/DWGraph_Algo.html" beforeDir="false" />
@@ -33,19 +41,6 @@
       <change beforePath="$PROJECT_DIR$/docs/deprecated-list.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/element-list" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/gameClient/Ex2.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/gameClient/GameLogic/Game.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/gameClient/GameLogic/GameManager.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/gameClient/GameLogic/GameStatus.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/gameClient/GameLogic/Pokemon.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/gameClient/GameLogic/PokemonTrainer.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/gameClient/GameLogic/ShortestPathAlgo.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/gameClient/GameLogic/package-summary.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/gameClient/GameLogic/package-tree.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/gameClient/gui/GameInputPanel.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/gameClient/gui/GamePanel.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/gameClient/gui/MyFrame.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/gameClient/gui/package-summary.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/gameClient/gui/package-tree.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/gameClient/package-summary.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/gameClient/package-tree.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/gameClient/util/Point3D.html" beforeDir="false" />
@@ -54,6 +49,11 @@
       <change beforePath="$PROJECT_DIR$/docs/gameClient/util/Range2Range.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/gameClient/util/package-summary.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/gameClient/util/package-tree.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/gui/GameInputPanel.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/gui/GamePanel.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/gui/MyFrame.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/gui/package-summary.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/gui/package-tree.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/help-doc.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/index-files/index-1.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/index-files/index-10.html" beforeDir="false" />
@@ -119,21 +119,25 @@
       <change beforePath="$PROJECT_DIR$/docs/tests/package-summary.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/tests/package-tree.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/type-search-index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GameLogic/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameClient/GameLogic/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GameLogic/GameManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameClient/GameLogic/GameManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GameLogic/GameStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameClient/GameLogic/GameStatus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GameLogic/Pokemon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameClient/GameLogic/Pokemon.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GameLogic/PokemonTrainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameClient/GameLogic/PokemonTrainer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GameLogic/ShortestPathAlgo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameClient/GameLogic/ShortestPathAlgo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gameClient/Arena.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gameClient/CL_Agent.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gameClient/CL_Pokemon.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/gameClient/Ex2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameClient/Ex2.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gameClient/GameLogic/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameLogic/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gameClient/GameLogic/GameManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameLogic/GameManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gameClient/GameLogic/GameStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameLogic/GameStatus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gameClient/GameLogic/Pokemon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameLogic/Pokemon.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gameClient/GameLogic/PokemonTrainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameLogic/PokemonTrainer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gameClient/GameLogic/ShortestPathAlgo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameLogic/ShortestPathAlgo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gameClient/HowToInitJFrame.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gameClient/gui/GameInputPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/GameInputPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gameClient/gui/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/GamePanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gameClient/gui/MyFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/MyFrame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gameClient/util/Point3D.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gameClient/util/Range.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gameClient/util/Range2D.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gameClient/util/Range2Range.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gameClient/Ex2_Client.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gameClient/MainPanel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gameClient/MyFrame.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gameClient/SimpleGameClient.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gameClient/util/Range2D.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameClient/util/Range2D.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gameClient/util/Range2Range.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameClient/util/Range2Range.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gui/GameInputPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameClient/gui/GameInputPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gui/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameClient/gui/GamePanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gui/MyFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameClient/gui/MyFrame.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tests/Game_Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/Game_Test.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -168,7 +172,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/gameClient" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
@@ -177,6 +181,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\Git\Pokemon_game\src\gameClient" />
       <recent name="E:\Git\Pokemon_game\src" />
       <recent name="E:\Git\Pokemon_game\data" />
       <recent name="E:\Git\Pokemon_game\out\artifacts\Ex2_jar" />
@@ -364,7 +369,7 @@
           <option name="timeStamp" value="55" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/GameLogic/Game.java</url>
+          <url>file://$PROJECT_DIR$/src/gameClient/GameLogic/Game.java</url>
           <line>179</line>
           <option name="timeStamp" value="148" />
         </line-breakpoint>

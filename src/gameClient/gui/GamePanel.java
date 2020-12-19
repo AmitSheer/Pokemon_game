@@ -1,10 +1,10 @@
-package gui;
+package gameClient.gui;
 
 import api.*;
-import GameLogic.Game;
-import GameLogic.GameManager;
-import GameLogic.Pokemon;
-import GameLogic.PokemonTrainer;
+import gameClient.GameLogic.Game;
+import gameClient.GameLogic.GameManager;
+import gameClient.GameLogic.Pokemon;
+import gameClient.GameLogic.PokemonTrainer;
 import gameClient.util.Range;
 import gameClient.util.Range2D;
 import gameClient.util.Range2Range;

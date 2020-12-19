@@ -1,4 +1,4 @@
-package GameLogic;
+package gameClient.GameLogic;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;

@@ -1,4 +1,4 @@
-package gui;
+package gameClient.gui;
 
 import javax.swing.*;
 import javax.swing.text.*;

@@ -1,6 +1,6 @@
 package gameClient;
 
-import gui.MyFrame;
+import gameClient.gui.MyFrame;
 
 /**
  * Main game run
