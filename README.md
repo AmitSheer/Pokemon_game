@@ -15,6 +15,9 @@ cmd and input the ID and Scenario in the number after the JAR name, that way the
 ![panel](https://user-images.githubusercontent.com/26150015/102694529-56f6b300-422a-11eb-80f9-60cdcf167939.PNG)
   5. View the game run on the left side of the divider\
   ![gamePanel](https://user-images.githubusercontent.com/26150015/102694688-60344f80-422b-11eb-98f7-4d1e593d8227.PNG)
+  6. The score for the scenario will be shown top left corner where the timer was\
+  ![Score](https://user-images.githubusercontent.com/26150015/102696238-85c65680-4235-11eb-9698-23a7bb2cb1b1.PNG)
+
 
   
   
@@ -23,6 +26,7 @@ cmd and input the ID and Scenario in the number after the JAR name, that way the
   2. Run `java -jar Ex2.jar {USER_ID} {SCENARIO_NUMBER}`
   3. View the game run on the left side of the divider\
   ![gamePanel](https://user-images.githubusercontent.com/26150015/102694688-60344f80-422b-11eb-98f7-4d1e593d8227.PNG)
-  3. The scenario will finish running and will save the result in the server.
+  4. The scenario will finish running and will save the result in the server.
+ 
 
 For the inner workings visit the wiki.
