@@ -3,6 +3,7 @@ package tests;
 import api.Tarjan;
 import gameClient.GameLogic.Game;
 import gameClient.GameLogic.GameManager;
+import gameClient.GameLogic.Pokemon;
 import gameClient.GameLogic.ShortestPathAlgo;
 import gameClient.gui.GamePanel;
 import gameClient.gui.MyFrame;
@@ -11,6 +12,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -53,9 +56,31 @@ class Game_Test extends BaseTest{
             trainerTwo_SCC = 1;
             trainerOne_SCC=0;
         }
+        List<Pokemon> pokemon = _gm.getPokemons();
+        List<Pokemon> scc_1 = new ArrayList<>();
+        List<Pokemon> scc_2 = new ArrayList<>();
+        for (Pokemon p :
+                pokemon) {
+            if (Tarjan.getSccNodes().get(0).contains(p.getEdge().getSrc())) {
+                scc_1.add(p);
+            }else{
+                scc_2.add(p);
+            }
+        }
+        _gm.setPokemons(new ArrayList<Pokemon>());
+        List<Pokemon> pokemonsToAdd = new ArrayList<>();
+        pokemonsToAdd.addAll(scc_1);
+        _gm.setPokemons(pokemonsToAdd);
         ShortestPathAlgo.findShortestForAgents(_gm);
-        assertTrue(Tarjan.getSccNodes().get(trainerOne_SCC).contains(_gm.getTrainers().get(0).get_dest()));
-        assertTrue(Tarjan.getSccNodes().get(trainerTwo_SCC).contains(_gm.getTrainers().get(1).get_dest()));
+        assertTrue(Tarjan.getSccNodes().get(trainerOne_SCC).contains(_gm.getTrainers().get(0).getEndNodeId()));
+        assertTrue(Tarjan.getSccNodes().get(trainerTwo_SCC).contains(_gm.getTrainers().get(1).getEndNodeId()));
+        _gm.setPokemons(new ArrayList<Pokemon>());
+        pokemonsToAdd = new ArrayList<>();
+        pokemonsToAdd.addAll(scc_2);
+        _gm.setPokemons(pokemonsToAdd);
+        ShortestPathAlgo.findShortestForAgents(_gm);
+        assertTrue(Tarjan.getSccNodes().get(trainerOne_SCC).contains(_gm.getTrainers().get(0).getEndNodeId()));
+        assertTrue(Tarjan.getSccNodes().get(trainerTwo_SCC).contains(_gm.getTrainers().get(1).getEndNodeId()));
     }
 
     @Test
