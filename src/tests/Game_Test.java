@@ -25,7 +25,7 @@ class Game_Test extends BaseTest{
         _gm = new GameManager();
         File f = new File(PATH_GRAPH_DATA+"A4");
         f.renameTo(new File(f.getParent(),"A4Backup"));
-        f = new File(PATH_GRAPH_DATA+"A0_notSCC");
+        f = new File(PATH_GRAPH_DATA+"A4");
         f.renameTo(new File(f.getParent(),"A4"));
     }
 
@@ -119,7 +119,7 @@ class Game_Test extends BaseTest{
     @AfterEach
     void AfterEach(){
         File f = new File(PATH_GRAPH_DATA+"A4");
-        f.renameTo(new File(f.getParent(),"A0_notSCC"));
+        f.renameTo(new File(f.getParent(),"A4"));
         f = new File(PATH_GRAPH_DATA+"A4Backup");
         f.renameTo(new File(f.getParent(),"A4"));
     }

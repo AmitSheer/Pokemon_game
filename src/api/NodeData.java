@@ -21,14 +21,16 @@ public class NodeData implements node_data {
     //holds all of the connections to the node and their weight
     public NodeData(int key) {
         this._key = key;
-        this._info = String.valueOf(key);
+//        this._info = String.valueOf(key);
+        this._info = "";
         this._tag = 0;
         this._w = 0;
         _location = new GeoLocation();
     }
     public NodeData(int key, geo_location e) {
         this._key = key;
-        this._info = String.valueOf(key);
+//        this._info = String.valueOf(key);
+        this._info = "";
         this._tag = 0;
         this._w = 0;
         _location = e;

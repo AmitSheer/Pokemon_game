@@ -5,6 +5,7 @@ import api.edge_data;
 import api.node_data;
 
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.PriorityQueue;
 
@@ -32,21 +33,24 @@ public class ShortestPathAlgo {
                     nodeToCalculatePathFrom = trainer.get_dest();
                 }
                 path = _gm.getAlgo().shortestPath(nodeToCalculatePathFrom,_gm.getPokemons().get(i).getEdge().getSrc());
-                path.add(_gm.getGraph().getNode(_gm.getPokemons().get(i).getEdge().getDest()));
-                double dist = _gm.getGraph().getNode(_gm.getPokemons().get(i).getEdge().getSrc()).getWeight() + _gm.getPokemons().get(i).getEdge().getWeight();
-                if(isConnected){
-                    trainersToPokemonsDist.add(new Game.TrainerToPath(trainer.getID(), _gm.getPokemons().get(i).getEdge().getSrc(), dist, path, _gm.getPokemons().get(i)));
-                }else{
-                    _gm.getAlgo().isConnected();
-                    for (int j = 0; j < Tarjan.getSccNodes().size(); j++) {
-                        if(Tarjan.getSccNodes().get(j).contains(nodeToCalculatePathFrom)
-                                &&Tarjan.getSccNodes().get(j).contains(
-                                _gm.getPokemons().get(i).getEdge().getDest())){
-                            trainersToPokemonsDist.add(new Game.TrainerToPath(trainer.getID(), _gm.getPokemons().get(i).getEdge().getSrc(), dist, path, _gm.getPokemons().get(i)));
-                            break;
+                if(path==null) {
+                    path = new LinkedList<>();
+                }
+                    path.add(_gm.getGraph().getNode(_gm.getPokemons().get(i).getEdge().getDest()));
+                    double dist = _gm.getGraph().getNode(_gm.getPokemons().get(i).getEdge().getSrc()).getWeight() + _gm.getPokemons().get(i).getEdge().getWeight();
+                    if (isConnected) {
+                        trainersToPokemonsDist.add(new Game.TrainerToPath(trainer.getID(), _gm.getPokemons().get(i).getEdge().getSrc(), dist, path, _gm.getPokemons().get(i)));
+                    } else {
+                        _gm.getAlgo().isConnected();
+                        for (int j = 0; j < Tarjan.getSccNodes().size(); j++) {
+                            if (Tarjan.getSccNodes().get(j).contains(nodeToCalculatePathFrom)
+                                    && Tarjan.getSccNodes().get(j).contains(
+                                    _gm.getPokemons().get(i).getEdge().getDest())) {
+                                trainersToPokemonsDist.add(new Game.TrainerToPath(trainer.getID(), _gm.getPokemons().get(i).getEdge().getSrc(), dist, path, _gm.getPokemons().get(i)));
+                                break;
+                            }
                         }
                     }
-                }
             }
         }
 

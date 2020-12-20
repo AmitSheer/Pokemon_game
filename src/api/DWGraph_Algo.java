@@ -82,7 +82,8 @@ public class DWGraph_Algo implements dw_graph_algorithms {
         new Dijkstra().reset(graph.getV());
         new Dijkstra().dijkstra(this.graph,this.graph.getNode(src),dest);
         String [] strPath = this.graph.getNode(dest).getInfo().split(",");
-        if (strPath.length==1) return nodePathToDest;
+//        if (strPath.length==1) return nodePathToDest;
+        if (strPath.length==1) return null;
         for (String nodeKey : strPath) {
             nodePathToDest.add(this.graph.getNode(Integer.parseInt(nodeKey)));
         }
@@ -139,6 +140,7 @@ public class DWGraph_Algo implements dw_graph_algorithms {
             PriorityQueue<node_data> a = new PriorityQueue<>(new CompareToForQueue());
             start.setWeight(0);
             HashSet<Integer> visited = new HashSet<>();
+            start.setInfo(String.valueOf(start.getKey()));
             a.add(start);
             while (a.size() > 0 && visited.size() != graph.nodeSize()) {
                 node_data curr = a.remove();

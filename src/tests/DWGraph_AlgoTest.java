@@ -136,6 +136,19 @@ class DWGraph_AlgoTest extends BaseTest {
         assertEquals(9,path.get(4).getKey());
     }
 
+    @Test
+    void shortestPathNotConnected() {
+        graphCreator(1,10,0,1);
+        for (int i = 1; i < 10; i++) {
+            graph.connect(i-1,i,1);
+        }
+
+        graph.removeNode(3);
+        algo.init(graph);
+        List<node_data> path = algo.shortestPath(0,1);
+        assertNull(path);
+    }
+
 
     @Test
     void save() {

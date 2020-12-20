@@ -9,7 +9,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ccacee23-5644-4071-849f-2ba09364de09" name="Default Changelist" comment="removed unnecessary usages of classes and an called for methods" />
+    <list default="true" id="ccacee23-5644-4071-849f-2ba09364de09" name="Default Changelist" comment="removed unnecessary usages of classes and an called for methods">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/Ex2_jar/Ex2.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Pokemon_game/api/DWGraph_Algo$Dijkstra$CompareToForQueue.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Pokemon_game/api/DWGraph_Algo$Dijkstra$CompareToForQueue.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Pokemon_game/api/DWGraph_Algo$Dijkstra.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Pokemon_game/api/DWGraph_Algo$Dijkstra.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Pokemon_game/api/DWGraph_Algo.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Pokemon_game/api/DWGraph_Algo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Pokemon_game/api/NodeData.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Pokemon_game/api/NodeData.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Pokemon_game/tests/DWGraph_AlgoTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Pokemon_game/tests/DWGraph_AlgoTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/DWGraph_Algo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/DWGraph_Algo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/NodeData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/NodeData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gameClient/GameLogic/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameClient/GameLogic/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gameClient/GameLogic/ShortestPathAlgo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameClient/GameLogic/ShortestPathAlgo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tests/DWGraph_AlgoTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/DWGraph_AlgoTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tests/Game_Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/Game_Test.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -42,7 +56,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/gameClient" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Ex2" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
@@ -64,7 +78,7 @@
       <recent name="gameClient.util" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.Game_Test.GameWithNotSCCGraph">
+  <component name="RunManager" selected="Application.Ex2">
     <configuration name="Ex2" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="gameClient.Ex2" />
       <module name="Pokemon_game" />
@@ -83,7 +97,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="DWGraph_AlgoTest.isConnectedFalseAndGetSCC" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="DWGraph_AlgoTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Pokemon_game" />
       <extension name="coverage">
         <pattern>
@@ -93,13 +107,12 @@
       </extension>
       <option name="PACKAGE_NAME" value="tests" />
       <option name="MAIN_CLASS_NAME" value="tests.DWGraph_AlgoTest" />
-      <option name="METHOD_NAME" value="isConnectedFalseAndGetSCC" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Game_Test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="DWGraph_AlgoTest.shortestPath" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Pokemon_game" />
       <extension name="coverage">
         <pattern>
@@ -108,8 +121,25 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="tests" />
-      <option name="MAIN_CLASS_NAME" value="tests.Game_Test" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="MAIN_CLASS_NAME" value="tests.DWGraph_AlgoTest" />
+      <option name="METHOD_NAME" value="shortestPath" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DWGraph_AlgoTest.shortestPathNotConnected" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Pokemon_game" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="tests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="tests" />
+      <option name="MAIN_CLASS_NAME" value="tests.DWGraph_AlgoTest" />
+      <option name="METHOD_NAME" value="shortestPathNotConnected" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -130,36 +160,20 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Game_Test.GameWithNotSCCGraphAfter20Seconds" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Pokemon_game" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="tests.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="tests" />
-      <option name="MAIN_CLASS_NAME" value="tests.Game_Test" />
-      <option name="METHOD_NAME" value="GameWithNotSCCGraphAfter20Seconds" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <list>
       <item itemvalue="Application.Ex2" />
-      <item itemvalue="JUnit.DWGraph_AlgoTest.isConnectedFalseAndGetSCC" />
       <item itemvalue="JUnit.Game_Test.GameWithNotSCCGraph" />
-      <item itemvalue="JUnit.Game_Test.GameWithNotSCCGraphAfter20Seconds" />
-      <item itemvalue="JUnit.Game_Test" />
+      <item itemvalue="JUnit.DWGraph_AlgoTest.shortestPathNotConnected" />
+      <item itemvalue="JUnit.DWGraph_AlgoTest" />
+      <item itemvalue="JUnit.DWGraph_AlgoTest.shortestPath" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.Game_Test.GameWithNotSCCGraph" />
         <item itemvalue="Application.Ex2" />
-        <item itemvalue="JUnit.Game_Test" />
-        <item itemvalue="JUnit.Game_Test.GameWithNotSCCGraphAfter20Seconds" />
-        <item itemvalue="JUnit.DWGraph_AlgoTest.isConnectedFalseAndGetSCC" />
+        <item itemvalue="JUnit.Game_Test.GameWithNotSCCGraph" />
+        <item itemvalue="JUnit.DWGraph_AlgoTest.shortestPath" />
+        <item itemvalue="JUnit.DWGraph_AlgoTest.shortestPathNotConnected" />
+        <item itemvalue="JUnit.DWGraph_AlgoTest" />
       </list>
     </recent_temporary>
   </component>
@@ -240,7 +254,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/gameClient/GameLogic/Game.java</url>
-          <line>179</line>
+          <line>183</line>
           <option name="timeStamp" value="148" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -257,6 +271,36 @@
           <url>file://$PROJECT_DIR$/src/tests/Game_Test.java</url>
           <line>69</line>
           <option name="timeStamp" value="198" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/tests/DWGraph_AlgoTest.java</url>
+          <line>140</line>
+          <option name="timeStamp" value="199" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/tests/DWGraph_AlgoTest.java</url>
+          <line>145</line>
+          <option name="timeStamp" value="200" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/tests/DWGraph_AlgoTest.java</url>
+          <line>147</line>
+          <option name="timeStamp" value="203" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/tests/DWGraph_AlgoTest.java</url>
+          <line>121</line>
+          <option name="timeStamp" value="208" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/tests/DWGraph_AlgoTest.java</url>
+          <line>125</line>
+          <option name="timeStamp" value="209" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/gameClient/GameLogic/Game.java</url>
+          <line>126</line>
+          <option name="timeStamp" value="213" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

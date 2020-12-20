@@ -42,7 +42,7 @@ public class Game implements Runnable{
         badPokemon = new LinkedList<>();
         loadGameData(gg);
         _gp.update(_gm);
-        dt=100;
+        dt=108;
         System.out.println(game.getAgents());
         game.startGame();
         Date a = new Date();
@@ -55,7 +55,7 @@ public class Game implements Runnable{
             try {
                 _gp.repaint();
                 Thread.sleep(dt);
-                dt = 100;
+                dt = 108;
             }
             catch(Exception e) {
                 e.printStackTrace();
@@ -109,6 +109,8 @@ public class Game implements Runnable{
         GameManager.getTrainers(lg,_gm.getGraph());
         List<Pokemon> ffs = GameManager.json2Pokemons(fs,gg);
         ffs.forEach(p->GameManager.updateEdge(p,gg));
+        if(_gm.getPokemons().equals(ffs))
+            ShortestPathAlgo.findShortestForAgents(_gm);
         _gm.setPokemons(ffs);
         boolean finishedPath = false;
         for (PokemonTrainer pt : _gm.getTrainers()) {
@@ -122,8 +124,8 @@ public class Game implements Runnable{
                 badPokemon.add(pt.getNextPoke());
             }
         }
-        if(finishedPath)
-            ShortestPathAlgo.findShortestForAgents(_gm);
+//        if(finishedPath)
+//            ShortestPathAlgo.findShortestForAgents(_gm);
         for(PokemonTrainer trainer: _gm.getTrainers()) {
             nextEdge(trainer);
         }
@@ -160,9 +162,11 @@ public class Game implements Runnable{
             for (Pokemon pokemon : _gm.getPokemons()) {
                 if(!pokemon.equals(currentPokemon)){
                     List<node_data> dist = _gm.getAlgo().shortestPath(pokemon.getEdge().getSrc(),currentPokemon.getEdge().getSrc());
-                    if(dist.size()<3){
-                        currentPokemon.getClosePokemons().add(pokemon);
-                        pokemon.getClosePokemons().add(currentPokemon);
+                    if(dist!=null) {
+                        if (dist.size() < 3) {
+                            currentPokemon.getClosePokemons().add(pokemon);
+                            pokemon.getClosePokemons().add(currentPokemon);
+                        }
                     }
                 }
             }
