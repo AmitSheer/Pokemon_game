@@ -36,12 +36,12 @@ public class Tarjan {
         if (g.nodeSize() == 0) return true;
         for (node_data node : g.getV()) {
             if (node.getTag() == -1)
-                bfs(node);
+                dfs(node);
         }
         return sccCount == 1;
     }
 
-    private static void bfs(node_data node) {
+    private static void dfs(node_data node) {
         node.setTag(id);
         ids[node.getTag()] = lows[node.getTag()] = node.getTag();
         id++;
@@ -50,7 +50,7 @@ public class Tarjan {
         for (edge_data to : graph.getE(node.getKey())) {
             node_data curr = graph.getNode(to.getDest());
             if (curr.getTag() == -1) {
-                bfs(curr);
+                dfs(curr);
                 lows[node.getTag()] = Math.min(lows[node.getTag()], lows[curr.getTag()]);
             } else if (onStack[curr.getTag()])
                 lows[node.getTag()] = Math.min(lows[node.getTag()], lows[curr.getTag()]);
