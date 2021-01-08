@@ -41,7 +41,12 @@ public class GraphParser {
         directed_weighted_graph graph = new DWGraph_DS();
         for (JsonElement element : jsonObject.getAsJsonArray("Nodes")) {
             NodeData n = new NodeData(element.getAsJsonObject().get("id").getAsInt());
-            String [] geoPos = element.getAsJsonObject().get("pos").getAsString().split(",");
+            String[] geoPos;
+            try {
+                geoPos= element.getAsJsonObject().get("pos").getAsString().split(",");
+            }catch (Exception e){
+                geoPos = new String[]{"0", "0", "0"};
+            }
             n.setLocation(new GeoLocation(Double.parseDouble(geoPos[0]),Double.parseDouble(geoPos[1]),Double.parseDouble(geoPos[2])));
             graph.addNode(n);
         }

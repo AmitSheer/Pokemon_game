@@ -11,6 +11,11 @@
   <component name="ChangeListManager">
     <list default="true" id="ccacee23-5644-4071-849f-2ba09364de09" name="Default Changelist" comment="removed unnecessary usages of classes and an called for methods">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Pokemon_game/api/GraphParser.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Pokemon_game/api/GraphParser.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Pokemon_game/api/Tarjan.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Pokemon_game/api/Tarjan.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/GraphParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/GraphParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/Tarjan.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/Tarjan.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gameClient/Ex2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameClient/Ex2.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,20 +49,20 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Ex2" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="reference.settings.ide.settings.uml" />
+    <property name="settings.editor.selected.configurable" value="preferences.general" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\Git\Pokemon_game" />
       <recent name="E:\Git\Pokemon_game\src\gameClient" />
       <recent name="E:\Git\Pokemon_game\src" />
       <recent name="E:\Git\Pokemon_game\data" />
       <recent name="E:\Git\Pokemon_game\out\artifacts\Ex2_jar" />
-      <recent name="E:\Git\Pokemon_game\src\gameClient2\gui" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\Git\Pokemon_game" />
@@ -66,7 +71,7 @@
       <recent name="gameClient.util" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Ex2">
+  <component name="RunManager" selected="Application.ForEX3">
     <configuration name="Ex2" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="gameClient.Ex2" />
       <module name="Pokemon_game" />
@@ -74,16 +79,19 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="DWGraph_AlgoTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ForEX3" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ForEX3" />
       <module name="Pokemon_game" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="tests.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="tests" />
-      <option name="MAIN_CLASS_NAME" value="tests.DWGraph_AlgoTest" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -139,18 +147,18 @@
     </configuration>
     <list>
       <item itemvalue="Application.Ex2" />
-      <item itemvalue="JUnit.Game_Test.GameWithNotSCCGraph" />
       <item itemvalue="JUnit.DWGraph_AlgoTest.shortestPathNotConnected" />
-      <item itemvalue="JUnit.DWGraph_AlgoTest" />
       <item itemvalue="JUnit.DWGraph_AlgoTest.shortestPath" />
+      <item itemvalue="JUnit.Game_Test.GameWithNotSCCGraph" />
+      <item itemvalue="Application.ForEX3" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.ForEX3" />
         <item itemvalue="Application.Ex2" />
         <item itemvalue="JUnit.Game_Test.GameWithNotSCCGraph" />
         <item itemvalue="JUnit.DWGraph_AlgoTest.shortestPath" />
         <item itemvalue="JUnit.DWGraph_AlgoTest.shortestPathNotConnected" />
-        <item itemvalue="JUnit.DWGraph_AlgoTest" />
       </list>
     </recent_temporary>
   </component>
@@ -167,6 +175,11 @@
       <workItem from="1608226744259" duration="5874000" />
       <workItem from="1608239152397" duration="80000" />
       <workItem from="1608285159441" duration="334000" />
+      <workItem from="1608646872703" duration="305000" />
+      <workItem from="1608652937847" duration="5896000" />
+      <workItem from="1609170368050" duration="5842000" />
+      <workItem from="1609848501788" duration="1299000" />
+      <workItem from="1610049952406" duration="12524000" />
     </task>
     <task id="LOCAL-00002" summary="removed unnecessary usages of classes and an called for methods">
       <created>1608129099706</created>
@@ -225,11 +238,6 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/gameClient/Ex2.java</url>
-          <line>13</line>
-          <option name="timeStamp" value="55" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/gameClient/GameLogic/Game.java</url>
           <line>183</line>
           <option name="timeStamp" value="148" />
@@ -279,13 +287,34 @@
           <line>126</line>
           <option name="timeStamp" value="213" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/ForEX3.java</url>
+          <line>57</line>
+          <option name="timeStamp" value="232" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/ForEX3.java</url>
+          <line>50</line>
+          <option name="timeStamp" value="286" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/ForEX3.java</url>
+          <line>45</line>
+          <option name="timeStamp" value="288" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <pin-to-top-manager>
       <pinned-members>
         <PinnedItemInfo parentTag="gameClient2.GameLogic.PokemonTrainer" memberName="_pathToPokemon" />
+        <PinnedItemInfo parentTag="org.json.JSONObject" memberName="map" />
         <PinnedItemInfo parentTag="gameClient2.GameLogic.PokemonTrainer" memberName="_id" />
       </pinned-members>
     </pin-to-top-manager>
+    <watches-manager>
+      <configuration name="Application">
+        <watch expression="graphs.get(i)" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>
