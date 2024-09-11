@@ -37,12 +37,12 @@ This platforme is based on a directed connected graph, the algorithm's used to c
 ## Algorithms
 Two algorithms are used in the program.
 1. Tarjan - check SCC
-2. Dijkstra - find the shrtest path by distance
+2. Dijkstra - find the shortest path by distance
 
 ### Dijkstra
 This algorithm check the graph for shortest path from one node to the other, by putting them into a priority queue ordered according to distance, or 'weight', of the path to the node. Then moving on the graph according to the order of the queue.
 
 ### Tarjan
-This algorithm uses Depth-First Search , but with a quirk. When a algorithm visits a node it adds it to  a stack, when it visits the starting node it unloads the stack and counts it as an SCC, and adds all of the unloaded nodes into a list of lists of SCC nodes.
+This algorithm uses Depth-First Search , but with a quirk. When a algorithm visits a node it adds it to a stack, when it visits the starting node it unloads the stack and counts it as an SCC, and adds all of the unloaded nodes into a list of lists of SCC nodes.
 
 For the inner workings visit the wiki.
